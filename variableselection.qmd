@@ -68,8 +68,4 @@ $$
 
 $$
 \operatorname{Loss}\left(\lambda_\beta\right)=\sum_{i=1}^N R_i^A\left[y_i-m\left\{\bx_i^{\mathrm{T}} \hat{\beta}\left(\lambda_\beta\right)\right\}\right]^2,
-$$
- where  $\hat{\theta}\left(\lambda_\theta\right)$ and $\hat{\beta}\left(\lambda_\beta\right)$ are penalized estimators with tuning parameters $\lambda_\theta$, $\lambda_\beta$ for selection and outcome model respectively.
- 
- 
- 
+$$ where $\hat{\theta}\left(\lambda_\theta\right)$ and $\hat{\beta}\left(\lambda_\beta\right)$ are penalized estimators with tuning parameters $\lambda_\theta$, $\lambda_\beta$ for selection and outcome model respectively.

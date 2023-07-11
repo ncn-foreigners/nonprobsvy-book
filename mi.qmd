@@ -12,45 +12,39 @@ $$
 \begin{equation}
 \mathbb{E}\left(y_i \mid \bx_i\right) = m\left(\bx_i, \bbeta_{0}\right)
 \end{equation}
-$$ 
+$$
 
 for some unknown $\bbeta_{0}$ and known function $m(\cdot)$. The specification of m-function typically follows the mean function for generalized linear models. If $\by$ is continous, we can use linear regression model with $m\left(\boldsymbol{x}_i, \bbeta_{0}\right) = \bx_i^{T} \bbeta_0$. If $\by$ is binary, one can use logistic regression model and let $m\left(\boldsymbol{x}_i, \bbeta_{0}\right) = \frac{\exp\left( \bx_i^{T} \bbeta_0\right)}{\exp\left( \bx_i^{T} \bbeta_0\right) + 1}$. If $\by$ represents count data, we can use log-linear model, where $m\left(\boldsymbol{x}_i, \bbeta_{0}\right) = \exp\left(\bx_i^{T} \bbeta_0\right)$
 
-Mass imputation estimator 
+Mass imputation estimator
 
 $$
 \begin{equation}
 \frac{1}{\hat{N}^{\mathrm{B}}} \sum_{i \in \mathcal{S}_{\mathrm{B}}} d_i^{\mathrm{B}} m\left(\boldsymbol{x}_i, \hat{\bbeta}\right)
 \end{equation}
-$$
-Variance of an estimator
+$$ Variance of an estimator
 
 ## Nearest neighbor imputation
 
 ### Assumptions
 
 ### model
+
 On the other hand we can applied non-parametric method to this problem, such as nearest neighbor algorithm, that is, find the closest matching unit from sample $S_B$ based on the $\bX$ values and use the corresponding $\bY$ value from this unit as the imputed value. Procedure contains two steps
 
-1. for each $i \in S_B$ find the nearest neighbor from sample $S_A$.
+1.  for each $i \in S_B$ find the nearest neighbor from sample $S_A$.
 
-2. Calculate the nearest neighbor imputation estimator of $\mu_y$
-$$
-\begin{equation}
-\hat{\mu}_\mathrm{nn}=\frac{1}{N} \sum_{i \in S_B} d_i^B y_{i(1)} .
-\end{equation}
-$$
-Variance of an estimator
+2.  Calculate the nearest neighbor imputation estimator of $\mu_y$ $$
+    \begin{equation}
+    \hat{\mu}_\mathrm{nn}=\frac{1}{N} \sum_{i \in S_B} d_i^B y_{i(1)} .
+    \end{equation}
+    $$ Variance of an estimator
 
 ### K-nearest neighbor imputation
+
 Steps
 
-1. For each unit $i \in S_B$ find k-nearest neighbors from sample $S_A$. Impute the $\bY$ value for unit $i$ by $\hat{\mu}\left(\mathbf{X}_i\right)=k^{-1} \sum_{j=1}^k Y_{i(j)}$.
-2. Calculate k-nearest neighbor imputation estimator of $\mu_y$
-$$
-\hat{\mu}_{\mathrm{knn}}=\frac{1}{N} \sum_{i \in S_B} d_i^B \hat{\mu}\left(\mathbf{X}_i\right) .
-$$
-Variance of an estimator
-
-
-
+1.  For each unit $i \in S_B$ find k-nearest neighbors from sample $S_A$. Impute the $\bY$ value for unit $i$ by $\hat{\mu}\left(\mathbf{X}_i\right)=k^{-1} \sum_{j=1}^k Y_{i(j)}$.
+2.  Calculate k-nearest neighbor imputation estimator of $\mu_y$ $$
+    \hat{\mu}_{\mathrm{knn}}=\frac{1}{N} \sum_{i \in S_B} d_i^B \hat{\mu}\left(\mathbf{X}_i\right) .
+    $$ Variance of an estimator

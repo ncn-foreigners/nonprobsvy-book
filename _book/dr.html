@@ -101,7 +101,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introduction and Overwiev</span></a>
+  <a href="./intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introduction and Overview</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -217,7 +217,7 @@ ul.task-list li input[type="checkbox"] {
 \begin{aligned}
 bias(\hat{\mu}_{DR}) = &amp; \mathbb{E}\left\{\hat{\mu}_{DR} - \mu\right\} \\ = &amp; \mathbb{E}\left[ \frac{1}{N} \sum_{i=1}^N \left\{\frac{R_i^A}{\pi_i^A \left(\bx_i^{\mathrm{T}} \btheta \right)}  - 1\right\} \left\{y_i - \operatorname{m}\left( \bx_i^{\mathrm{T}} \bbeta\right)\right\} \right] \\ + &amp; \mathbb{E}\left[  \frac{1}{N} \sum_{i=1}^N \left(R_i^B d_i^B - 1\right) \operatorname{m}\left( \bx_i^{\mathrm{T}} \bbeta \right)\right]
 \end{aligned}
-\]</span> Since we actually care about minimizing the square of the load, let’s calculate its derivative against the parameter vector. <span class="math display">\[
+\]</span> Since we actually care about minimizing the square of the bias, let’s calculate its derivative against the parameter vector. <span class="math display">\[
 \begin{aligned}
     \frac{\partial \operatorname{bias}(\hat{\mu}_{DR})^2}{\partial \left(\bbeta^{\mathrm{T}}, \btheta^{\mathrm{T}}\right)^{\mathrm{T}}} = 2 \operatorname{bias}(\hat{\mu}_{DR}) J(\theta, \beta),
 \end{aligned}
