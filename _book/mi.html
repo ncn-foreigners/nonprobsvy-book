@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Modern inference methods for non-probability samples with R - 7&nbsp; Summary</title>
+<title>Modern inference methods for non-probability samples with R - 4&nbsp; Mass imputation</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,8 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./references.html" rel="next">
-<link href="./variableselection.html" rel="prev">
+<link href="./dr.html" rel="next">
+<link href="./ipw.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -61,6 +61,7 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
 
@@ -70,7 +71,7 @@ ul.task-list li input[type="checkbox"] {
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Summary</span></h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Mass imputation</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -110,7 +111,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./mi.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Mass imputation</span></a>
+  <a href="./mi.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Mass imputation</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -125,7 +126,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./summary.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Summary</span></a>
+  <a href="./summary.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Summary</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -138,14 +139,27 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#motivation-and-assumptions" id="toc-motivation-and-assumptions" class="nav-link active" data-scroll-target="#motivation-and-assumptions"><span class="toc-section-number">4.1</span>  Motivation and Assumptions</a></li>
+  <li><a href="#model-based-methods" id="toc-model-based-methods" class="nav-link" data-scroll-target="#model-based-methods"><span class="toc-section-number">4.2</span>  Model-based methods</a></li>
+  <li><a href="#nearest-neighbor-imputation" id="toc-nearest-neighbor-imputation" class="nav-link" data-scroll-target="#nearest-neighbor-imputation"><span class="toc-section-number">4.3</span>  Nearest neighbor imputation</a>
+  <ul class="collapse">
+  <li><a href="#assumptions" id="toc-assumptions" class="nav-link" data-scroll-target="#assumptions"><span class="toc-section-number">4.3.1</span>  Assumptions</a></li>
+  <li><a href="#model" id="toc-model" class="nav-link" data-scroll-target="#model"><span class="toc-section-number">4.3.2</span>  model</a></li>
+  <li><a href="#k-nearest-neighbor-imputation" id="toc-k-nearest-neighbor-imputation" class="nav-link" data-scroll-target="#k-nearest-neighbor-imputation"><span class="toc-section-number">4.3.3</span>  K-nearest neighbor imputation</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Summary</span></h1>
+<h1 class="title d-none d-lg-block"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Mass imputation</span></h1>
 </div>
 
 
@@ -159,8 +173,98 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
+<p><span class="math display">\[
+\newcommand{\bSigma}{\boldsymbol{\Sigma}}
+\newcommand{\bOmega}{\boldsymbol{\Omega}}
+\newcommand{\bTheta}{\boldsymbol{\Theta}}
+\newcommand{\bPi}{\boldsymbol{\Pi}}
+\newcommand{\bbeta}{\boldsymbol{\beta}}
+\newcommand{\balpha}{\boldsymbol{\alpha}}
+\newcommand{\brho}{\boldsymbol{\rho}}
+\newcommand{\beps}{\boldsymbol{\epsilon}}
+\newcommand{\blambda}{\boldsymbol{\lambda}}
+\newcommand{\bgamma}{\boldsymbol{\gamma}}
+\newcommand{\btheta}{\boldsymbol{\theta}}
+\newcommand{\bmu}{\boldsymbol{\mu}}
+\newcommand{\bpi}{\boldsymbol{\pi}}
+\newcommand{\bphi}{\boldsymbol{\phi}}
+\newcommand{\bPhi}{\boldsymbol{\Phi}}
+\newcommand{\boldeta}{\boldsymbol{\eta}}
+\newcommand{\bx}{\boldsymbol{x}}
+\newcommand{\bD}{\boldsymbol{D}}
+\newcommand{\bV}{\boldsymbol{V}}
+\newcommand{\bv}{\boldsymbol{v}}
+\newcommand{\bY}{\boldsymbol{Y}}
+\newcommand{\bA}{\boldsymbol{A}}
+\newcommand{\bB}{\boldsymbol{B}}
+\newcommand{\bR}{\boldsymbol{R}}
+\newcommand{\bM}{\boldsymbol{M}}
+\newcommand{\bI}{\boldsymbol{I}}
+\newcommand{\bC}{\boldsymbol{C}}
+\newcommand{\bW}{\boldsymbol{W}}
+\newcommand{\bw}{\boldsymbol{w}}
+\newcommand{\bd}{\boldsymbol{d}}
+\newcommand{\bT}{\boldsymbol{T}}
+\newcommand{\bt}{\boldsymbol{t}}
+\newcommand{\bZ}{\boldsymbol{Z}}
+\newcommand{\bX}{\boldsymbol{X}}
+\newcommand{\bz}{\boldsymbol{z}}
+\newcommand{\by}{\boldsymbol{y}}
+\newcommand{\br}{\boldsymbol{r}}
+\newcommand{\bp}{\boldsymbol{p}}
+\newcommand{\bb}{\boldsymbol{b}}
+\newcommand{\bZero}{\boldsymbol{0}}
+\newcommand{\bOne}{\boldsymbol{1}}
+\]</span></p>
+<section id="motivation-and-assumptions" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="motivation-and-assumptions"><span class="header-section-number">4.1</span> Motivation and Assumptions</h2>
+</section>
+<section id="model-based-methods" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="model-based-methods"><span class="header-section-number">4.2</span> Model-based methods</h2>
+<p>This method is based on parametric model on sample <span class="math inline">\(S_A\)</span> in the form of</p>
+<p><span class="math display">\[
+\begin{equation}
+\mathbb{E}\left(y_i \mid \bx_i\right) = m\left(\bx_i, \bbeta_{0}\right)
+\end{equation}
+\]</span></p>
+<p>for some unknown <span class="math inline">\(\bbeta_{0}\)</span> and known function <span class="math inline">\(m(\cdot)\)</span>. The specification of m-function typically follows the mean function for generalized linear models. i <span class="math inline">\(\by\)</span> is continous, we can use linear regression model with <span class="math inline">\(m\left(\boldsymbol{x}_i, \bbeta_{0}\right) = \bx_i^{T} \bbeta_0\)</span>. If <span class="math inline">\(\by\)</span> one can use logistic regression model and let <span class="math inline">\(m\left(\boldsymbol{x}_i, \bbeta_{0}\right) = \frac{\exp\left( \bx_i^{T} \bbeta_0\right)}{\exp\left( \bx_i^{T} \bbeta_0\right) + 1}\)</span>. If <span class="math inline">\(\by\)</span> represents count data, we can use log-linear model, where <span class="math inline">\(m\left(\boldsymbol{x}_i, \bbeta_{0}\right) = \exp\left(\bx_i^{T} \bbeta_0\right)\)</span></p>
+<p>Mass imputation estimator</p>
+<p><span class="math display">\[
+\begin{equation}
+\frac{1}{\hat{N}^{\mathrm{B}}} \sum_{i \in \mathcal{S}_{\mathrm{B}}} d_i^{\mathrm{B}} m\left(\boldsymbol{x}_i, \hat{\bbeta}\right)
+\end{equation}
+\]</span> Variance of an estimator</p>
+</section>
+<section id="nearest-neighbor-imputation" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="nearest-neighbor-imputation"><span class="header-section-number">4.3</span> Nearest neighbor imputation</h2>
+<section id="assumptions" class="level3" data-number="4.3.1">
+<h3 data-number="4.3.1" class="anchored" data-anchor-id="assumptions"><span class="header-section-number">4.3.1</span> Assumptions</h3>
+</section>
+<section id="model" class="level3" data-number="4.3.2">
+<h3 data-number="4.3.2" class="anchored" data-anchor-id="model"><span class="header-section-number">4.3.2</span> model</h3>
+<p>On the other hand we can applied to this problem non-parametric method, such as nearest neighbor algorithm, that is, find the closest matching unit from sample <span class="math inline">\(S_B\)</span> based on the <span class="math inline">\(\bX\)</span> values and use the corresponding <span class="math inline">\(\bY\)</span> value from this unit as the imputed value. Procedure contains two steps</p>
+<ol type="1">
+<li><p>for each <span class="math inline">\(i \in S_B\)</span> find the nearest neighbor from sample <span class="math inline">\(S_A\)</span>.</p></li>
+<li><p>Calculate the nearest neighbor imputation estimator of <span class="math inline">\(\mu_y\)</span> <span class="math display">\[
+\begin{equation}
+\hat{\mu}_\mathrm{nn}=\frac{1}{N} \sum_{i \in S_B} d_i^B y_{i(1)} .
+\end{equation}
+\]</span> Variance of an estimator</p></li>
+</ol>
+</section>
+<section id="k-nearest-neighbor-imputation" class="level3" data-number="4.3.3">
+<h3 data-number="4.3.3" class="anchored" data-anchor-id="k-nearest-neighbor-imputation"><span class="header-section-number">4.3.3</span> K-nearest neighbor imputation</h3>
+<p>Steps</p>
+<ol type="1">
+<li>For each unit <span class="math inline">\(i \in S_B\)</span> find the k nearest neighbors from sample <span class="math inline">\(S_A\)</span>. Impute the <span class="math inline">\(\bY\)</span> value for unit <span class="math inline">\(i\)</span> by <span class="math inline">\(\hat{\mu}\left(\mathbf{X}_i\right)=k^{-1} \sum_{j=1}^k Y_{i(j)}\)</span>.</li>
+<li>Calculate k-neares neighbor imputation estimator of <span class="math inline">\(\mu_y\)</span> <span class="math display">\[
+\hat{\mu}_{\mathrm{knn}}=\frac{1}{N} \sum_{i \in S_B} d_i^B \hat{\mu}\left(\mathbf{X}_i\right) .
+\]</span> Variance of an estimator</li>
+</ol>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -263,13 +367,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./variableselection.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Techniques of variables selection for high-dimensional data</span></span>
+      <a href="./ipw.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Inverse probability weighting</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./references.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">References</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./dr.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Doubly robust methods</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

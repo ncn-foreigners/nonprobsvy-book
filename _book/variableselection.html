@@ -6,10 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Łukasz Chrostowski, Maciej Beręsewicz">
-<meta name="dcterms.date" content="2023-04-20">
 
-<title>Modern inference methods for non-probability samples with R</title>
+<title>Modern inference methods for non-probability samples with R - 6&nbsp; Techniques of variables selection for high-dimensional data</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -32,7 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./intro.html" rel="next">
+<link href="./summary.html" rel="next">
+<link href="./dr.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -72,7 +71,7 @@ ul.task-list li input[type="checkbox"] {
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">Modern inference methods for non-probability samples with R</h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Techniques of variables selection for high-dimensional data</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -97,7 +96,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Nomenclature</span></a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Nomenclature</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -122,7 +121,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./variableselection.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Techniques of variables selection for high-dimensional data</span></a>
+  <a href="./variableselection.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Techniques of variables selection for high-dimensional data</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -144,7 +143,10 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#nomenclature" id="toc-nomenclature" class="nav-link active" data-scroll-target="#nomenclature"><span class="toc-section-number">1</span>  Nomenclature</a></li>
+  <li><a href="#lasso" id="toc-lasso" class="nav-link active" data-scroll-target="#lasso"><span class="toc-section-number">6.1</span>  LASSO</a></li>
+  <li><a href="#scad" id="toc-scad" class="nav-link" data-scroll-target="#scad"><span class="toc-section-number">6.2</span>  SCAD</a></li>
+  <li><a href="#mcp" id="toc-mcp" class="nav-link" data-scroll-target="#mcp"><span class="toc-section-number">6.3</span>  MCP</a></li>
+  <li><a href="#solution" id="toc-solution" class="nav-link" data-scroll-target="#solution"><span class="toc-section-number">6.4</span>  Solution</a></li>
   </ul>
 </nav>
     </div>
@@ -153,26 +155,14 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block">Modern inference methods for non-probability samples with R</h1>
+<h1 class="title d-none d-lg-block"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Techniques of variables selection for high-dimensional data</span></h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Łukasz Chrostowski, Maciej Beręsewicz </p>
-          </div>
-  </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">April 20, 2023</p>
-    </div>
-  </div>
     
   </div>
   
@@ -222,134 +212,64 @@ ul.task-list li input[type="checkbox"] {
 \newcommand{\bZero}{\boldsymbol{0}}
 \newcommand{\bOne}{\boldsymbol{1}}
 \]</span></p>
-<section id="nomenclature" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Nomenclature</h1>
-<table class="table">
-<colgroup>
-<col style="width: 23%">
-<col style="width: 76%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>symbol</th>
-<th>Meaning</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><span class="math inline">\(\mathbb{E}\)</span></td>
-<td>Expected value operator</td>
-</tr>
-<tr class="even">
-<td>N</td>
-<td>True population size</td>
-</tr>
-<tr class="odd">
-<td><span class="math inline">\(\mathcal{U}\)</span></td>
-<td>Finite population with N units</td>
-</tr>
-<tr class="even">
-<td>y</td>
-<td>Response variable</td>
-</tr>
-<tr class="odd">
-<td><span class="math inline">\(\bx\)</span></td>
-<td>Auxiliary variables</td>
-</tr>
-<tr class="even">
-<td>p</td>
-<td>Number of auxiliary variables</td>
-</tr>
-<tr class="odd">
-<td><span class="math inline">\(S_A\)</span></td>
-<td>Nonprobablity sample</td>
-</tr>
-<tr class="even">
-<td><span class="math inline">\(S_B\)</span></td>
-<td>Probability sample</td>
-</tr>
-<tr class="odd">
-<td><span class="math inline">\(\pi_i^B\)</span></td>
-<td>Probability of belonging to a probability sample for the given unit</td>
-</tr>
-<tr class="even">
-<td><span class="math inline">\(\pi_i^A\)</span></td>
-<td>Probability of belonging to a non-probability sample for the given unit</td>
-</tr>
-<tr class="odd">
-<td><span class="math inline">\(\dot{\pi}_i^A(\cdot)\)</span></td>
-<td>Derivative of <span class="math inline">\(\pi_i^A\)</span> at point <span class="math inline">\(\cdot\)</span></td>
-</tr>
-<tr class="even">
-<td><span class="math inline">\(d_i^B\)</span></td>
-<td>Design weight for the given unit in a probability sample</td>
-</tr>
-<tr class="odd">
-<td><span class="math inline">\(n_A\)</span></td>
-<td>Size of non-probability sample</td>
-</tr>
-<tr class="even">
-<td><span class="math inline">\(n_B\)</span></td>
-<td>Size of probability sample</td>
-</tr>
-<tr class="odd">
-<td><span class="math inline">\(\mu_{y}\)</span></td>
-<td>Mean of population for response variable</td>
-</tr>
-<tr class="even">
-<td><span class="math inline">\(R_{i}^A\)</span></td>
-<td>An indicator function for nonprobability sample</td>
-</tr>
-<tr class="odd">
-<td><span class="math inline">\(\omega_i\)</span></td>
-<td>Frequency weight</td>
-</tr>
-<tr class="even">
-<td><span class="math inline">\(\ell\)</span></td>
-<td>Log-likelihood function for the model</td>
-</tr>
-<tr class="odd">
-<td><span class="math inline">\(\hat{N}\)</span></td>
-<td>Point estimate for true population size</td>
-</tr>
-<tr class="even">
-<td><span class="math inline">\(var\)</span></td>
-<td>Variance operator</td>
-</tr>
-<tr class="odd">
-<td><span class="math inline">\(Diag(\cdot)\)</span></td>
-<td>A diagonal matrix constructed from vector <span class="math inline">\(\cdot\)</span></td>
-</tr>
-<tr class="even">
-<td><span class="math inline">\(\btheta\)</span></td>
-<td>Set of the parameters to estimate for selection model</td>
-</tr>
-<tr class="odd">
-<td><span class="math inline">\(\bbeta\)</span></td>
-<td>Set of the parameters to estimate for outcome model</td>
-</tr>
-<tr class="even">
-<td><span class="math inline">\(\phi(\cdot)\)</span></td>
-<td>Probability density function of the normal distribution in point <span class="math inline">\(\cdot\)</span></td>
-</tr>
-<tr class="odd">
-<td><span class="math inline">\(\Phi(\cdot)\)</span></td>
-<td>Cumulative distribution function of the normal distribution in point <span class="math inline">\(\cdot\)</span></td>
-</tr>
-<tr class="even">
-<td><span class="math inline">\(\hat{\mu}_{MI}\)</span></td>
-<td>Mass imputation estimator of population mean</td>
-</tr>
-<tr class="odd">
-<td><span class="math inline">\(\hat{\mu}_{IPW}\)</span></td>
-<td>Inverse probability weighted estimator of population mean</td>
-</tr>
-<tr class="even">
-<td><span class="math inline">\(\hat{\mu}_{DR}\)</span></td>
-<td>Doubly robust estimator of population mean</td>
-</tr>
-</tbody>
-</table>
+<p>Let <span class="math inline">\(\operatorname{U}\left(\btheta, \bbeta\right)\)</span> be the join estimating function for <span class="math inline">\(\left(\btheta, \bbeta\right)\)</span>. When p is large, we consider the penalized estimating functions for <span class="math inline">\(\left(\btheta, \bbeta\right)\)</span> as</p>
+<p><span class="math display">\[
+\operatorname{U}^p\left(\btheta, \bbeta\right) = \operatorname{U}\left(\btheta, \bbeta\right) -\left(\begin{array}{c}
+q_{\lambda_\theta}(|\btheta|) \operatorname{sgn}(\btheta) \\
+q_{\lambda_\beta}(|\bbeta|) \operatorname{sgn}(\bbeta)
+\end{array}\right),
+\]</span> where <span class="math inline">\(q_{\lambda_{\theta}}\)</span> and <span class="math inline">\(q_{\lambda_{\beta}}\)</span> are some smooth functions. We let <span class="math inline">\(q_{\lambda}\left(x\right) = \frac{\partial p_{\lambda}}{\partial x}\)</span>, where <span class="math inline">\(p_{\lambda}\)</span> is some penalization function.</p>
+<section id="lasso" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="lasso"><span class="header-section-number">6.1</span> LASSO</h2>
+<p><span class="math display">\[
+p_{\lambda}(x) = \lambda |x|
+\]</span> and its derivative</p>
+<p><span class="math display">\[
+p_{\lambda}(x)= \begin{cases} - \lambda &amp; \text { if }x &lt; 0, \\ \left[-\lambda, \lambda\right] &amp; \text { if } x = 0 \\ \lambda &amp; \text { if }x &gt; 0\end{cases}
+\]</span></p>
+</section>
+<section id="scad" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="scad"><span class="header-section-number">6.2</span> SCAD</h2>
+<p><span class="math display">\[
+p_{\lambda}(x ; \gamma)= \begin{cases}\lambda|x| &amp; \text { if }|x| \leq \lambda, \\ \frac{2 \gamma \lambda|x|-x^2-\lambda^2}{2(\gamma-1)} &amp; \text { if } \lambda&lt;|x|&lt;\gamma \lambda \\ \frac{\lambda^2(\gamma+1)}{2} &amp; \text { if }|x| \geq \gamma \lambda\end{cases}
+\]</span> and derivative is <span class="math display">\[
+q_{\lambda}(x ;  \gamma)= \begin{cases}\lambda &amp; \text { if }|x| \leq \lambda \\ \frac{\gamma \lambda-|x|}{\gamma-1} &amp; \text { if } \lambda&lt;|x|&lt;\gamma \lambda \\ 0 &amp; \text { if }|x| \geq \gamma \lambda\end{cases}
+\]</span></p>
+</section>
+<section id="mcp" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="mcp"><span class="header-section-number">6.3</span> MCP</h2>
+<p><span class="math display">\[
+p_{\lambda}(x ; \gamma)= \begin{cases}\lambda|x|-\frac{x^2}{2 \gamma}, &amp; \text { if }|x| \leq \gamma \lambda \\ \frac{1}{2} \gamma \lambda^2, &amp; \text { if }|x|&gt;\gamma \lambda\end{cases}
+\]</span> and derivative is <span class="math display">\[
+q_\lambda(x ; \gamma)= \begin{cases}\left(\lambda-\frac{|x|}{\gamma}\right) \operatorname{sign}(x), &amp; \text { if }|x| \leq \gamma \lambda, \\ 0, &amp; \text { if }|x|&gt;\gamma \lambda\end{cases}
+\]</span></p>
+</section>
+<section id="solution" class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="solution"><span class="header-section-number">6.4</span> Solution</h2>
+<p>By minorization-maximization algorithm, the penalized estimator <span class="math inline">\(\left(\hat{\btheta}, \hat{\bbeta}\right)\)</span> satisfies</p>
+<p><span class="math display">\[
+\operatorname{U}^p\left(\hat{\btheta}, \hat{\bbeta}\right) = \operatorname{U}\left(\hat{\btheta}, \hat{\bbeta}\right) -\left(\begin{array}{c}
+q_{\lambda_\hat{\theta}}(|\hat{\btheta}|) \operatorname{sgn}(\hat{\btheta}) \frac{|\hat{\btheta}|}{\epsilon + |\hat{\btheta}|} \\
+q_{\lambda_\hat{\beta}}(|\hat{\bbeta}|) \operatorname{sgn}(\hat{\bbeta}) \frac{|\hat{\bbeta}|}{\epsilon + |\hat{\bbeta}|}
+\end{array}\right) = \bZero
+\]</span> Let <span class="math inline">\(\nabla\left(\btheta, \bbeta \right) = \frac{\partial \operatorname{U}\left(\btheta, \bbeta\right)}{\partial \left(\btheta^{T} \bbeta^{T}\right)^{T}} = Diag \left(\frac{\partial U_1 \left(\btheta \right)}{\partial \btheta^{T}}, \frac{\partial U_2 \left(\bbeta \right)}{\partial \bbeta^{T}} \right)\)</span>, where <span class="math inline">\(U_1\)</span> is objective function for selection model and <span class="math inline">\(U_2\)</span> for outcome model. Let <span class="math inline">\(\boldsymbol{\alpha} = \left(\btheta, \bbeta\right)\)</span> and</p>
+<p><span class="math display">\[
+\Lambda(\boldsymbol{\alpha})=\left(\begin{array}{ccc}
+q_{\lambda_1}\left(\left|\alpha_1\right|\right) &amp; \ldots &amp; 0 \\
+\vdots &amp; \ddots &amp; \vdots \\
+0 &amp; \ldots &amp; q_{\lambda_{2 p}}\left(\left|\alpha_{2 p}\right|\right)
+\end{array}\right)
+\]</span> Newton-Raphson procedure for j-variable and k-update</p>
+<p><span class="math display">\[
+\hat{\alpha}_j^{[k]}=\hat{\alpha}_j^{[k-1]}+\left\{\nabla_{j j}\left(\hat{\alpha}^{[k-1]}\right)+N \Lambda_{j j}\left(\hat{\alpha}^{[k-1]}\right)\right\}^{-1}\left\{U_j\left(\hat{\alpha}^{[k-1]}\right)-N \Lambda_{j j}\left(\hat{\alpha}^{[k-1]}\right) \hat{\alpha}_j^{[k-1]}\right\}
+\]</span></p>
+<p>It is recommended to use K-fold cross validation for selectiing tuning parameters <span class="math inline">\(\left(\lambda_{\theta}, \lambda_{\beta}\right)\)</span> which minimize following loss functions for set of parameters <span class="math inline">\(\balpha\)</span>.</p>
+<p><span class="math display">\[
+\operatorname{Loss}\left(\lambda_\theta\right)=\sum_{j=1}^p\left(\sum_{i=1}^N\left[\frac{R_i^A}{\pi_i^A\left\{\bx_i^{\mathrm{T}} \hat{\theta}\left(\lambda_\theta\right)\right\}}-\frac{I_{\mathrm{A}, i}}{\pi_{\mathrm{A}, i}}\right] \bx_{i, j}\right)^2,
+\]</span></p>
+<p><span class="math display">\[
+\operatorname{Loss}\left(\lambda_\beta\right)=\sum_{i=1}^N R_i^A\left[y_i-m\left\{\bx_i^{\mathrm{T}} \hat{\beta}\left(\lambda_\beta\right)\right\}\right]^2,
+\]</span> where <span class="math inline">\(\hat{\theta}\left(\lambda_\theta\right)\)</span> and <span class="math inline">\(\hat{\beta}\left(\lambda_\beta\right)\)</span> are penalized estimators with tuning parameters <span class="math inline">\(\lambda_\theta\)</span>, <span class="math inline">\(\lambda_\beta\)</span> for selection and outcome model respectively.</p>
 
 
 </section>
@@ -455,10 +375,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./dr.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Doubly robust methods</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./intro.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introduction and Overwiev</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./summary.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Summary</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.1.189">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Modern inference methods for non-probability samples with R - 3&nbsp; Inverse probability weighting</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./mi.html" rel="next">
+<link href="./intro.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Inverse probability weighting</span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Modern inference methods for non-probability samples with R</a> 
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Nomenclature</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introduction and Overwiev</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ipw.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Inverse probability weighting</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mi.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Mass imputation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./dr.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Doubly robust methods</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./variableselection.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Techniques of variables selection for high-dimensional data</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./summary.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Summary</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">References</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#motivation-and-assumptions" id="toc-motivation-and-assumptions" class="nav-link active" data-scroll-target="#motivation-and-assumptions"><span class="toc-section-number">3.1</span>  Motivation and assumptions</a></li>
+  <li><a href="#maximum-likelihood-estimation" id="toc-maximum-likelihood-estimation" class="nav-link" data-scroll-target="#maximum-likelihood-estimation"><span class="toc-section-number">3.2</span>  Maximum likelihood estimation</a>
+  <ul class="collapse">
+  <li><a href="#logistic-regression" id="toc-logistic-regression" class="nav-link" data-scroll-target="#logistic-regression"><span class="toc-section-number">3.2.1</span>  Logistic regression</a></li>
+  <li><a href="#complementary-log-log-regression" id="toc-complementary-log-log-regression" class="nav-link" data-scroll-target="#complementary-log-log-regression"><span class="toc-section-number">3.2.2</span>  Complementary log-log regression</a></li>
+  <li><a href="#probit-regression" id="toc-probit-regression" class="nav-link" data-scroll-target="#probit-regression"><span class="toc-section-number">3.2.3</span>  Probit regression</a></li>
+  </ul></li>
+  <li><a href="#general-estimating-equations" id="toc-general-estimating-equations" class="nav-link" data-scroll-target="#general-estimating-equations"><span class="toc-section-number">3.3</span>  General estimating equations</a>
+  <ul class="collapse">
+  <li><a href="#logistic-regression-1" id="toc-logistic-regression-1" class="nav-link" data-scroll-target="#logistic-regression-1"><span class="toc-section-number">3.3.1</span>  Logistic regression</a></li>
+  <li><a href="#complementary-log-log-regression-1" id="toc-complementary-log-log-regression-1" class="nav-link" data-scroll-target="#complementary-log-log-regression-1"><span class="toc-section-number">3.3.2</span>  Complementary log-log regression</a></li>
+  <li><a href="#probit-regression-1" id="toc-probit-regression-1" class="nav-link" data-scroll-target="#probit-regression-1"><span class="toc-section-number">3.3.3</span>  Probit regression</a></li>
+  </ul></li>
+  <li><a href="#population-mean-estimator-and-its-properties" id="toc-population-mean-estimator-and-its-properties" class="nav-link" data-scroll-target="#population-mean-estimator-and-its-properties"><span class="toc-section-number">3.4</span>  Population mean estimator and its properties</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Inverse probability weighting</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+<p><span class="math display">\[
+\newcommand{\bSigma}{\boldsymbol{\Sigma}}
+\newcommand{\bOmega}{\boldsymbol{\Omega}}
+\newcommand{\bTheta}{\boldsymbol{\Theta}}
+\newcommand{\bPi}{\boldsymbol{\Pi}}
+\newcommand{\bbeta}{\boldsymbol{\beta}}
+\newcommand{\balpha}{\boldsymbol{\alpha}}
+\newcommand{\brho}{\boldsymbol{\rho}}
+\newcommand{\beps}{\boldsymbol{\epsilon}}
+\newcommand{\blambda}{\boldsymbol{\lambda}}
+\newcommand{\bgamma}{\boldsymbol{\gamma}}
+\newcommand{\btheta}{\boldsymbol{\theta}}
+\newcommand{\bmu}{\boldsymbol{\mu}}
+\newcommand{\bpi}{\boldsymbol{\pi}}
+\newcommand{\bphi}{\boldsymbol{\phi}}
+\newcommand{\bPhi}{\boldsymbol{\Phi}}
+\newcommand{\boldeta}{\boldsymbol{\eta}}
+\newcommand{\bx}{\boldsymbol{x}}
+\newcommand{\bD}{\boldsymbol{D}}
+\newcommand{\bV}{\boldsymbol{V}}
+\newcommand{\bv}{\boldsymbol{v}}
+\newcommand{\bY}{\boldsymbol{Y}}
+\newcommand{\bA}{\boldsymbol{A}}
+\newcommand{\bB}{\boldsymbol{B}}
+\newcommand{\bR}{\boldsymbol{R}}
+\newcommand{\bM}{\boldsymbol{M}}
+\newcommand{\bI}{\boldsymbol{I}}
+\newcommand{\bC}{\boldsymbol{C}}
+\newcommand{\bW}{\boldsymbol{W}}
+\newcommand{\bw}{\boldsymbol{w}}
+\newcommand{\bd}{\boldsymbol{d}}
+\newcommand{\bT}{\boldsymbol{T}}
+\newcommand{\bt}{\boldsymbol{t}}
+\newcommand{\bZ}{\boldsymbol{Z}}
+\newcommand{\bX}{\boldsymbol{X}}
+\newcommand{\bz}{\boldsymbol{z}}
+\newcommand{\by}{\boldsymbol{y}}
+\newcommand{\br}{\boldsymbol{r}}
+\newcommand{\bp}{\boldsymbol{p}}
+\newcommand{\bb}{\boldsymbol{b}}
+\newcommand{\bZero}{\boldsymbol{0}}
+\newcommand{\bOne}{\boldsymbol{1}}
+\]</span></p>
+<section id="motivation-and-assumptions" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="motivation-and-assumptions"><span class="header-section-number">3.1</span> Motivation and assumptions</h2>
+<p>Let <span class="math inline">\(\mathcal{U}=\{1,2, \ldots, N\}\)</span> represent the finite population with N units and <span class="math inline">\(\left\{\left(\bx_i, y_i\right), i \in \mathcal{S}_{\mathrm{A}}\right\}\)</span> and <span class="math inline">\(\{\left(\bx_i, d_i^B), i \in \mathcal{S}_{\mathrm{B}}\right\}\)</span> be the datasets from non-probability and probability samples respectively. Following assumptions are required for this model:</p>
+<ol type="1">
+<li><p>The selection indicator <span class="math inline">\(R_i\)</span> and the response variable <span class="math inline">\(y_i\)</span> are independent given the set of covariates <span class="math inline">\(x_i\)</span>.</p></li>
+<li><p>All units have a nonzero propensity score, that is, <span class="math inline">\(\pi_i^A &gt; 0\)</span> for all <span class="math inline">\(i\)</span>.</p></li>
+<li><p>The indicator variables <span class="math inline">\(R_i^A\)</span> and <span class="math inline">\(R_j^A\)</span> are independent for given <span class="math inline">\(x_i\)</span> and <span class="math inline">\(x_j\)</span> for <span class="math inline">\(i \neq j\)</span>.</p></li>
+</ol>
+</section>
+<section id="maximum-likelihood-estimation" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="maximum-likelihood-estimation"><span class="header-section-number">3.2</span> Maximum likelihood estimation</h2>
+<p>Suppose that propensity score can be modelled parametrically as <span class="math inline">\(\mathbb{P}\left(R_i=1 \mid \bx_i\right) = \pi(\bx_{i}, \btheta_{0})\)</span>. The maximum likelihood estimator is computed as <span class="math inline">\(\hat{\pi}_{i}^{A} = \pi(\bx_{i}, \hat{\btheta}_{0})\)</span>, where <span class="math inline">\(\hat{\btheta}_{0}\)</span> is the maximizer of the following log-likelihood function:</p>
+<p><span class="math display">\[
+\begin{align}
+    \begin{split}
+\ell(\boldsymbol{\theta}) &amp; =\sum_{i=1}^N\left\{R_i \log \pi_i^{\mathrm{A}}+\left(1-R_i\right) \log \left(1-\pi_i^{\mathrm{A}}\right)\right\} \\ &amp; =\sum_{i \in \mathcal{S}_{\mathrm{A}}} \log \left\{\frac{\pi\left(\boldsymbol{x}_i, \boldsymbol{\theta}\right)}{1-\pi\left(\boldsymbol{x}_i, \boldsymbol{\theta}\right)}\right\}+\sum_{i=1}^N \log \left\{1-\pi\left(\boldsymbol{x}_i, \boldsymbol{\theta}\right)\right\}
+    \end{split}
+\end{align}
+\]</span></p>
+<p>Since we do not observe <span class="math inline">\(\bx_i\)</span> for all units, Yilin Chen, Pengfei Li &amp; Changbao Wu presented following log-likelihood function is subject to data integration basing on samples <span class="math inline">\(S_A\)</span> and <span class="math inline">\(S_B\)</span>. They proposed logistic regression model with <span class="math inline">\(\pi(\bx_{i}, \btheta) = \frac{\exp(\bx_{i}^{\top}\btheta)}{\exp(\bx_{i}^{\top}\btheta) + 1}\)</span> in order to estimate <span class="math inline">\(\btheta\)</span>. We expanded this approach on probit regression and complementary log-log model. For the sake of accuracy, let us recall that the probit and cloglog models are based on the assumption that model takes the form <span class="math inline">\(\pi(\bx_{i},\btheta) = \Phi(\bx_{i}^{\top}\btheta)\)</span> and <span class="math inline">\(\pi(\bx_{i}, \btheta) = 1 - \exp(-\exp(\bx_{i}^{\top}\btheta))\)</span> respectively.</p>
+<p><span class="math display">\[
+\begin{align}
+    \ell^{*}(\btheta) = \sum_{i \in S_{A}}\log \left\{\frac{\pi(\bx_{i}, \btheta)}{1 - \pi(\bx_{i},\btheta)}\right\} + \sum_{i \in S_{B}}d_{i}^{B}\log\{1 - \pi({\bx_{i},\btheta})\}
+\end{align}
+\]</span> In the following subsections we present the full derivation of the MLE, depending on the assumed model for the propensity score.</p>
+<section id="logistic-regression" class="level3" data-number="3.2.1">
+<h3 data-number="3.2.1" class="anchored" data-anchor-id="logistic-regression"><span class="header-section-number">3.2.1</span> Logistic regression</h3>
+<p>Log-likelihood function with logistic regression is given by <span class="math display">\[
+\ell^{*}(\btheta) = \sum_{i \in S_A}\bx_{i}^{\top}\btheta - \sum_{i \in S_B}d_{i}^{B}\log\{1 + \exp(\bx_{i}^{\top}\btheta)\}
+\]</span> with analytical gradient and hessian given by <span class="math display">\[
+\frac{\partial \ell^*}{\partial\btheta} = \sum_{i \in S_{A}}\bx_{i} - \sum_{i \in S_{B}}d_{i}^{B}\pi(\bx_{i}, \btheta)\bx_{i}
+\]</span> and <span class="math display">\[
+    \frac{\partial^{2} \ell^{*}}{\partial\btheta^{T} \partial\btheta} =- \sum_{i \in S_B}d_i^B\pi(\bx_i,\btheta)(1 - \pi(\bx_i,\btheta))\bx_i\bx_i^{\top} = \bX_B^{\top}\operatorname{\bW}_{B}\bX_B,
+\]</span> respectively, where <span class="math display">\[
+\begin{align*}
+    \operatorname{\bW}_{B} =
+    diag &amp; \left(-d_1^B\pi(\bx_{1},\btheta)(1 - \pi(\bx_{1},\btheta)), -d_2^B\pi(\bx_{2},\btheta)(1 - \pi(\bx_{2},\btheta)), \right. \\
+     &amp; \left. \ldots, -d_{n_{B}}^{B}\pi(\bx_{n_{B}},\btheta)(1 - \pi(x_{n_{B}},\btheta))\right).
+\end{align*}
+\]</span></p>
+</section>
+<section id="complementary-log-log-regression" class="level3" data-number="3.2.2">
+<h3 data-number="3.2.2" class="anchored" data-anchor-id="complementary-log-log-regression"><span class="header-section-number">3.2.2</span> Complementary log-log regression</h3>
+<p>Similarly, log-likelihood function has form of <span class="math display">\[
+\ell^{*}(\btheta) = \sum_{i \in S_{A}}\left\{\log\{1 - \exp(-\exp(\bx_{i}^{\top}\btheta))\} + \exp(\bx_{i}^{\top}\btheta)\right\} - \sum_{i \in S_{B}} d_{i}^{B}\exp(\bx_{i}^{\top}\btheta)
+\]</span> with analytical gradient and hessian equal to <span class="math display">\[
+    \frac{\partial \ell^*}{\partial\btheta} = \sum_{i \in S_{A}}\frac{\exp(\bx_{i}^{\top}\btheta)\bx_{i}}{\pi(\bx_{i}, \btheta)} - \sum_{i \in S_{B}}d_{i}^{B}\exp(\bx_{i}^{T}\btheta)\bx_{i}
+\]</span> and <span class="math display">\[
+\begin{align*}
+    \begin{split}
+    \frac{\partial^{2} \ell^{*}}{\partial\btheta^{T} \partial\btheta} &amp; = \sum_{i \in S_A} \frac{\exp(\bx_{i}^{\top}\btheta)}{\pi(\bx_{i}, \btheta)} \left\{1 - \frac{\exp(\bx_{i}^{\top}\btheta)}{\pi(\bx_{i}, \btheta)} + \exp(\bx_{i}^{\top}\btheta)\right\}\bx_i\bx_i^{\top} - \sum_{i \in S_B}d_i^B\exp (\bx_{i}^{\top}\btheta)\bx_i\bx_i^{\top} \\ &amp; = \bX_A^{\top}\operatorname{\bW}_{Ac}\bX_A - \bX_B^{\top}\operatorname{\bW}_{Bc}\bX_B,
+    \end{split}
+\end{align*}
+\]</span> respectively, where <span class="math display">\[
+\begin{align*}
+    \operatorname{\bW}_{Ac} =  diag &amp; \left(\frac{\exp(\bx_{1}^{\top}\btheta)}{\pi(\bx_{1}, \btheta)} \left\{1 - \frac{\exp(\bx_{1}^{\top}\btheta)}{\pi(\bx_{1}, \btheta)} + \exp(\bx_{1}^{\top}\btheta)\right\}, \right.
+    \\
+    &amp; \left. \frac{\exp(\bx_{2}^{\top}\btheta)}{\pi(\bx_{2}, \btheta)} \left\{1 - \frac{\exp(\bx_{2}^{\top}\btheta)}{\pi(\bx_{2}, \btheta)} + \exp(\bx_{2}^{\top}\btheta)\right\}, \right.
+    \\
+    &amp; \left. \ldots, \right.
+    \\
+    &amp; \left. \frac{\exp(\bx_{n_A}^{\top}\btheta)} {\pi(\bx_{n_A}, \btheta)} \left\{1 - \frac{\exp(\bx_{n_A}^{\top}\btheta)}{\pi(\bx_{n_A}, \btheta)} + \exp(\bx_{n_A}^{\top}\btheta)\right\} \right)
+\end{align*}
+\]</span> and <span class="math display">\[
+\begin{align*}
+    \operatorname{\bW}_{Bc} = diag \left(d_1^B\exp (\bx_{1}^{\top}\btheta), d_2^B\exp (\bx_{2}^{\top}\btheta), \ldots, d_{n_B}^B\exp (\bx_{n_{B}}^{\top}\btheta)\right).
+\end{align*}
+\]</span></p>
+</section>
+<section id="probit-regression" class="level3" data-number="3.2.3">
+<h3 data-number="3.2.3" class="anchored" data-anchor-id="probit-regression"><span class="header-section-number">3.2.3</span> Probit regression</h3>
+<p>For probit model calculations are as follow <span class="math display">\[
+\begin{align*}
+    \ell^{*}(\btheta) &amp; = \sum_{i \in S_{A}}\log\left\{\frac{\Phi(\bx_{i}^{\top}\btheta)}{1 - \Phi(\bx_{i}^{\top}\btheta)}\right\} + \sum_{i \in S_{B}}d_{i}^{B}\log\{1 - \Phi(\bx_{i}^{\top}\btheta)\}
+\end{align*}
+\]</span> with analytical gradient and hessian as <span class="math display">\[
+\begin{align*}
+        \frac{\partial \ell^*}{\partial\btheta} = \sum_{i \in S_A}\frac{\phi(\bx_i^{\top}\btheta)}{\Phi(\bx_i^{\top}\btheta)(1 - \Phi(\bx_i^{\top}\btheta))}\bx_i - \sum_{i \in S_B}d_i^B\frac{\phi(\bx_i^{\top}\btheta)}{1 - \Phi(\bx_i^{\top}\btheta)}\bx_i
+\end{align*}
+\]</span> and <span class="math display">\[
+\begin{align*}
+    \begin{split}
+        \frac{\partial^{2} \ell^{*}}{\partial\btheta^{T} \partial\btheta} &amp; = \sum_{i \in S_A}\Bigl\{\frac{\bx_i^{\top}\btheta \phi(\bx_i^{\top}\btheta)}{\Phi(\bx_i^{\top}\btheta)(1 - \Phi(\bx_i^{\top}\btheta))} - \frac{\phi(\bx_i^{\top}\btheta)^2}{\Phi(\bx_i^{\top}\btheta)^2(1 - \Phi(\bx_i^{\top}\btheta))^2} + \frac{2\cdot\phi(\bx_i^{\top}\btheta)^2}{\Phi(\bx_i^{\top}\btheta)(1 - \Phi(\bx_i^{\top}\btheta))^2}\Bigr\}\bx_i\bx_i^{\top} \\ &amp; - \sum_{i \in S_B}d_i^B\Bigl\{\frac{\bx_i^{\top}\btheta \phi(\bx_i^{\top}\btheta)}{1 - \Phi(\bx_i^{\top}\btheta)} + \frac{\phi(\bx_i^{\top}\btheta)^2}{(1 - \Phi(\bx_i^{\top}\btheta))^2}\Bigr\}\bx_i\bx_i^{\top} =     \bX_A^{\top}\operatorname{\bW}_{Ap}\bX_A - \bX_B^{\top}\operatorname{\bW}_{Bp}\bX_B,
+    \end{split}
+\end{align*}
+\]</span> where <span class="math display">\[
+\begin{align*}
+    \operatorname{\bW}_{Ap} =  diag &amp; \left(\Bigl\{\frac{\bx_{1}^{\top}\btheta \phi(\bx_1^{\top}\btheta)}{\Phi(\bx_{1}^{\top}\btheta)(1 - \Phi(\bx_{1}^{\top}\btheta))} - \frac{\phi(\bx_{1}^{\top}\btheta)^2}{\Phi(\bx_{1}^{\top}\btheta)^2(1 - \Phi(\bx_{1}^{\top}\btheta))^2} + \frac{2\cdot\phi(\bx_{1}^{\top}\btheta)^2}{\Phi(\bx_{1}^{\top}\btheta)(1 - \Phi(\bx_{1}^{\top}\btheta))^2}\Bigr\}
+    , \right.
+    \\
+    &amp; \left. \Bigl\{\frac{\bx_{2}^{\top}\btheta \phi(\bx_{2}^{\top}\btheta)}{\Phi(\pmb{x}_{2}^{\top}\btheta)(1 - \Phi(\bx_{2}^{\top}\btheta))} - \frac{\phi(\bx_{2}^{\top}\btheta)^2}{\Phi(\bx_{2}^{\top}\btheta)^2(1 - \Phi(\bx_{2}^{\top}\btheta))^2} + \frac{2\cdot\phi(\bx_{2}^{\top}\btheta)^2}{\Phi(\bx_{2}^{\top}\btheta)(1 - \Phi(\bx_{2}^{\top}\btheta))^2}\Bigr\},
+    \right.
+    \\
+    &amp; \left. \ldots, \right.
+    \\
+    &amp; \left. \Bigl\{\frac{\bx_{n_{A}}^{\top}\btheta \phi(\bx_{n_{A}}^{\top}\btheta)}{\Phi(\bx_{n_{A}}^{\top}\btheta)(1 - \Phi(\bx_{n_{A}}^{\top}\btheta))} - \frac{\phi(\bx_{n_{A}}^{\top}\btheta)^2}{\Phi(\bx_{n_{A}}^{\top}\btheta)^2(1 - \Phi(\bx_{n_{A}}^{\top}\btheta))^2} + \frac{2\cdot\phi(\bx_{n_{A}}^{\top}\btheta)^2}{\Phi(\bx_{n_{A}}^{\top}\btheta)(1 - \Phi(\bx_{n_{A}}^{\top}\btheta))^2}\Bigr\}
+    \right)
+\end{align*}
+\]</span> and <span class="math display">\[
+\begin{align*}
+    \operatorname{\bW}_{Bp} = diag &amp; \left(d_1^B\Bigl\{\frac{\bx_{1}^{\top}\btheta \phi(\bx_{1}^{\top}\btheta)}{1 - \Phi(\bx_{1}^{\top}\btheta)} - \frac{\phi(\bx_{1}^{\top}\btheta)^2}{(1 - \Phi(\bx_{1}^{\top}\btheta))^2}\Bigr\}, \right.
+    \\
+    &amp;
+    \left. d_2^B\Bigl\{\frac{\bx_{2}^{\top}\btheta \phi(\bx_{2}^{\top}\btheta)}{1 - \Phi(\bx_{2}^{\top}\btheta)} - \frac{\phi(\bx_{2}^{\top}\btheta)^2}{(1 - \Phi(\bx_{2}^{\top}\btheta))^2}\Bigr\}, \right.
+    \\
+    &amp; \left. \ldots, \right.
+    \\
+    &amp; \left. d_{n_{B}}^B\Bigl\{\frac{\bx_{n_{B}}^{\top}\btheta \phi(\bx_{n_{B}}^{\top}\btheta)}{1 - \Phi(\bx_{n_{B}}^{\top}\btheta)} - \frac{\phi(\bx_{n_{B}}^{\top}\btheta)^2}{(1 - \Phi(\bx_{n_{B}}^{\top}\btheta))^2}\Bigr\}\right).
+\end{align*}
+\]</span> respectively. <span class="math inline">\(\hat{\btheta}\)</span> can be found by using the following Netwon-Raphson’s iterative method: <span class="math display">\[
+\btheta^{(m)} = \btheta^{(m-1)} - \{H(\btheta^{(m-1)}\}^{-1}U(\btheta^{(m-1})),
+\]</span> where <span class="math inline">\(\operatorname{H}\)</span> - hessian, <span class="math inline">\(\operatorname{U}\)</span> - gradient.</p>
+</section>
+</section>
+<section id="general-estimating-equations" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="general-estimating-equations"><span class="header-section-number">3.3</span> General estimating equations</h2>
+<p>The pseudo score equations derived from Maximum Likelihood Estimation methods may be replaced by a system of general estimating equations. Let <span class="math inline">\(\operatorname{h}\left(\bx\right)\)</span> be the smooth function and <span class="math display">\[
+\begin{equation}
+\mathbf{U}(\btheta)=\sum_{i \in S_A} \mathbf{h}\left(\mathbf{x}_i, \btheta\right)-\sum_{i \in S_B} d_i^B \pi\left(\mathbf{x}_i, \btheta\right) \mathbf{h}\left(\mathbf{x}_i, \btheta\right).
+\end{equation}
+\]</span> Under <span class="math inline">\(\operatorname{h}\left(\bx_i\right) = \bx_i\)</span> and logistic model for propensity score, Equation (2.1) looks like disorted version of the score equation from MLE method. Then <span class="math display">\[
+\begin{align*}
+    \mathbf{U}(\btheta)=\sum_{i \in S_A} \bx_i -\sum_{i \in S_B} d_i^B \pi\left(\mathbf{x}_i, \btheta\right) \bx_i.
+\end{align*}
+\]</span> and analytical Jacobian is given by <span class="math display">\[
+\begin{align*}
+\frac{\partial \mathbf{U}}{\partial\btheta} = - \sum_{i \in S_B} d_i^B \pi_i^A\left(\bx_i^{\mathrm{T}} \btheta \right) \left(1 -  \pi_i^A\left(\bx_i^{\mathrm{T}} \btheta \right)\right)\bx_i \bx_i^{\mathrm{T}}.
+\end{align*}
+\]</span> The second proposed of the smooth function in the literature is <span class="math inline">\(\operatorname{h}\left(\bx_i\right) = \bx_i \pi_i^A\left(\bx_i^{\mathrm{T}} \btheta \right)^{-1}\)</span>, for which the <span class="math inline">\(\operatorname{U}\)</span>-function takes the following form <span class="math display">\[
+\begin{align}
+    \mathbf{U}(\btheta)=\sum_{i \in S_A}  \bx_i \pi_i^A\left(\bx_i^{\mathrm{T}} \btheta \right)^{-1} -\sum_{i \in S_B} d_i^B \bx_i.
+\end{align}
+\]</span> Generally, the goal is to find solution for following system of equations <span class="math display">\[
+\begin{equation*}
+    \sum_{i \in S_A} \mathbf{h}\left(\mathbf{x}_i, \btheta\right) = \sum_{i \in S_B} d_i^B \pi\left(\mathbf{x}_i, \btheta\right) \mathbf{h}\left(\mathbf{x}_i, \btheta\right)
+\end{equation*}
+\]</span> In total, we have six models for this estimation method depending on the <span class="math inline">\(\operatorname{h}\)</span>-function and the way propensity score is parameterized. Let us present all of them.</p>
+<section id="logistic-regression-1" class="level3" data-number="3.3.1">
+<h3 data-number="3.3.1" class="anchored" data-anchor-id="logistic-regression-1"><span class="header-section-number">3.3.1</span> Logistic regression</h3>
+<p>As the one model for logistic regression is presented above, we have equation under <span class="math inline">\(\operatorname{h}\left(\bx_i\right) = \bx_i \pi_i^A\left(\bx_i^{\mathrm{T}} \btheta \right)^{-1}\)</span> to consider. Analytical jacobian is given by <span class="math display">\[
+\begin{align*}
+    \frac{\partial \operatorname{U}(\btheta)}{\partial \btheta} = -\sum_{i \in S_A} \frac{1 - \pi_i^A\left(\bx_i^{\mathrm{T}} \btheta \right)}{\pi_i^A\left(\bx_i^{\mathrm{T}} \btheta \right)} \bx_i \bx_i^{\mathrm{T}}.
+\end{align*}
+\]</span></p>
+</section>
+<section id="complementary-log-log-regression-1" class="level3" data-number="3.3.2">
+<h3 data-number="3.3.2" class="anchored" data-anchor-id="complementary-log-log-regression-1"><span class="header-section-number">3.3.2</span> Complementary log-log regression</h3>
+<p>For <span class="math inline">\(\operatorname{h}\left(\bx_i\right) = \bx_i \pi_i^A\left(\bx_i^{\mathrm{T}} \btheta \right)^{-1}\)</span> analytical jacobian is given by <span class="math display">\[
+\begin{align*}
+    \frac{\partial \operatorname{U}(\btheta)}{\partial \btheta} = - \sum_{i \in S_A} \frac{1 - \pi_i^A\left(\bx_i^{\mathrm{T}} \btheta \right)}{\pi_i^A\left(\bx_i^{\mathrm{T}} \btheta \right)^2} \exp(\bx_i^{\mathrm{T}} \btheta) \bx_i \bx_i^{\mathrm{T}}
+\end{align*}
+\]</span> and <span class="math inline">\(\operatorname{h}\left(\bx_i\right) = \bx_i\)</span> we have <span class="math display">\[
+\begin{align*}
+    \frac{\partial \operatorname{U}(\btheta)}{\partial \btheta} = - \sum_{i \in S_B} \frac{1 - \pi_i^A\left(\bx_i^{\mathrm{T}} \btheta \right)}{\pi_i^B} \exp \left(\bx_i^\mathrm{T} \btheta\right) \bx_i \bx_i^{\mathrm{T}}.
+\end{align*}
+\]</span></p>
+</section>
+<section id="probit-regression-1" class="level3" data-number="3.3.3">
+<h3 data-number="3.3.3" class="anchored" data-anchor-id="probit-regression-1"><span class="header-section-number">3.3.3</span> Probit regression</h3>
+<p>Similarly, for the probit model, under <span class="math inline">\(\operatorname{h}\left(\bx_i\right) = \bx_i \pi_i^A\left(\bx_i^{\mathrm{T}} \btheta \right)^{-1}\)</span> analyical jacobian is given by <span class="math display">\[
+\begin{align*}
+    \frac{\partial \operatorname{U}(\btheta)}{\partial \btheta} = - \sum_{i \in S_A} \frac{\dot{\pi}_i^A\left(\bx_i^{\mathrm{T}} \btheta \right)}{\pi_i^A\left(\bx_i^{\mathrm{T}} \btheta \right)^2} \bx_i \bx_i^{\mathrm{T}}
+\end{align*}
+\]</span> and under <span class="math inline">\(\operatorname{h}\left(\bx_i\right) = \bx_i\)</span> we have</p>
+<p><span class="math display">\[
+\begin{align*}
+    \frac{\partial \operatorname{U}(\partial \btheta)}{\btheta} = - \sum_{i \in S_B} \frac{\dot{\pi}_i^A\left(\bx_i^{\mathrm{T}} \btheta \right)}{\pi_i^B} \bx_i \bx_i^{\mathrm{T}}.
+\end{align*}
+\]</span></p>
+</section>
+</section>
+<section id="population-mean-estimator-and-its-properties" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="population-mean-estimator-and-its-properties"><span class="header-section-number">3.4</span> Population mean estimator and its properties</h2>
+<p><span class="math display">\[
+\begin{equation*}
+    \hat{\mu}_{IPW1} = \frac{1}{N} \sum_{i \in S_A} \frac{y_i}{\hat{\pi}_i^{A}}
+\end{equation*}
+\]</span></p>
+<p><span class="math display">\[
+\begin{equation*}
+    \hat{\mu}_{IPW2} = \frac{1}{\hat{N}^{A}} \sum_{i \in S_A} \frac{y_i}{\hat{\pi}_i^{A}},
+\end{equation*}
+\]</span> Variance of an estimator</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./intro.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introduction and Overwiev</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./mi.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Mass imputation</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>

@@ -1,0 +1,75 @@
+{{< include macros.qmd >}}
+
+# Techniques of variables selection for high-dimensional data
+
+Let $\operatorname{U}\left(\btheta, \bbeta\right)$ be the join estimating function for $\left(\btheta, \bbeta\right)$. When p is large, we consider the penalized estimating functions for $\left(\btheta, \bbeta\right)$ as
+
+$$
+\operatorname{U}^p\left(\btheta, \bbeta\right) = \operatorname{U}\left(\btheta, \bbeta\right) -\left(\begin{array}{c}
+q_{\lambda_\theta}(|\btheta|) \operatorname{sgn}(\btheta) \\
+q_{\lambda_\beta}(|\bbeta|) \operatorname{sgn}(\bbeta)
+\end{array}\right),
+$$ where $q_{\lambda_{\theta}}$ and $q_{\lambda_{\beta}}$ are some smooth functions. We let $q_{\lambda}\left(x\right) = \frac{\partial p_{\lambda}}{\partial x}$, where $p_{\lambda}$ is some penalization function.
+
+## LASSO
+
+$$
+p_{\lambda}(x) = \lambda |x|
+$$ and its derivative
+
+$$
+p_{\lambda}(x)= \begin{cases} - \lambda & \text { if }x < 0, \\ \left[-\lambda, \lambda\right] & \text { if } x = 0 \\ \lambda & \text { if }x > 0\end{cases}
+$$
+
+## SCAD
+
+$$
+p_{\lambda}(x ; \gamma)= \begin{cases}\lambda|x| & \text { if }|x| \leq \lambda, \\ \frac{2 \gamma \lambda|x|-x^2-\lambda^2}{2(\gamma-1)} & \text { if } \lambda<|x|<\gamma \lambda \\ \frac{\lambda^2(\gamma+1)}{2} & \text { if }|x| \geq \gamma \lambda\end{cases}
+$$ and derivative is $$
+q_{\lambda}(x ;  \gamma)= \begin{cases}\lambda & \text { if }|x| \leq \lambda \\ \frac{\gamma \lambda-|x|}{\gamma-1} & \text { if } \lambda<|x|<\gamma \lambda \\ 0 & \text { if }|x| \geq \gamma \lambda\end{cases}
+$$
+
+## MCP
+
+$$
+p_{\lambda}(x ; \gamma)= \begin{cases}\lambda|x|-\frac{x^2}{2 \gamma}, & \text { if }|x| \leq \gamma \lambda \\ \frac{1}{2} \gamma \lambda^2, & \text { if }|x|>\gamma \lambda\end{cases}
+$$ and derivative is $$
+q_\lambda(x ; \gamma)= \begin{cases}\left(\lambda-\frac{|x|}{\gamma}\right) \operatorname{sign}(x), & \text { if }|x| \leq \gamma \lambda, \\ 0, & \text { if }|x|>\gamma \lambda\end{cases}
+$$
+
+## Solution
+
+By minorization-maximization algorithm, the penalized estimator $\left(\hat{\btheta}, \hat{\bbeta}\right)$ satisfies
+
+$$
+\operatorname{U}^p\left(\hat{\btheta}, \hat{\bbeta}\right) = \operatorname{U}\left(\hat{\btheta}, \hat{\bbeta}\right) -\left(\begin{array}{c}
+q_{\lambda_\hat{\theta}}(|\hat{\btheta}|) \operatorname{sgn}(\hat{\btheta}) \frac{|\hat{\btheta}|}{\epsilon + |\hat{\btheta}|} \\
+q_{\lambda_\hat{\beta}}(|\hat{\bbeta}|) \operatorname{sgn}(\hat{\bbeta}) \frac{|\hat{\bbeta}|}{\epsilon + |\hat{\bbeta}|}
+\end{array}\right) = \bZero
+$$ Let $\nabla\left(\btheta, \bbeta \right) = \frac{\partial \operatorname{U}\left(\btheta, \bbeta\right)}{\partial \left(\btheta^{T} \bbeta^{T}\right)^{T}} = Diag \left(\frac{\partial U_1 \left(\btheta \right)}{\partial \btheta^{T}}, \frac{\partial U_2 \left(\bbeta \right)}{\partial \bbeta^{T}} \right)$, where $U_1$ is objective function for selection model and $U_2$ for outcome model. Let $\boldsymbol{\alpha} = \left(\btheta, \bbeta\right)$ and
+
+$$
+\Lambda(\boldsymbol{\alpha})=\left(\begin{array}{ccc}
+q_{\lambda_1}\left(\left|\alpha_1\right|\right) & \ldots & 0 \\
+\vdots & \ddots & \vdots \\
+0 & \ldots & q_{\lambda_{2 p}}\left(\left|\alpha_{2 p}\right|\right)
+\end{array}\right)
+$$ Newton-Raphson procedure for j-variable and k-update
+
+$$
+\hat{\alpha}_j^{[k]}=\hat{\alpha}_j^{[k-1]}+\left\{\nabla_{j j}\left(\hat{\alpha}^{[k-1]}\right)+N \Lambda_{j j}\left(\hat{\alpha}^{[k-1]}\right)\right\}^{-1}\left\{U_j\left(\hat{\alpha}^{[k-1]}\right)-N \Lambda_{j j}\left(\hat{\alpha}^{[k-1]}\right) \hat{\alpha}_j^{[k-1]}\right\}
+$$
+
+It is recommended to use K-fold cross validation for selectiing tuning parameters $\left(\lambda_{\theta}, \lambda_{\beta}\right)$ which minimize following loss functions for set of parameters $\balpha$.
+
+$$
+\operatorname{Loss}\left(\lambda_\theta\right)=\sum_{j=1}^p\left(\sum_{i=1}^N\left[\frac{R_i^A}{\pi_i^A\left\{\bx_i^{\mathrm{T}} \hat{\theta}\left(\lambda_\theta\right)\right\}}-\frac{I_{\mathrm{A}, i}}{\pi_{\mathrm{A}, i}}\right] \bx_{i, j}\right)^2,
+$$
+
+$$
+\operatorname{Loss}\left(\lambda_\beta\right)=\sum_{i=1}^N R_i^A\left[y_i-m\left\{\bx_i^{\mathrm{T}} \hat{\beta}\left(\lambda_\beta\right)\right\}\right]^2,
+$$
+ where  $\hat{\theta}\left(\lambda_\theta\right)$ and $\hat{\beta}\left(\lambda_\beta\right)$ are penalized estimators with tuning parameters $\lambda_\theta$, $\lambda_\beta$ for selection and outcome model respectively.
+ 
+ 
+ 

@@ -2,12 +2,16 @@ project:
   type: book
 
 book:
-  title: "nonprobsvy-book"
-  author: "Jane Doe"
+  title: "Modern inference methods for non-probability samples with R"
+  author: "Łukasz Chrostowski, Maciej Beręsewicz"
   date: "4/20/2023"
   chapters:
     - index.qmd
     - intro.qmd
+    - ipw.qmd
+    - mi.qmd
+    - dr.qmd
+    - variableselection.qmd
     - summary.qmd
     - references.qmd
 

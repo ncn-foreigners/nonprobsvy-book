@@ -1,0 +1,70 @@
+{{< include macros.qmd >}}
+
+# Doubly robust methods
+
+## Bias minimization technique
+
+This model is derived from the form of the bias of doubly robust estimator. We consider set of estimating equations, for which we want to find regression parameters ($\btheta, \bbeta$). Shu Yang, Jae Kwang Kim and Rui Song proposed this method with logistic regression for selection model. As before our goal is to expand this approach. At the beginning let us derive bias of the estimator. We have
+
+$$
+\begin{aligned}
+bias(\hat{\mu}_{DR}) = & \mathbb{E}\left\{\hat{\mu}_{DR} - \mu\right\} \\ = & \mathbb{E}\left[ \frac{1}{N} \sum_{i=1}^N \left\{\frac{R_i^A}{\pi_i^A \left(\bx_i^{\mathrm{T}} \btheta \right)}  - 1\right\} \left\{y_i - \operatorname{m}\left( \bx_i^{\mathrm{T}} \bbeta\right)\right\} \right] \\ + & \mathbb{E}\left[  \frac{1}{N} \sum_{i=1}^N \left(R_i^B d_i^B - 1\right) \operatorname{m}\left( \bx_i^{\mathrm{T}} \bbeta \right)\right]
+\end{aligned}
+$$ Since we actually care about minimizing the square of the bias, let's calculate its derivative against the parameter vector. $$
+\begin{aligned}
+    \frac{\partial \operatorname{bias}(\hat{\mu}_{DR})^2}{\partial \left(\bbeta^{\mathrm{T}}, \btheta^{\mathrm{T}}\right)^{\mathrm{T}}} = 2 \operatorname{bias}(\hat{\mu}_{DR}) J(\theta, \beta),
+\end{aligned}
+$$ where $J(\theta, \beta)$ is internal derivative and depends on the model for outcome variable and propensity score. In the basic setting with propensity score modelling by logistic regression we have following system of equations to solve $$
+\begin{equation}
+\begin{aligned}
+J(\theta, \beta)=\left(\begin{array}{c}
+J_1(\theta, \beta) \\
+J_2(\theta, \beta)
+\end{array}\right)=\left(\begin{array}{c}
+\sum_{i=1}^N R_i^A\left\{\frac{1}{\pi\left(\boldsymbol{x}_i, \boldsymbol{\theta}\right)}-1\right\}\left\{y_i-m\left(\boldsymbol{x}_i, \boldsymbol{\beta}\right)\right\} \boldsymbol{x}_i \\
+\sum_{i=1}^N \frac{R_i^A}{\pi\left(\boldsymbol{x}_i, \boldsymbol{\theta}\right)} \frac{\partial m\left(\boldsymbol{x}_i, \boldsymbol{\beta}\right)}{\partial \bbeta}  - \sum_{i \in \mathcal{S}_{\mathrm{B}}} d_i^{\mathrm{B}} \frac{\partial m\left(\boldsymbol{x}_i, \boldsymbol{\beta}\right)}{\partial \bbeta} 
+\end{array}\right)
+\end{aligned}
+\end{equation}
+$$ where $\left(\boldsymbol{x}_i, \boldsymbol{\beta}\right)$ is working model for outcome variable, for example in linear regression case we have $$
+m\left(\boldsymbol{x}_i, \boldsymbol{\beta}\right) = \bx_i^{T} \bbeta
+$$ and $$
+\frac{\partial m\left(\boldsymbol{x}_i, \boldsymbol{\beta}\right)}{\partial \bbeta} = \bx_i.
+$$ For complementary log-log model we have $$
+\begin{equation}
+J(\theta, \beta)=\left(\begin{array}{c}
+J_1(\theta, \beta) \\
+J_2(\theta, \beta)
+\end{array}\right)=\left(\begin{array}{c}
+\frac{1}{N} \sum_{i=1}^N R_i^A\left\{\frac{1 - \pi_i^A\left(\bx_i^{\mathrm{T}} \btheta \right)}{\pi_i^A\left(\bx_i^{\mathrm{T}} \btheta \right)^2} \exp(\bx_i^{\mathrm{T}} \btheta)\right\}\left\{y_i-m\left(\bx_i^{\mathrm{T}} \beta\right)\right\} \bx_i \\
+\frac{1}{N} \sum_{i=1}^N\left\{\frac{R_i^A}{\pi_i^A\left(\bx^{\mathrm{T}}\theta\right)}-d_i^B R_i^B\right\} \frac{\partial m\left(\bx_i^{\mathrm{T}} \beta\right)}{\partial \beta}
+\end{array}\right)
+\end{equation}
+$$ and probit model
+
+$$
+\begin{equation}
+J(\theta, \beta)=\left(\begin{array}{c}
+J_1(\theta, \beta) \\
+J_2(\theta, \beta)
+\end{array}\right)=\left(\begin{array}{c}
+\frac{1}{N} \sum_{i=1}^N R_i^A\frac{\dot{\pi_i^A}\left(\bx_i^{\mathrm{T}} \btheta \right)}{\pi_i^A\left(\bx_i^{\mathrm{T}} \btheta \right)^2} \left\{y_i-m\left(\bx_i^{\mathrm{T}} \beta\right)\right\} \bx_i \\
+\frac{1}{N} \sum_{i=1}^N\left\{\frac{R_i^A}{\pi_i^A\left(\bx^{\mathrm{T}}\theta\right)}-d_i^B R_i^B\right\} \frac{\partial m\left(\bx_i^{\mathrm{T}} \beta\right)}{\partial \beta}
+\end{array}\right)
+\end{equation}
+$$
+
+Goal is to solve following system of equations
+$$
+J(\theta, \beta)=\bZero
+$$
+
+## Population mean estimator and its variance
+
+$$
+\begin{equation*}
+    \hat{\mu}_{\mathrm{DR}}=\frac{1}{\hat{N}^{\mathrm{A}}} \sum_{i \in \mathcal{S}_{\mathrm{A}}} d_i^{\mathrm{A}}\left\{y_i-m\left(\boldsymbol{x}_i, \hat{\boldsymbol{\beta}}\right)\right\}+\frac{1}{\hat{N}^{\mathrm{B}}} \sum_{i \in \mathcal{S}_{\mathrm{B}}} d_i^{\mathrm{B}} m\left(\boldsymbol{x}_i, \hat{\boldsymbol{\beta}}\right)
+\end{equation*}
+$$
+Variance of an estimator
+

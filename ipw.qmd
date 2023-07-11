@@ -1,0 +1,210 @@
+{{< include macros.qmd >}}
+
+# Inverse probability weighting
+
+## Motivation and assumptions
+
+Let $\mathcal{U}=\{1,2, \ldots, N\}$ represent the finite population with N units and $\left\{\left(\bx_i, y_i\right), i \in \mathcal{S}_{\mathrm{A}}\right\}$ and $\{\left(\bx_i, d_i^B), i \in \mathcal{S}_{\mathrm{B}}\right\}$ be the datasets from non-probability and probability samples respectively. Following assumptions are required for this model:
+
+1.  The selection indicator $R_i$ and the response variable $y_i$ are independent given the set of covariates $x_i$.
+
+2.  All units have a nonzero propensity score, that is, $\pi_i^A > 0$ for all $i$.
+
+3.  The indicator variables $R_i^A$ and $R_j^A$ are independent for given $x_i$ and $x_j$ for $i \neq j$.
+
+## Maximum likelihood estimation
+
+Suppose that propensity score can be modelled parametrically as $\mathbb{P}\left(R_i=1 \mid \bx_i\right) = \pi(\bx_{i}, \btheta_{0})$. The maximum likelihood estimator is computed as $\hat{\pi}_{i}^{A} = \pi(\bx_{i}, \hat{\btheta}_{0})$, where $\hat{\btheta}_{0}$ is the maximizer of the following log-likelihood function:
+
+$$
+\begin{align}
+    \begin{split}
+ \ell(\boldsymbol{\theta}) & =\sum_{i=1}^N\left\{R_i \log \pi_i^{\mathrm{A}}+\left(1-R_i\right) \log \left(1-\pi_i^{\mathrm{A}}\right)\right\} \\ & =\sum_{i \in \mathcal{S}_{\mathrm{A}}} \log \left\{\frac{\pi\left(\boldsymbol{x}_i, \boldsymbol{\theta}\right)}{1-\pi\left(\boldsymbol{x}_i, \boldsymbol{\theta}\right)}\right\}+\sum_{i=1}^N \log \left\{1-\pi\left(\boldsymbol{x}_i, \boldsymbol{\theta}\right)\right\}
+    \end{split}
+\end{align}
+$$
+
+Since we do not observe $\bx_i$ for all units, Yilin Chen, Pengfei Li & Changbao Wu presented following log-likelihood function is subject to data integration basing on samples $S_A$ and $S_B$. They proposed logistic regression model with $\pi(\bx_{i}, \btheta) = \frac{\exp(\bx_{i}^{\top}\btheta)}{\exp(\bx_{i}^{\top}\btheta) + 1}$ in order to estimate $\btheta$. We expanded this approach on probit regression and complementary log-log model. For the sake of accuracy, let us recall that the probit and cloglog models are based on the assumption that model takes the form $\pi(\bx_{i},\btheta) = \Phi(\bx_{i}^{\top}\btheta)$ and $\pi(\bx_{i}, \btheta) = 1 - \exp(-\exp(\bx_{i}^{\top}\btheta))$ respectively.
+
+$$
+\begin{align}
+    \ell^{*}(\btheta) = \sum_{i \in S_{A}}\log \left\{\frac{\pi(\bx_{i}, \btheta)}{1 - \pi(\bx_{i},\btheta)}\right\} + \sum_{i \in S_{B}}d_{i}^{B}\log\{1 - \pi({\bx_{i},\btheta})\}
+\end{align}
+$$ In the following subsections we present the full derivation of the MLE, depending on the assumed model for the propensity score.
+
+### Logistic regression
+
+Log-likelihood function with logistic regression is given by $$
+\ell^{*}(\btheta) = \sum_{i \in S_A}\bx_{i}^{\top}\btheta - \sum_{i \in S_B}d_{i}^{B}\log\{1 + \exp(\bx_{i}^{\top}\btheta)\}
+$$ with analytical gradient and hessian given by $$
+\frac{\partial \ell^*}{\partial\btheta} = \sum_{i \in S_{A}}\bx_{i} - \sum_{i \in S_{B}}d_{i}^{B}\pi(\bx_{i}, \btheta)\bx_{i}
+$$ and $$
+    \frac{\partial^{2} \ell^{*}}{\partial\btheta^{T} \partial\btheta} =- \sum_{i \in S_B}d_i^B\pi(\bx_i,\btheta)(1 - \pi(\bx_i,\btheta))\bx_i\bx_i^{\top} = \bX_B^{\top}\operatorname{\bW}_{B}\bX_B,
+$$ respectively, where $$
+\begin{align*}
+    \operatorname{\bW}_{B} =
+    diag & \left(-d_1^B\pi(\bx_{1},\btheta)(1 - \pi(\bx_{1},\btheta)), -d_2^B\pi(\bx_{2},\btheta)(1 - \pi(\bx_{2},\btheta)), \right. \\
+     & \left. \ldots, -d_{n_{B}}^{B}\pi(\bx_{n_{B}},\btheta)(1 - \pi(x_{n_{B}},\btheta))\right).
+\end{align*}
+$$
+
+### Complementary log-log regression
+
+Similarly, log-likelihood function has form of
+$$
+\ell^{*}(\btheta) = \sum_{i \in S_{A}}\left\{\log\{1 - \exp(-\exp(\bx_{i}^{\top}\btheta))\} + \exp(\bx_{i}^{\top}\btheta)\right\} - \sum_{i \in S_{B}} d_{i}^{B}\exp(\bx_{i}^{\top}\btheta)
+$$
+with analytical gradient and hessian equal to
+$$
+    \frac{\partial \ell^*}{\partial\btheta} = \sum_{i \in S_{A}}\frac{\exp(\bx_{i}^{\top}\btheta)\bx_{i}}{\pi(\bx_{i}, \btheta)} - \sum_{i \in S_{B}}d_{i}^{B}\exp(\bx_{i}^{T}\btheta)\bx_{i}
+$$ and
+$$
+\begin{align*}
+    \begin{split}
+    \frac{\partial^{2} \ell^{*}}{\partial\btheta^{T} \partial\btheta} & = \sum_{i \in S_A} \frac{\exp(\bx_{i}^{\top}\btheta)}{\pi(\bx_{i}, \btheta)} \left\{1 - \frac{\exp(\bx_{i}^{\top}\btheta)}{\pi(\bx_{i}, \btheta)} + \exp(\bx_{i}^{\top}\btheta)\right\}\bx_i\bx_i^{\top} - \sum_{i \in S_B}d_i^B\exp (\bx_{i}^{\top}\btheta)\bx_i\bx_i^{\top} \\ & = \bX_A^{\top}\operatorname{\bW}_{Ac}\bX_A - \bX_B^{\top}\operatorname{\bW}_{Bc}\bX_B,
+    \end{split}
+\end{align*}
+$$ respectively, where $$
+\begin{align*}
+    \operatorname{\bW}_{Ac} =  diag & \left(\frac{\exp(\bx_{1}^{\top}\btheta)}{\pi(\bx_{1}, \btheta)} \left\{1 - \frac{\exp(\bx_{1}^{\top}\btheta)}{\pi(\bx_{1}, \btheta)} + \exp(\bx_{1}^{\top}\btheta)\right\}, \right.
+    \\
+    & \left. \frac{\exp(\bx_{2}^{\top}\btheta)}{\pi(\bx_{2}, \btheta)} \left\{1 - \frac{\exp(\bx_{2}^{\top}\btheta)}{\pi(\bx_{2}, \btheta)} + \exp(\bx_{2}^{\top}\btheta)\right\}, \right.
+    \\
+    & \left. \ldots, \right.
+    \\ 
+    & \left. \frac{\exp(\bx_{n_A}^{\top}\btheta)} {\pi(\bx_{n_A}, \btheta)} \left\{1 - \frac{\exp(\bx_{n_A}^{\top}\btheta)}{\pi(\bx_{n_A}, \btheta)} + \exp(\bx_{n_A}^{\top}\btheta)\right\} \right)
+\end{align*}
+$$ and $$
+\begin{align*}
+    \operatorname{\bW}_{Bc} = diag \left(d_1^B\exp (\bx_{1}^{\top}\btheta), d_2^B\exp (\bx_{2}^{\top}\btheta), \ldots, d_{n_B}^B\exp (\bx_{n_{B}}^{\top}\btheta)\right).
+\end{align*}
+$$
+
+### Probit regression
+
+For probit model calculations are as follow $$
+\begin{align*}
+    \ell^{*}(\btheta) & = \sum_{i \in S_{A}}\log\left\{\frac{\Phi(\bx_{i}^{\top}\btheta)}{1 - \Phi(\bx_{i}^{\top}\btheta)}\right\} + \sum_{i \in S_{B}}d_{i}^{B}\log\{1 - \Phi(\bx_{i}^{\top}\btheta)\}
+\end{align*}
+$$ with analytical gradient and hessian as
+$$
+\begin{align*}
+        \frac{\partial \ell^*}{\partial\btheta} = \sum_{i \in S_A}\frac{\phi(\bx_i^{\top}\btheta)}{\Phi(\bx_i^{\top}\btheta)(1 - \Phi(\bx_i^{\top}\btheta))}\bx_i - \sum_{i \in S_B}d_i^B\frac{\phi(\bx_i^{\top}\btheta)}{1 - \Phi(\bx_i^{\top}\btheta)}\bx_i
+\end{align*}
+$$
+and 
+$$
+\begin{align*}
+    \begin{split}
+        \frac{\partial^{2} \ell^{*}}{\partial\btheta^{T} \partial\btheta} & = \sum_{i \in S_A}\Bigl\{\frac{\bx_i^{\top}\btheta \phi(\bx_i^{\top}\btheta)}{\Phi(\bx_i^{\top}\btheta)(1 - \Phi(\bx_i^{\top}\btheta))} - \frac{\phi(\bx_i^{\top}\btheta)^2}{\Phi(\bx_i^{\top}\btheta)^2(1 - \Phi(\bx_i^{\top}\btheta))^2} + \frac{2\cdot\phi(\bx_i^{\top}\btheta)^2}{\Phi(\bx_i^{\top}\btheta)(1 - \Phi(\bx_i^{\top}\btheta))^2}\Bigr\}\bx_i\bx_i^{\top} \\ & - \sum_{i \in S_B}d_i^B\Bigl\{\frac{\bx_i^{\top}\btheta \phi(\bx_i^{\top}\btheta)}{1 - \Phi(\bx_i^{\top}\btheta)} + \frac{\phi(\bx_i^{\top}\btheta)^2}{(1 - \Phi(\bx_i^{\top}\btheta))^2}\Bigr\}\bx_i\bx_i^{\top} =     \bX_A^{\top}\operatorname{\bW}_{Ap}\bX_A - \bX_B^{\top}\operatorname{\bW}_{Bp}\bX_B,
+    \end{split}
+\end{align*}
+$$
+where
+$$
+\begin{align*}
+    \operatorname{\bW}_{Ap} =  diag & \left(\Bigl\{\frac{\bx_{1}^{\top}\btheta \phi(\bx_1^{\top}\btheta)}{\Phi(\bx_{1}^{\top}\btheta)(1 - \Phi(\bx_{1}^{\top}\btheta))} - \frac{\phi(\bx_{1}^{\top}\btheta)^2}{\Phi(\bx_{1}^{\top}\btheta)^2(1 - \Phi(\bx_{1}^{\top}\btheta))^2} + \frac{2\cdot\phi(\bx_{1}^{\top}\btheta)^2}{\Phi(\bx_{1}^{\top}\btheta)(1 - \Phi(\bx_{1}^{\top}\btheta))^2}\Bigr\}
+    , \right.
+    \\
+    & \left. \Bigl\{\frac{\bx_{2}^{\top}\btheta \phi(\bx_{2}^{\top}\btheta)}{\Phi(\pmb{x}_{2}^{\top}\btheta)(1 - \Phi(\bx_{2}^{\top}\btheta))} - \frac{\phi(\bx_{2}^{\top}\btheta)^2}{\Phi(\bx_{2}^{\top}\btheta)^2(1 - \Phi(\bx_{2}^{\top}\btheta))^2} + \frac{2\cdot\phi(\bx_{2}^{\top}\btheta)^2}{\Phi(\bx_{2}^{\top}\btheta)(1 - \Phi(\bx_{2}^{\top}\btheta))^2}\Bigr\},
+    \right.
+    \\
+    & \left. \ldots, \right.
+    \\ 
+    & \left. \Bigl\{\frac{\bx_{n_{A}}^{\top}\btheta \phi(\bx_{n_{A}}^{\top}\btheta)}{\Phi(\bx_{n_{A}}^{\top}\btheta)(1 - \Phi(\bx_{n_{A}}^{\top}\btheta))} - \frac{\phi(\bx_{n_{A}}^{\top}\btheta)^2}{\Phi(\bx_{n_{A}}^{\top}\btheta)^2(1 - \Phi(\bx_{n_{A}}^{\top}\btheta))^2} + \frac{2\cdot\phi(\bx_{n_{A}}^{\top}\btheta)^2}{\Phi(\bx_{n_{A}}^{\top}\btheta)(1 - \Phi(\bx_{n_{A}}^{\top}\btheta))^2}\Bigr\}
+    \right)
+\end{align*}
+$$
+and
+$$
+\begin{align*}
+    \operatorname{\bW}_{Bp} = diag & \left(d_1^B\Bigl\{\frac{\bx_{1}^{\top}\btheta \phi(\bx_{1}^{\top}\btheta)}{1 - \Phi(\bx_{1}^{\top}\btheta)} - \frac{\phi(\bx_{1}^{\top}\btheta)^2}{(1 - \Phi(\bx_{1}^{\top}\btheta))^2}\Bigr\}, \right.
+    \\
+    & 
+    \left. d_2^B\Bigl\{\frac{\bx_{2}^{\top}\btheta \phi(\bx_{2}^{\top}\btheta)}{1 - \Phi(\bx_{2}^{\top}\btheta)} - \frac{\phi(\bx_{2}^{\top}\btheta)^2}{(1 - \Phi(\bx_{2}^{\top}\btheta))^2}\Bigr\}, \right.
+    \\
+    & \left. \ldots, \right.
+    \\
+    & \left. d_{n_{B}}^B\Bigl\{\frac{\bx_{n_{B}}^{\top}\btheta \phi(\bx_{n_{B}}^{\top}\btheta)}{1 - \Phi(\bx_{n_{B}}^{\top}\btheta)} - \frac{\phi(\bx_{n_{B}}^{\top}\btheta)^2}{(1 - \Phi(\bx_{n_{B}}^{\top}\btheta))^2}\Bigr\}\right).
+\end{align*}
+$$
+respectively.
+$\hat{\btheta}$ can be found by using the following Netwon-Raphson's iterative method:
+$$
+\btheta^{(m)} = \btheta^{(m-1)} - \{H(\btheta^{(m-1)}\}^{-1}U(\btheta^{(m-1})),
+$$ where $\operatorname{H}$ - hessian, $\operatorname{U}$ - gradient.
+
+## General estimating equations
+
+The pseudo score equations derived from Maximum Likelihood Estimation methods may be replaced by a system of general estimating equations. Let $\operatorname{h}\left(\bx\right)$ be the smooth function and $$
+\begin{equation}
+\mathbf{U}(\btheta)=\sum_{i \in S_A} \mathbf{h}\left(\mathbf{x}_i, \btheta\right)-\sum_{i \in S_B} d_i^B \pi\left(\mathbf{x}_i, \btheta\right) \mathbf{h}\left(\mathbf{x}_i, \btheta\right).
+\end{equation}
+$$ Under $\operatorname{h}\left(\bx_i\right) = \bx_i$ and logistic model for propensity score, Equation (2.1) looks like disorted version of the score equation from MLE method. Then $$
+\begin{align*}
+    \mathbf{U}(\btheta)=\sum_{i \in S_A} \bx_i -\sum_{i \in S_B} d_i^B \pi\left(\mathbf{x}_i, \btheta\right) \bx_i.
+\end{align*}
+$$ and analytical Jacobian is given by $$
+\begin{align*} 
+\frac{\partial \mathbf{U}}{\partial\btheta} = - \sum_{i \in S_B} d_i^B \pi_i^A\left(\bx_i^{\mathrm{T}} \btheta \right) \left(1 -  \pi_i^A\left(\bx_i^{\mathrm{T}} \btheta \right)\right)\bx_i \bx_i^{\mathrm{T}}.
+\end{align*}
+$$ The second proposed of the smooth function in the literature is $\operatorname{h}\left(\bx_i\right) = \bx_i \pi_i^A\left(\bx_i^{\mathrm{T}} \btheta \right)^{-1}$, for which the $\operatorname{U}$-function takes the following form $$
+\begin{align}
+    \mathbf{U}(\btheta)=\sum_{i \in S_A}  \bx_i \pi_i^A\left(\bx_i^{\mathrm{T}} \btheta \right)^{-1} -\sum_{i \in S_B} d_i^B \bx_i.
+\end{align}
+$$ Generally, the goal is to find solution for following system of equations $$
+\begin{equation*}
+    \sum_{i \in S_A} \mathbf{h}\left(\mathbf{x}_i, \btheta\right) = \sum_{i \in S_B} d_i^B \pi\left(\mathbf{x}_i, \btheta\right) \mathbf{h}\left(\mathbf{x}_i, \btheta\right)
+\end{equation*}
+$$ In total, we have six models for this estimation method depending on the $\operatorname{h}$-function and the way propensity score is parameterized. Let us present all of them.
+
+### Logistic regression
+
+As the one model for logistic regression is presented above, we have equation under $\operatorname{h}\left(\bx_i\right) = \bx_i \pi_i^A\left(\bx_i^{\mathrm{T}} \btheta \right)^{-1}$ to consider. Analytical jacobian is given by $$
+\begin{align*}
+    \frac{\partial \operatorname{U}(\btheta)}{\partial \btheta} = -\sum_{i \in S_A} \frac{1 - \pi_i^A\left(\bx_i^{\mathrm{T}} \btheta \right)}{\pi_i^A\left(\bx_i^{\mathrm{T}} \btheta \right)} \bx_i \bx_i^{\mathrm{T}}.
+\end{align*}
+$$
+
+### Complementary log-log regression
+
+For $\operatorname{h}\left(\bx_i\right) = \bx_i \pi_i^A\left(\bx_i^{\mathrm{T}} \btheta \right)^{-1}$ analytical jacobian is given by $$
+\begin{align*}
+    \frac{\partial \operatorname{U}(\btheta)}{\partial \btheta} = - \sum_{i \in S_A} \frac{1 - \pi_i^A\left(\bx_i^{\mathrm{T}} \btheta \right)}{\pi_i^A\left(\bx_i^{\mathrm{T}} \btheta \right)^2} \exp(\bx_i^{\mathrm{T}} \btheta) \bx_i \bx_i^{\mathrm{T}}
+\end{align*}
+$$ and $\operatorname{h}\left(\bx_i\right) = \bx_i$ we have
+$$
+\begin{align*}
+    \frac{\partial \operatorname{U}(\btheta)}{\partial \btheta} = - \sum_{i \in S_B} \frac{1 - \pi_i^A\left(\bx_i^{\mathrm{T}} \btheta \right)}{\pi_i^B} \exp \left(\bx_i^\mathrm{T} \btheta\right) \bx_i \bx_i^{\mathrm{T}}.
+\end{align*}
+$$
+
+### Probit regression
+
+Similarly, for the probit model, under $\operatorname{h}\left(\bx_i\right) = \bx_i \pi_i^A\left(\bx_i^{\mathrm{T}} \btheta \right)^{-1}$ analyical jacobian is given by
+$$
+\begin{align*}
+    \frac{\partial \operatorname{U}(\btheta)}{\partial \btheta} = - \sum_{i \in S_A} \frac{\dot{\pi}_i^A\left(\bx_i^{\mathrm{T}} \btheta \right)}{\pi_i^A\left(\bx_i^{\mathrm{T}} \btheta \right)^2} \bx_i \bx_i^{\mathrm{T}}
+\end{align*}
+$$ and under $\operatorname{h}\left(\bx_i\right) = \bx_i$ we have
+
+$$
+\begin{align*}
+    \frac{\partial \operatorname{U}(\partial \btheta)}{\btheta} = - \sum_{i \in S_B} \frac{\dot{\pi}_i^A\left(\bx_i^{\mathrm{T}} \btheta \right)}{\pi_i^B} \bx_i \bx_i^{\mathrm{T}}.
+\end{align*}
+$$
+
+## Population mean estimator and its properties
+
+$$
+\begin{equation*}
+    \hat{\mu}_{IPW1} = \frac{1}{N} \sum_{i \in S_A} \frac{y_i}{\hat{\pi}_i^{A}}
+\end{equation*}
+$$
+
+$$
+\begin{equation*}
+    \hat{\mu}_{IPW2} = \frac{1}{\hat{N}^{A}} \sum_{i \in S_A} \frac{y_i}{\hat{\pi}_i^{A}},
+\end{equation*}
+$$
+Variance of an estimator
