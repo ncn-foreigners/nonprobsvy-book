@@ -1,6 +1,6 @@
-{{< include macros.qmd >}}
-
 # Doubly robust methods
+
+The IPW and MI estimators are sensible on misspecified models for propensity score and outcome variable respectively. For this purpose so called doubly-robust methoods, which take into account these problems, are presented. It is quite simple idea of combination propensity score and imputation models during inference, but in the first part of this chapter we present model which is based directly on the DR estimator. 
 
 ## Bias minimization technique
 
@@ -58,10 +58,42 @@ Goal is to solve following system of equations $$
 J(\theta, \beta)=\bZero
 $$
 
-## Population mean estimator and its variance
+## Population mean estimator and its properties
 
 $$
 \begin{equation*}
-    \hat{\mu}_{\mathrm{DR}}=\frac{1}{\hat{N}^{\mathrm{A}}} \sum_{i \in \mathcal{S}_{\mathrm{A}}} d_i^{\mathrm{A}}\left\{y_i-m\left(\boldsymbol{x}_i, \hat{\boldsymbol{\beta}}\right)\right\}+\frac{1}{\hat{N}^{\mathrm{B}}} \sum_{i \in \mathcal{S}_{\mathrm{B}}} d_i^{\mathrm{B}} m\left(\boldsymbol{x}_i, \hat{\boldsymbol{\beta}}\right)
+    \hat{\mu}_{\mathrm{DR}}=\frac{1}{\hat{N}^{\mathrm{A}}} \sum_{i \in \mathcal{S}_{\mathrm{A}}} d_i^{\mathrm{A}}\left\{y_i-m\left(\boldsymbol{x}_i, \hat{\boldsymbol{\beta}}\right)\right\}+\frac{1}{\hat{N}^{\mathrm{B}}} \sum_{i \in \mathcal{S}_{\mathrm{B}}} d_i^{\mathrm{B}} m\left(\boldsymbol{x}_i, \hat{\boldsymbol{\beta}}\right),
 \end{equation*}
-$$ Variance of an estimator
+$$ where $d_i^A = \pi \left(\bx_i, \btheta\right)^{-1}$, $\hat{N}^A = \sum_{i \in S_A} d_i^A$ and $\hat{N}^B = \sum_{i \in S_B} d_i^B$. We will first show how to obtain the variance of the derived estimator using separate procedures for propensity score and mass imputation (for example MLE and linear regression), and then variance derived from bias minimization technique for estimation.
+
+It can be shown that parameters $\bbeta$ have no impact on asymptotic variance of $\hat{\mu}_{DR}$. Let's assume that $\hat{\bbeta} - \bbeta^* = O_p(n_A^{-1/2})$ for some fixed $\bbeta^*$. Notice that the first part of DR estimator is the $\mu_{IPW2}$ estimator with $y_i$ replaced by $y_i - \operatorname{m}\left(\bx_i,\bbeta^*\right)$. Using the asymptotic expansions developed for $\mu_{IPW2}$ and logistic regression model for propensity score we have $$
+\begin{equation}
+\begin{aligned}
+\frac{1}{\hat{N}^A} \sum_{i=1}^N \frac{R_i\left\{y_i-m\left(\boldsymbol{x}_i, \boldsymbol{\beta}^*\right)\right\}}{\hat{\pi}_i^A}= & h_N+\frac{1}{N} \sum_{i=1}^N R_i\left\{\frac{y_i-m\left(\boldsymbol{x}_i, \boldsymbol{\beta}^*\right)-h_N}{\pi_i^A}-\mathbf{b}_3^{\top} \boldsymbol{x}_i\right\} \\
+& +\mathbf{b}^{\top} \frac{1}{N} \sum_{i \in \mathcal{S}_B} d_i^B \pi_i^A \boldsymbol{x}_i+o_p\left(n_A^{-1 / 2}\right),
+\end{aligned}
+\end{equation}
+$$ where $h_N=N^{-1} \sum_{i=1}^N\left\{y_i-m\left(\boldsymbol{x}_i, \boldsymbol{\beta}^*\right)\right\}$ and
+
+$$
+\mathbf{b}^{\top}=\left[\frac{1}{N} \sum_{i=1}^N\left(1-\pi_i^A\right)\left\{y_i-m\left(\boldsymbol{x}_i, \boldsymbol{\beta}^*\right)-h_N\right\} \boldsymbol{x}_i^{\top}\right]\left\{\frac{1}{N} \sum_{i=1}^N \pi_i^A\left(1-\pi_i^A\right) \boldsymbol{x}_i \boldsymbol{x}_i^{\top}\right\}^{-1}
+$$ The second part of the estimator has the following expansion $$
+\frac{1}{\hat{N}^B} \sum_{i \in \mathcal{S}_B} d_i^B m\left(\bx_i,\bbeta^*\right)=\frac{1}{N} \sum_{i=1}^N m\left(\bx_i,\bbeta^*\right)+\frac{1}{N} \sum_{i \in \mathcal{S}_B} d_i^B\left\{m\left(\bx_i,\bbeta^*\right)-\frac{1}{N} \sum_{i=1}^N m_i\right\}+O_p\left(n_B^{-1}\right)
+$$ Further, putting these two parts together, we have $$
+\hat{\mu}_{D R 2}-\mu_y=\frac{1}{N} \sum_{i=1}^N R_i\left\{\frac{y_i-m\left(\boldsymbol{x}_i, \boldsymbol{\beta}^*\right)-h_N}{\pi_i^A}-\mathbf{b}_3^{\top} \boldsymbol{x}_i\right\}+\frac{1}{N} \sum_{i \in \mathcal{S}_B} d_i^B t_i+o_p\left(n_A^{-1 / 2}\right),
+$$ where $t_i=\pi_i^A \boldsymbol{x}_i^{\top} \mathbf{b}_3+m\left(\boldsymbol{x}_i, \boldsymbol{\beta}^*\right)-N^{-1} \sum_{i=1}^N m\left(\boldsymbol{x}_i, \boldsymbol{\beta}^*\right)$. Finally $$
+\begin{gathered} \text{var}(\hat{\mu}_{DR}) =
+\frac{1}{N^2} \sum_{i=1}^N\left(1-\pi_i^{\mathrm{A}}\right) \pi_i^{\mathrm{A}}\left[\left\{y_i-m\left(\boldsymbol{x}_i, \boldsymbol{\beta}^*\right)-h_{\mathrm{N}}\right\} /\right. \\
+\left.\pi_i^{\mathrm{A}}-\mathbf{b}_3^{\top} \boldsymbol{x}_i\right]^2+W,
+\end{gathered}
+$$ where $W = N^{-2} \text{var}_p\left(\sum_{i \in \mathcal{S}_{\mathrm{B}}} d_i^{\mathrm{B}} t_i\right)$.
+
+When model is obtained by using systems of equations derived from bias minimization technique. We have variance decomposition on probability and nonprobability part, where $$
+\text{var}_B = \mathbb{E} \left\{\frac{1}{N^2} \sum_{i \in \mathcal{S}_{\mathrm{B}}} \sum_{j \in \mathcal{S}_{\mathrm{B}}} \frac{\pi_{i j}^{\mathrm{B}}-\pi_i^{\mathrm{B}} \pi_j^{\mathrm{B}}}{\pi_{i j}^{\mathrm{B}}} d_i^B m\left(\boldsymbol{x}_i, \bbeta^*\right) d_j^B m\left(\boldsymbol{x}_j, \bbeta^*\right) \right\}
+$$ which can be estimated by $$
+\hat{\text{var}}_B = \frac{1}{N^2} \sum_{i \in \mathcal{S}_{\mathrm{B}}} \sum_{j \in \mathcal{S}_{\mathrm{B}}} \frac{\pi_{i j}^{\mathrm{B}}-\pi_i^{\mathrm{B}} \pi_j^{\mathrm{B}}}{\pi_{i j}^{\mathrm{B}}} d_i^B m\left(\boldsymbol{x}_i, \hat{\bbeta}\right) d_j^B m\left(\boldsymbol{x}_j, \hat{\bbeta}\right)
+$$ For non-probability part we have $$
+\text{var}_A = \frac{1}{N^2} \sum_{i=1}^N \mathbb{E} \left[R_i^A \left\{ \frac{1 - 2 \pi_i^A}{\left( \pi_i^A \right) ^2} \right\} \sigma_i^2 + \sigma_i^2 \right]
+$$ what can be estimated by $$
+\hat{\text{var}}_A = \frac{1}{N^2} \sum_{i=1}^N R_i^A \left\{ \frac{1 - 2 \hat{\pi}_i^A}{\left( \hat{\pi}_i^A \right) ^2} \right\} \hat{\sigma}_i^2 + \sum_{i \in S_B} d_i^B \hat{\sigma}_i^2,
+$$ where $\hat{\sigma}_i^2$ is consistent estimator of $\sigma_i^2 = \text{var}\left(y_i \mid \bx_i\right)$.

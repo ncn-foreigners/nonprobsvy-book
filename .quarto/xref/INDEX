@@ -1,18 +1,22 @@
 {
   "index.qmd": {
-    "index.html": "0139c33a"
+    "index.html": "0139c33a",
+    "index.tex": "072a6868"
   },
   "intro.qmd": {
-    "intro.html": "f31851bd"
+    "intro.html": "f31851bd",
+    "intro.tex": "38795db1"
   },
   "summary.qmd": {
-    "summary.html": "a46d8584"
+    "summary.html": "a46d8584",
+    "summary.tex": "a7d891a6"
   },
   "references.qmd": {
     "references.html": "7207ce68"
   },
   "ipw.qmd": {
-    "ipw.html": "d3997bcf"
+    "ipw.html": "d3997bcf",
+    "ipw.tex": "2acccbc0"
   },
   "mi.qmd": {
     "mi.html": "e8bc259c"
@@ -22,5 +26,11 @@
   },
   "variableselection.qmd": {
     "variableselection.html": "f30f80c4"
+  },
+  "appendix.qmd": {
+    "appendix.html": "ce81aab4"
+  },
+  "macros.qmd": {
+    "macros.html": "d7d45e87"
   }
 }

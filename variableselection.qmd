@@ -1,6 +1,10 @@
-{{< include macros.qmd >}}
-
 # Techniques of variables selection for high-dimensional data
+
+## Motivation
+
+In the presence of high-dimensional data, variable selection is important, because it can reduce variablity in estimation resulting from using irrelevant variables for model building. There is a considerable body of literature on variable selection, but little about techniques for data integration that can successfully recognize the strengths and the limitations of each source of data. The selection of variables is the basis of a two-step approach to estimation, where in first one we select important variables and in the second one re-estimate model. For the first step it is proposed penalized logistic regression model for propensity score estimation (Yang et al, 2020), but we expand this approach on complementary log-log and probit models. For a mass imputation based on a parametric model it is considered penalized OLS (Ordinary least squared) method. It is worth mentioning that Yang, Kim and Rui (2020), in their article on this topic, used the SCAD (Smoothly Clipped Absolute Deviation) penalization, but one can uses LASSO (Least Absolute Shrinkage and Selection Operator) and MCP (Minimax Concave Penalty) techniques as well, what will be considered in the next subsection. 
+
+## Existed techniques
 
 Let $\operatorname{U}\left(\btheta, \bbeta\right)$ be the join estimating function for $\left(\btheta, \bbeta\right)$. When p is large, we consider the penalized estimating functions for $\left(\btheta, \bbeta\right)$ as
 
@@ -11,17 +15,20 @@ q_{\lambda_\beta}(|\bbeta|) \operatorname{sgn}(\bbeta)
 \end{array}\right),
 $$ where $q_{\lambda_{\theta}}$ and $q_{\lambda_{\beta}}$ are some smooth functions. We let $q_{\lambda}\left(x\right) = \frac{\partial p_{\lambda}}{\partial x}$, where $p_{\lambda}$ is some penalization function.
 
-## LASSO
+Before the full performance of the estimation model with variable selection it is recommended to explain penalization techniques. We focus on proposed function and its derivative, which are particularly crucial. After that we mark some important similarities and differences between these methods. 
 
+### LASSO
+
+It is probably the most popular method for variable selection, which is also known as L1 regularization. 
 $$
 p_{\lambda}(x) = \lambda |x|
 $$ and its derivative
 
 $$
-p_{\lambda}(x)= \begin{cases} - \lambda & \text { if }x < 0, \\ \left[-\lambda, \lambda\right] & \text { if } x = 0 \\ \lambda & \text { if }x > 0\end{cases}
+q_{\lambda}(x)= \begin{cases} - \lambda & \text { if }x < 0, \\ \left[-\lambda, \lambda\right] & \text { if } x = 0 \\ \lambda & \text { if }x > 0\end{cases}
 $$
 
-## SCAD
+### SCAD
 
 $$
 p_{\lambda}(x ; \gamma)= \begin{cases}\lambda|x| & \text { if }|x| \leq \lambda, \\ \frac{2 \gamma \lambda|x|-x^2-\lambda^2}{2(\gamma-1)} & \text { if } \lambda<|x|<\gamma \lambda \\ \frac{\lambda^2(\gamma+1)}{2} & \text { if }|x| \geq \gamma \lambda\end{cases}
@@ -29,7 +36,7 @@ $$ and derivative is $$
 q_{\lambda}(x ;  \gamma)= \begin{cases}\lambda & \text { if }|x| \leq \lambda \\ \frac{\gamma \lambda-|x|}{\gamma-1} & \text { if } \lambda<|x|<\gamma \lambda \\ 0 & \text { if }|x| \geq \gamma \lambda\end{cases}
 $$
 
-## MCP
+### MCP
 
 $$
 p_{\lambda}(x ; \gamma)= \begin{cases}\lambda|x|-\frac{x^2}{2 \gamma}, & \text { if }|x| \leq \gamma \lambda \\ \frac{1}{2} \gamma \lambda^2, & \text { if }|x|>\gamma \lambda\end{cases}
@@ -68,4 +75,4 @@ $$
 
 $$
 \operatorname{Loss}\left(\lambda_\beta\right)=\sum_{i=1}^N R_i^A\left[y_i-m\left\{\bx_i^{\mathrm{T}} \hat{\beta}\left(\lambda_\beta\right)\right\}\right]^2,
-$$ where $\hat{\theta}\left(\lambda_\theta\right)$ and $\hat{\beta}\left(\lambda_\beta\right)$ are penalized estimators with tuning parameters $\lambda_\theta$, $\lambda_\beta$ for selection and outcome model respectively.
+$$ where $\hat{\theta}\left(\lambda_\theta\right)$ and $\hat{\beta}\left(\lambda_\beta\right)$ are penalized estimators with tuning parameters $\lambda_\theta$, $\lambda_\beta$ for selection and outcome model respectively. For estimation we consider only the union of covariates $\bX_C$, where $C = \hat{M}_{\theta} + \hat{M}_{\beta}$ and $\hat{M}_{\theta} = \left\{j: \hat{\theta}_j \ne 0\right\}$ and $\hat{M}_{\beta} = \left\{j: \hat{\beta}_j \ne 0\right\}$. In short, we estimate only on truly important variables for selection and outcome models.

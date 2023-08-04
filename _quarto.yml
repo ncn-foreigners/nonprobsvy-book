@@ -1,5 +1,6 @@
 project:
   type: book
+  output-dir: docs
 
 book:
   title: "Modern inference methods for non-probability samples with R"
@@ -13,15 +14,20 @@ book:
     - dr.qmd
     - variableselection.qmd
     - summary.qmd
+    - appendix.qmd
     - references.qmd
 
 bibliography: references.bib
 
+
 format:
   html:
+    include-in-header:
+     - file: macros.html
     theme: cosmo
+    fontsize: 0.9em
+    linestretch: 1.5
   pdf:
     documentclass: scrreprt
 
 editor: visual
-

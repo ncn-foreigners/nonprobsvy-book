@@ -1,3 +1,12 @@
+---
+format:
+  html:
+    theme: cosmo
+    fontsize: 0.9em
+    linestretch: 1.5
+---
+
+::: hidden
 $$
 \newcommand{\bSigma}{\boldsymbol{\Sigma}}
 \newcommand{\bOmega}{\boldsymbol{\Omega}}
@@ -41,3 +50,4 @@ $$
 \newcommand{\bZero}{\boldsymbol{0}}
 \newcommand{\bOne}{\boldsymbol{1}}
 $$
+:::

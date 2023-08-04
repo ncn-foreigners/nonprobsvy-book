@@ -1,0 +1,291 @@
+{{< include macros.qmd >}}
+
+# Appendices
+
+## IPW estimator variance
+
+Similarly as in second chapter wi will derive variance of an IPW estimator, but this time we will consider all of the other models for propensity score. In the first part we expand Taylor approximation for MLE model with complementary log-log and probit regression for propensity score. In the next part we this approach for variance estimation in GEE models.
+
+### MLE (complementary log-log model)
+
+Recall that we have following system of equation to solve for cloglog model with corresponding objective function (gradient).
+
+$$
+\begin{equation*}
+\boldsymbol{\Phi}_n(\boldsymbol{\eta})=\left(\begin{array}{c}
+\frac{1}{N} \sum_{i=1}^N\left[\frac{R_i\left(y_i-\mu\right)}{\pi_i^A}+\Delta \frac{R_i-\pi_i^A}{\pi_i^A}\right] \\
+\frac{1}{N}\sum_{i=1}^N R_i \frac{\exp(\bx_{i}^{\top}\btheta)\bx_{i}}{\pi(\bx_{i}, \btheta)} - \sum_{i \in S_{B}}d_{i}^{B}\exp(\bx_{i}^{T}\btheta)\bx_{i}
+\end{array}\right) = \bZero
+\end{equation*}
+$$ for which derivative along $\boldsymbol{\eta}$ is
+
+$$
+\begin{equation*}
+\phi_n(\boldsymbol{\eta})=\frac{1}{N}\left(\begin{array}{cc}
+-\sum_{i=1}^N\left\{\left(1-\frac{\Delta}{\mu}\right) \frac{R_i}{\pi_i^A}+\frac{\Delta}{\mu}\right\} & \sum_{i=1}^N \frac{R_i\left(y_i-\mu + \Delta\right)\left(1 - \pi_i^A\right)\log \left(1 - \pi_i^A\right)}{\left(\pi_i^A\right)^2} \boldsymbol{x}_i^{\top} \\
+\mathbf{0} & \operatorname{H}(\btheta)
+\end{array}\right),
+\end{equation*}
+$$ where $\operatorname{H}$ is hessian in point $\btheta$. We can show that $$
+\begin{equation*}
+\left[E(\phi_n(\boldsymbol{\eta}))\right]^{-1}=\left(\begin{array}{cc}
+-1 & \mathbf{b}^T \\
+\mathbf{0} & \left[\frac{1}{N}\operatorname{E}\left(\operatorname{H}(\btheta)\right)\right]^{-1}
+\end{array}\right),
+\end{equation*}
+$$ where $$
+\mathbf{b}^{\top} = \sum_{i=1}^N \frac{1-\pi_i^A}{\pi_i^A} \log \left(1 - \pi_i^A\right) \left(y_i - \mu_y + \Delta\right) \bx_i^{\top}\left[\operatorname{E}\left(\operatorname{H} (\btheta)\right)\right]^{-1}.
+$$ Decomposition for this model has following form
+
+$$
+\begin{equation*}
+    \operatorname{\bA_1} = \frac{1}{N} \sum_{i=1}^N
+    \left(\begin{array}{c}
+        \frac{R_i\left(y_i - \mu\right)}{\pi_i^A} + \Delta\frac{R_i - \pi_i^A}{\pi_i^A}  \\
+       \pi_i^A \frac{\log\left(1 - \pi_i^A\right)}{\pi_i^A} \bx_i -  R_i \frac{\log\left(1 - \pi_i^A\right)}{\pi_i^A} \bx_i
+    \end{array}\right)
+\end{equation*}
+$$ and $$
+\begin{equation*}
+    \operatorname{\bA_2} = \frac{1}{N} 
+    \left(\begin{array}{c}
+        0  \\
+        \sum_{i \in \mathcal{S}_B} d_i^B \log \left(1 - \pi_i^A\right) \bx_i - \sum_{i=1}^N \pi_i^A  \frac{\log \left(1 - \pi_i^A\right)}{\pi_i^A} \bx_i
+    \end{array}\right)
+\end{equation*}
+$$ and respectively $$
+\begin{equation*}
+\operatorname{Var}\left(\bA_1\right) = \frac{1}{N^2} \sum_{i=1}^N
+\left(\begin{array}{cc}
+    \left(y_i - \mu + \Delta\right)^2 \left((\pi_i^A)^{-1} - 1\right)  & - \frac{\left(1 - \pi_i^A\right)}{\pi_i^A} \log\left(1 - \pi_i^A\right)\left(y_i - \mu + \Delta\right)\bx_i^{\top}  \\
+    - \frac{\left(1 - \pi_i^A\right)}{\pi_i^A} \log\left(1 - \pi_i^A\right)\left(y_i - \mu + \Delta\right)\bx_i
+    & \frac{\left(1 - \pi_i^A\right) \log^2\left(1 - \pi_i^A\right)}{\pi_i^A} \bx_i \bx_i^{\top}
+\end{array}\right)
+\end{equation*}
+$$ $$
+\begin{equation*}
+\operatorname{Var}\left(\bA_2\right) = 
+\left(\begin{array}{cc}
+     0 & \boldsymbol{0}^{\top} \\
+     \boldsymbol{0} & \bD 
+\end{array}\right),
+\end{equation*}
+$$ where $$
+\begin{align}
+    \bD = \frac{1}{N^2}V_p\left(\sum_{i \in \mathcal{S}_B} d_i^B \log \left(1 - \pi_i^A\right) \bx_i\right) 
+\end{align}
+$$ is variance-covariance matrix for sampling design for $S_B$ and can be estimated as ...
+
+### MLE (probit model)
+
+From the model for probit regression we have following system to solve $$
+\begin{equation} 
+\boldsymbol{\Phi}_n(\boldsymbol{\eta})=\left(\begin{array}{c}
+\frac{1}{N} \sum_{i=1}^N\left[\frac{R_i\left(y_i-\mu\right)}{\pi_i^A}+\Delta \frac{R_i-\pi_i^A}{\pi_i^A}\right] \\
+\frac{1}{N} \sum_{i=1}^N R_i \frac{\dot{\pi}_i^A}{\pi_i^A\left(1 - \pi_{i}^A\right)} \boldsymbol{x}_i-\frac{1}{N} \sum_{i \in \mathcal{S}_B} d_i^B \frac{\dot{\pi}_i^A}{1 - \pi_i^A} \boldsymbol{x}_i
+\end{array}\right)=\mathbf{0},
+\end{equation}
+$$ AS before we have to derive $\boldsymbol{\phi}_n(\boldsymbol{\eta})=\partial \boldsymbol{\Phi}_n(\boldsymbol{\eta}) / \partial \boldsymbol{\eta}$ and find decomposition of $\boldsymbol{\phi}_n(\boldsymbol{\eta})$ and its variance-covariance matrices. Thus, we have $$
+\begin{equation*}
+\phi_n(\boldsymbol{\eta})=\frac{1}{N}\left(\begin{array}{cc}
+-\sum_{i=1}^N\left\{\left(1-\frac{\Delta}{\mu}\right) \frac{R_i}{\pi_i^A}+\frac{\Delta}{\mu}\right\} & -\sum_{i=1}^N \frac{R_i\left(y_i-\mu + \frac{\Delta}{\mu}\right)\dot{\pi}_i^A}{\left(\pi_i^A\right)^2} \boldsymbol{x}_i^{\top} \\
+\mathbf{0} & \operatorname{H}(\btheta)
+\end{array}\right).
+\end{equation*}
+$$ where $\operatorname{H}$ is hessian corresponding to set of parameters $\btheta$. We can show that $$
+\begin{equation*}
+\left[E(\phi_n(\boldsymbol{\eta}))\right]^{-1}=\left(\begin{array}{cc}
+-1 & \mathbf{b}^T\\
+\mathbf{0} & \left[\frac{1}{N}\operatorname{E}\left(\operatorname{H}(\btheta)\right)\right]^{-1}
+\end{array}\right),
+\end{equation*}
+$$ where $$
+\mathbf{b}^T = - \sum_{i=1}^N \frac{\left(y_i-\mu + \frac{\Delta}{\mu}\right)\dot{\pi}_i^A}{\pi_i^A}\boldsymbol{x}_i^{\top}\left[\operatorname{E}\left(\operatorname{H}(\btheta)\right)\right]^{-1}
+$$ and by the decomposition of $\Phi_n(\boldsymbol{\eta})$ we get $$
+\begin{equation*}
+    \operatorname{\bA_1} = \frac{1}{N} \sum_{i=1}^N
+    \left(\begin{array}{c}
+        \frac{R_i\left(y_i - \mu\right)}{\pi_i^A} + \Delta\frac{R_i - \pi_i^A}{\pi_i^A}  \\
+         R_i\frac{\dot{\pi}_i^A}{\pi_i^A\left(1 - \pi_i^A\right)} \bx_i - \pi_i^A \frac{\dot{\pi_i^A}}{\pi_i^A \left(1 - \pi_i^A\right)} \bx_i
+    \end{array}\right)
+\end{equation*}
+$$ and $$
+\begin{equation*}
+    \operatorname{\bA_2} = \frac{1}{N} 
+    \left(\begin{array}{c}
+        0  \\
+        \sum_{i=1}^N \pi_i^A \frac{\dot{\pi_i^A}}{\pi_i^A\left(1 - \pi_i^A\right)} - \sum_{i \in S_B} d_i^B\frac{\dot{\pi}_i^A}{1 - \pi_i^A} \bx_i
+    \end{array}\right)
+\end{equation*}
+$$ with following variance-covariance matrices $$
+\begin{equation*}
+\operatorname{Var}\left(\bA_1\right) = \frac{1}{N^2} \sum_{i=1}^N
+\left(\begin{array}{cc}
+     \left(y_i - \mu + \Delta\right)^2 \left((\pi_i^A)^{-1} - 1\right) &     \frac{\dot{\pi}_i^A\left(y_i - \mu + \Delta\right)}{\pi_i^A}\bx_{i}^{\top}  \\
+    \frac{\dot{\pi}_i^A\left(y_i - \mu + \Delta\right)}{\pi_i^A}\bx_{i} & \frac{\dot{\pi}_i^A}{\pi_i^A\left(1 - \pi_i^A\right)}\bx_i\bx_i^{\top} 
+\end{array}\right)
+\end{equation*}
+$$ and $$
+\begin{equation*}
+\operatorname{Var}\left(\bA_2\right) = 
+\left(\begin{array}{cc}
+     0 & \boldsymbol{0}^{\top} \\
+     \boldsymbol{0} & \bD 
+\end{array}\right),
+\end{equation*}
+$$ where $$
+\begin{align} 
+    \bD = \frac{1}{N^2}V_p\left(\sum_{i \in S_B} d_i^B \frac{\dot{\pi}_i^A}{1 - \pi_i^A}\bx_i\right)
+\end{align}
+$$ is variance covariance matrix corresponding to probability sample.
+
+### GEE
+
+For generalized estimating equations we have following system of equations to consider $$
+\begin{equation}
+\boldsymbol{\Phi}_n(\boldsymbol{\eta})=\left(\begin{array}{c}
+\frac{1}{N} \sum_{i=1}^N\left[\frac{R_i\left(y_i-\mu\right)}{\pi_i^A}+\Delta \frac{R_i-\pi_i^A}{\pi_i^A}\right] \\
+\frac{1}{N} \sum_{i=1}^N R_i \operatorname{h}\left(\bx_i\right)-\frac{1}{N} \sum_{i \in \mathcal{S}_B} d_i^B \pi_i^A \operatorname{h}\left(\bx_i\right)
+\end{array}\right)=\mathbf{0}
+\end{equation}
+$$ We have following decomposition of $\boldsymbol{\Phi}_n(\boldsymbol{\eta})$ for this approach $$
+\begin{equation}
+\mathbf{A}_1=\frac{1}{N} \sum_{i=1}^N\left(\begin{array}{c}
+\frac{R_i\left(y_i-\mu\right)}{\pi_i^A}+\Delta \frac{R_i-\pi_i^A}{\pi_i^A} \\
+R_i \operatorname{h}\left(\bx_i\right)
+\end{array}\right), \quad \mathbf{A}_2=\frac{1}{N}\left(\begin{array}{c}
+0 \\
+- \sum_{i \in S_B} d_i^B \pi_i^A \operatorname{h}\left(\bx_i\right)
+\end{array}\right)
+\end{equation}
+$$ It can be shown that\
+1. for $\operatorname{h}\left(\bx_i\right) = \bx_i$
+
+$$
+\mathbf{V}_1=\frac{1}{N^2} \sum_{i=1}^N\left(\begin{array}{cc}
+\left\{\left(1-\pi_i^A\right) / \pi_i^A\right\}\left(y_i-\mu+\Delta\right)^2 & \left(1-\pi_i^A\right)\left(y_i-\mu+\Delta\right) \boldsymbol{x}_i^{\top} \\
+\left(1-\pi_i^A\right)\left(y_i-\mu+\Delta\right) \boldsymbol{x}_i & \pi_i^A\left(1-\pi_i^A\right) \boldsymbol{x}_i \boldsymbol{x}_i^{\top}
+\end{array}\right)
+$$ and $$
+\mathbf{V}_2=\left(\begin{array}{cc}
+0 & \mathbf{0}^{\top} \\
+\mathbf{0} & \mathbf{D}
+\end{array}\right)
+$$ where $$\mathbf{D}=N^{-2} V_p\left(\sum_{i \in \mathcal{S}_B} d_i^B \pi_i^A \boldsymbol{x}_i\right)$$\
+2. for $\operatorname{h}\left(\bx_i\right) = \bx_i \pi_i^A(\bx_i, \btheta) ^{-1}$ $$
+\mathbf{V}_1=\frac{1}{N^2} \sum_{i=1}^N\left(\begin{array}{cc}
+\left\{\left(1-\pi_i^A\right) / \pi_i^A\right\}\left(y_i-\mu+\Delta\right)^2 & \frac{\left(1-\pi_i^A\right)}{\pi_i^A}\left(y_i-\mu+\Delta\right) \boldsymbol{x}_i^{\top} \\
+\frac{\left(1-\pi_i^A\right)}{\pi_i^A}\left(y_i-\mu+\Delta\right) \boldsymbol{x}_i & \left(1-\pi_i^A\right) \boldsymbol{x}_i \boldsymbol{x}_i^{\top}
+\end{array}\right)
+$$ and $$
+\mathbf{V}_2=\left(\begin{array}{cc}
+0 & \mathbf{0}^{\top} \\
+\mathbf{0} & \mathbf{D}
+\end{array}\right)
+$$ where $$\mathbf{D}=N^{-2} V_p\left(\sum_{i \in \mathcal{S}_B} d_i^B \boldsymbol{x}_i\right).$$ To determine the variance-covariance matrix for $\hat{\boldsymbol{\eta}}$ we need to derive $\boldsymbol{\phi}_n(\boldsymbol{\eta})=\partial \boldsymbol{\Phi}_n(\boldsymbol{\eta}) / \partial \boldsymbol{\eta}$ which depends on the choosen $h$-function and model for propensity score.
+
+## DR estimator variance
+
+In this subsection we show how to derive variance for doubly robust estimator under probit and cloglog models for propensity score and General estimating equations as well. The derivation in analogous to that of the section on doubly robust methods for non-probability sample. The technical difference lies in the imputation of another modeling function for propensity score.
+
+### MLE with cloglog and probit models
+
+Using the equation (2.1) on $\mu_{IPW2}$ for the probit model we have $$
+\begin{equation}
+\begin{aligned}
+\frac{1}{\hat{N}^A} \sum_{i=1}^N \frac{R_i\left\{y_i-m\left(\boldsymbol{x}_i, \boldsymbol{\beta}^*\right)\right\}}{\hat{\pi}_i^A} = & h_N+\frac{1}{N} \sum_{i=1}^N R_i\left\{\frac{y_i-m\left(\boldsymbol{x}_i, \boldsymbol{\beta}^*\right)-h_N}{\pi_i^A}-\mathbf{b}^{\top} \frac{\dot{\pi}_i^A}{\pi_i^A \left(1 - \pi_i^A\right)} \boldsymbol{x}_i\right\} \\
+& +\mathbf{b}_3^{\top} \frac{1}{N} \sum_{i \in \mathcal{S}_B} d_i^B \frac{\dot{\pi}_i^A}{\left(1 - \pi_i^A\right)} \boldsymbol{x}_i+o_p\left(n_A^{-1 / 2}\right),
+\end{aligned}
+\end{equation}
+$$ where $h_n = \frac{1}{N} \sum_{i=1}^N \left(y_i - \operatorname{m}\left(\bx_i,\bbeta^*\right)\right)$ and $$
+\mathbf{b}^{\top} = -\sum_{i=1}^N \frac{\left(y_i - \operatorname{m}\left(\bx_i,\bbeta^*\right) - h_n\right)\dot{\pi}_i^A}{\pi_i^A}\boldsymbol{x}_i^{\top}\left[\operatorname{E}\left(\operatorname{H}(\btheta)\right)\right]^{-1}.
+$$ The second part of the estimator has the following expansion $$
+\begin{equation} \label{eq2}
+\frac{1}{\hat{N}^B} \sum_{i \in \mathcal{S}_B} d_i^B m\left(\bx_i,\bbeta^*\right)=\frac{1}{N} \sum_{i=1}^N m\left(\bx_i,\bbeta^*\right)+\frac{1}{N} \sum_{i \in \mathcal{S}_B} d_i^B\left\{m\left(\bx_i,\bbeta^*\right)-\frac{1}{N} \sum_{i=1}^N m\left(\bx_i,\bbeta^*\right)\right\}+O_p\left(n_B^{-1}\right)
+\end{equation}
+$$ Putting these two parts together implies: $$
+\begin{equation}
+\begin{aligned}
+\hat{\mu}_{D R 2}-\mu_y = & \frac{1}{N} \sum_{i=1}^N R_i\left\{\frac{y_i-m\left(\boldsymbol{x}_i, \boldsymbol{\beta}^*\right)-h_N}{\pi_i^A}-\mathbf{b}_3^{\top} \frac{\dot{\pi}_i^A}{\pi_i^A \left(1 - \pi_i^A \right)} \boldsymbol{x}_i\right\} \\
+& +\frac{1}{N} \sum_{i \in \mathcal{S}_B} d_i^B t_i +o_p\left(n_A^{-1 / 2}\right)
+\end{aligned}
+\end{equation}
+$$ It follows that $$
+\begin{equation*}
+    \begin{aligned}
+        \text{var}\left(\hat{\mu}_{DR}\right) = & \frac{1}{N^2} \sum_{i=1}^N \left(1 - \pi_i^A\right)\pi_i^A \left[\frac{y_i - \operatorname{m}\left(\bx_i,\bbeta^*\right) - h_n}{\pi_i^A} - \mathbf{b}_3^T\frac{\dot{\pi}_i^A}{\pi_i^A \left(1 - \pi_i^A \right)}\bx_i\right]^2 \\ & + \operatorname{W} + o(n_A^{-1}),
+    \end{aligned}
+\end{equation*}
+$$ where $$
+\begin{align}
+    \operatorname{W} = \frac{1}{N^2}\text{var}_p\left(\sum_{i \in S_B} d_i^B t_i\right)
+\end{align}
+$$ and $t_i = \frac{\dot{\pi}_i^A}{1 - \pi_i^A} \bx_i^{\top} \mathbf{b}_3 + \operatorname{m}\left(\bx_i,\bbeta^*\right)- \frac{1}{N} \sum_{i=1}^N \operatorname{m}\left(\bx_i,\bbeta^*\right)$.
+
+When propensity scores are estimating by complementary log-log model, the results are as follows $$
+\begin{equation}
+\begin{aligned}
+\frac{1}{\hat{N}^A} \sum_{i=1}^N \frac{R_i\left\{y_i-m\left(\boldsymbol{x}_i, \boldsymbol{\beta}^*\right)\right\}}{\hat{\pi}_i^A} = & h_N+\frac{1}{N} \sum_{i=1}^N R_i\left\{\frac{y_i-m\left(\boldsymbol{x}_i, \boldsymbol{\beta}^*\right)-h_N}{\pi_i^A}-\mathbf{b}^{\top} \frac{\log \left(1 - \pi_i^A\right)}{\pi_i^A} \boldsymbol{x}_i\right\} \\
+& +\mathbf{b}_3^{\top} \frac{1}{N} \sum_{i \in \mathcal{S}_B} d_i^B \log \left(1 - \pi_i^A\right) \boldsymbol{x}_i+o_p\left(n_A^{-1 / 2}\right),
+\end{aligned}
+\end{equation}
+$$ where $$\mathbf{b}^{\top} = -\sum_{i=1}^N \frac{\left(y_i - \operatorname{m}\left(\bx_i,\bbeta^*\right) - h_n\right)\left(1 - \pi_i^A\right) \log \left(1 - \pi_i^A\right)}{\pi_i^A}\boldsymbol{x}_i^{\top}\left[\operatorname{E}\left(\operatorname{H}_{l}(\btheta)\right)\right]^{-1}.$$ The second part of the $\hat{\mu}_{DR}$ is expanded as in (2.6) $$
+\begin{equation}
+\begin{aligned}
+\hat{\mu}_{D R 2}-\mu_y = & \frac{1}{N} \sum_{i=1}^N R_i\left\{\frac{y_i-m\left(\boldsymbol{x}_i, \boldsymbol{\beta}^*\right)-h_N}{\pi_i^A}-\mathbf{b}_3^{\top} \frac{\log \left(1 - \pi_i^A\right)}{\pi_i^A} \boldsymbol{x}_i\right\} \\
+& +\frac{1}{N} \sum_{i \in \mathcal{S}_B} d_i^B t_i +o_p\left(n_A^{-1 / 2}\right),
+\end{aligned}
+\end{equation}
+$$ what implies that $$
+\begin{equation*}
+    \begin{aligned}
+        \operatorname{Var}\left(\hat{\mu}_{DR}\right) = & \frac{1}{N^2} \sum_{i=1}^N \left(1 - \pi_i^A\right)\pi_i^A \left[\frac{y_i - \operatorname{m}\left(\bx_i,\bbeta^*\right) - h_n}{\pi_i^A} - \mathbf{b}_3^T \frac{\log\left(1 - \pi_i^A\right)}{\pi_i^A}\bx_i\right]^2 \\ & + 
+        \operatorname{W} + o(n_A^{-1}),
+    \end{aligned}
+\end{equation*}
+$$ where $$
+\begin{align} 
+    \operatorname{W} = \frac{1}{N^2}\text{var}_p\left(\sum_{i \in S_B} d_i^B t_i\right)
+\end{align}
+$$ and $t_i = \log \left(1 - \pi_i^A \right) \bx_i^{\top} \mathbf{b}_3 + \operatorname{m}\left(\bx_i,\bbeta^*\right)- \frac{1}{N} \sum_{i=1}^N \operatorname{m}\left(\bx_i,\bbeta^*\right)$.
+
+### GEE
+
+As with MLE, we will use Taylor expansion to derive the variance for the DR of the estimator. For $\operatorname{h}\left(\bx_i\right) = \bx_i$ we have $$
+\begin{aligned}
+\frac{1}{\hat{N}^A} \sum_{i=1}^N \frac{R_i\left\{y_i-m\left(\boldsymbol{x}_i, \boldsymbol{\beta}^*\right)\right\}}{\hat{\pi}_i^A}= & h_N+\frac{1}{N} \sum_{i=1}^N R_i\left\{\frac{y_i-m\left(\boldsymbol{x}_i, \boldsymbol{\beta}^*\right)-h_N}{\pi_i^A}-\mathbf{b}^{\top} \boldsymbol{x}_i\right\} \\
+& +\mathbf{b}^{\top} \frac{1}{N} \sum_{i \in \mathcal{S}_B} d_i^B \pi_i^A \boldsymbol{x}_i+o_p\left(n_A^{-1 / 2}\right)
+\end{aligned}
+$$ where $h_N=N^{-1} \sum_{i=1}^N\left\{y_i-m\left(\boldsymbol{x}_i, \boldsymbol{\beta}^*\right)\right\}$.
+
+The second part of $\hat{\mu}_{D R 2}$ given in is the Hájek estimator under the probability sampling design for $\mathcal{S}_B$, which has the following expansion $$
+\frac{1}{\hat{N}^B} \sum_{i \in \mathcal{S}_B} d_i^B m_i=\frac{1}{N} \sum_{i=1}^N m_i+\frac{1}{N} \sum_{i \in \mathcal{S}_B} d_i^B\left\{m_i-\frac{1}{N} \sum_{i=1}^N m_i\right\}+O_p\left(n_B^{-1}\right)
+$$, where $m_i=m\left(\boldsymbol{x}_i, \boldsymbol{\beta}^*\right)$. Putting these two parts together we have $$
+\hat{\mu}_{D R 2}-\mu_y=\frac{1}{N} \sum_{i=1}^N R_i\left\{\frac{y_i-m\left(\boldsymbol{x}_i, \boldsymbol{\beta}^*\right)-h_N}{\pi_i^A}-\mathbf{b}^{\top} \boldsymbol{x}_i\right\}+\frac{1}{N} \sum_{i \in \mathcal{S}_B} d_i^B t_i+o_p\left(n_A^{-1 / 2}\right)
+$$ where $t_i=\pi_i^A \boldsymbol{x}_i^{\top} \mathbf{b}_3+m\left(\boldsymbol{x}_i, \boldsymbol{\beta}^*\right)-N^{-1} \sum_{i=1}^N m\left(\boldsymbol{x}_i, \boldsymbol{\beta}^*\right)$ and it follows that $$
+\begin{gathered}
+\text{var}_{\mathrm{DR} 2}=\frac{1}{N^2} \sum_{i=1}^N\left(1-\pi_i^{\mathrm{A}}\right) \pi_i^{\mathrm{A}}\left[\left\{\frac{y_i-m\left(\boldsymbol{x}_i, \boldsymbol{\beta}^*\right)-h_{\mathrm{N}}}{\pi_i^A}\right\} -
+\mathbf{b}^{\top} \boldsymbol{x}_i\right]^2 + N^{-2} V_p\left(\sum_{i \in \mathcal{S}_{\mathrm{B}}} d_i^{\mathrm{B}} t_i\right)
+\end{gathered}
+$$
+
+By analogy, it can be shown that for $\operatorname{h}\left(\bx_i\right) = \bx_i \pi_i^A\left(\bx_i^{\mathrm{T}} \btheta \right)^{-1}$ we have $$
+\begin{gathered}
+\text{var}_{\mathrm{DR} 2}=\frac{1}{N^2} \sum_{i=1}^N\left(1-\pi_i^{\mathrm{A}}\right) \pi_i^{\mathrm{A}}\left[\left\{\frac{y_i-m\left(\boldsymbol{x}_i, \boldsymbol{\beta}^*\right)-h_{\mathrm{N}}}{\pi_i^A}\right\} -
+\frac{\mathbf{b}_3^{\top} \boldsymbol{x}_i}{\pi_i^A}\right]^2 + N^{-2} V_p\left(\sum_{i \in \mathcal{S}_{\mathrm{B}}} d_i^{\mathrm{B}} t_i\right)
+\end{gathered}
+$$ where $t_i= \boldsymbol{x}_i^{\top} \mathbf{b}_3+m\left(\boldsymbol{x}_i, \boldsymbol{\beta}^*\right)-N^{-1} \sum_{i=1}^N m\left(\boldsymbol{x}_i, \boldsymbol{\beta}^*\right)$ and independently of the function of $\operatorname{h}$
+
+    1. for logit model
+
+$$
+\mathbf{b}^{\top}=\left[\frac{1}{N} \sum_{i=1}^N\left(1-\pi_i^A\right)\left\{y_i-m\left(\boldsymbol{x}_i, \boldsymbol{\beta}^*\right)-h_N\right\} \boldsymbol{x}_i^{\top}\right]\left\{\frac{1}{N} \sum_{i=1}^N \pi_i^A\left(1-\pi_i^A\right) \boldsymbol{x}_i \boldsymbol{x}_i^{\top}\right\}^{-1}
+$$
+
+    2. for complementary loglog model
+
+$$\mathbf{b}^{\top} = -\sum_{i=1}^N \frac{\left(y_i - \operatorname{m}\left(\bx_i,\bbeta^*\right) - h_n\right)\left(1 - \pi_i^A\right) \log \left(1 - \pi_i^A\right)}{\pi_i^A}\boldsymbol{x}_i^{\top} \left\{\frac{1}{N}\sum_{i=1}^N \left(1 - \pi_i^A\right) \exp\left(\bx_i^{\top}\btheta\right) \bx_i \bx_i^{\top}\right\} ^ {-1}$$
+
+    3. for probit model
+
+$$\mathbf{b}^{\top} = -\sum_{i=1}^N \frac{\left(y_i - \operatorname{m}\left(\bx_i,\bbeta^*\right) - h_n\right)\dot{\pi}_i^A}{\pi_i^A}\boldsymbol{x}_i^{\top} \left\{\frac{1}{N}\sum_{i=1}^N \pi_i^A \bx_i \bx_i^{\top}\right\} ^ {-1}$$
