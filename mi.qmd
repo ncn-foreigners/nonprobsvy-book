@@ -1,8 +1,8 @@
-{{< include macros.qmd >}}
-
 # Mass imputation
 
 ## Motivation and assumptions
+
+This method relies on framework, where imputed values of the outcome variables are created for whole probability sample ($S_B$). In this case we treat big-data sample ($S_A$) as a training dataset, which is used to build an imputation model. The mass imputation approach for inference with non-probability samples makes use of model-based prediction methods, but it opens the door for more flexible methods as well.  We consider parametric (e.g. regression models) and non-parametric (nearest neighbor algorithm) methods for this problem. General framework consists of building a model based on the $S_A$ sample and for each $i \in S_A$ calculate imputed value. 
 
 ## Model-based methods
 
@@ -24,13 +24,21 @@ $$
 \end{equation}
 $$ Variance of an estimator
 
+$$
+\text{var}\left(\hat{\mu}_{MI}\right) = \text{var}_A + \text{var}_B 
+$$ and $\text{var}_A$ can be estimated by $$
+\text{var}_A = \frac{1}{n_A} \sum_{i \in S_A} \hat{e}_i^2 \left(\bx_i^{T} \hat{c}\right)^2,
+$$ where $\hat{e_i} = y_i - m\left(\boldsymbol{x}_i, \hat{\bbeta}\right)$ and $\hat{c} = \left\{\frac{1}{n_A} \sum_{i \in S_A} \dot{m}\left(\boldsymbol{x}_i, \hat{\bbeta}\right) \bx_i^T \right\}^{-1} N^{-1} \sum_{i \in S_B} d_i^B \bx_i$. Respectively $\text{var}_B$ can be estimated by $$
+\hat{\text{var}}_B = \frac{1}{N^2} \sum_{i \in \mathcal{S}_{\mathrm{B}}} \sum_{j \in \mathcal{S}_{\mathrm{B}}} \frac{\pi_{i j}^{\mathrm{B}}-\pi_i^{\mathrm{B}} \pi_j^{\mathrm{B}}}{\pi_{i j}^{\mathrm{B}}} d_i^B m\left(\boldsymbol{x}_i, \hat{\bbeta}\right) d_j^B m\left(\boldsymbol{x}_j, \hat{\bbeta}\right)
+$$
+
 ## Nearest neighbor imputation
 
 ### Assumptions
 
 ### model
 
-On the other hand we can applied non-parametric method to this problem, such as nearest neighbor algorithm, that is, find the closest matching unit from sample $S_B$ based on the $\bX$ values and use the corresponding $\bY$ value from this unit as the imputed value. Procedure contains two steps
+On the other hand we can applied non-parametric method to this problem, such as nearest neighbor algorithm, that is, find the closest matching unit from sample $S_B$ based on the $\bx$ values and use the corresponding $\by$ value from this unit as the imputed value. Procedure contains two steps
 
 1.  for each $i \in S_B$ find the nearest neighbor from sample $S_A$.
 
@@ -38,13 +46,32 @@ On the other hand we can applied non-parametric method to this problem, such as 
     \begin{equation}
     \hat{\mu}_\mathrm{nn}=\frac{1}{N} \sum_{i \in S_B} d_i^B y_{i(1)} .
     \end{equation}
-    $$ Variance of an estimator
+    $$
 
-### K-nearest neighbor imputation
+This methods can provide robust results, but suffers from so called curse of dimensionanlity. For $p > 1$ asymptotic bias of the estimator is not negligible (Yang and Kim, 2020).
+Variance of an estimator
+
+We have $$
+V_{\mathrm{nni}}=\lim _{n \rightarrow \infty} \frac{n}{N^2} E\left[\operatorname{var}_p\left\{\sum_{i \in S_B} d_i^B g\left(y_i\right)\right\}\right] .
+$$
+
+which can be estimated by $$
+\hat{\text{var}}_{\mathrm{nni}}=\frac{n}{N^2} \sum_{i \in S_A} \sum_{j \in S_A} \frac{\pi_{i j}-\pi_i \pi_j}{\pi_i \pi_j} \frac{y_{i(1)}}{\pi_i} \frac{y_{j(1)}}{\pi_j}
+$$
+
+## K-nearest neighbor imputation
 
 Steps
 
-1.  For each unit $i \in S_B$ find k-nearest neighbors from sample $S_A$. Impute the $\bY$ value for unit $i$ by $\hat{\mu}\left(\mathbf{X}_i\right)=k^{-1} \sum_{j=1}^k Y_{i(j)}$.
+1.  For each unit $i \in S_B$ find k-nearest neighbors from sample $S_A$. Impute the $\by$ value for unit $i$ by $\hat{\mu}\left(\mathbf{x}_i\right)=k^{-1} \sum_{j=1}^k y_{i(j)}$.
 2.  Calculate k-nearest neighbor imputation estimator of $\mu_y$ $$
-    \hat{\mu}_{\mathrm{knn}}=\frac{1}{N} \sum_{i \in S_B} d_i^B \hat{\mu}\left(\mathbf{X}_i\right) .
-    $$ Variance of an estimator
+    \hat{\mu}_{\mathrm{knn}}=\frac{1}{N} \sum_{i \in S_B} d_i^B \hat{\mu}\left(\mathbf{x}_i\right) .
+    $$
+
+Variance of an estimator
+
+We have
+
+$$
+\text{var}_{\mathrm{knn}}=\lim _{n \rightarrow \infty} \frac{n}{N^2}\left(E\left[\operatorname{var}_p\left\{\sum_{i \in S_B} d_i^B \mu\left(\bx_i\right)\right\}\right]+E\left\{\frac{1-\pi_A(\bx)}{\pi_A(\bx)} \sigma^2(\bx)\right\}\right),
+$$ where $\sigma^2(\bx)=\operatorname{var}\{y \mid \bx\}$ and $\pi_A(\bx) = P\left(R_i=1 \mid \boldsymbol{x}\right)$
