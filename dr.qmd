@@ -1,6 +1,6 @@
 # Doubly robust methods
 
-The IPW and MI estimators are sensible on misspecified models for propensity score and outcome variable respectively. For this purpose so called doubly-robust methoods, which take into account these problems, are presented. It is quite simple idea of combination propensity score and imputation models during inference, but in the first part of this chapter we present model which is based directly on the DR estimator. 
+The IPW and MI estimators are sensible on misspecified models for propensity score and outcome variable respectively. For this purpose so called doubly-robust methoods, which take into account these problems, are presented. It is quite simple idea of combination propensity score and imputation models during inference, but in the first part of this chapter we present model which is based directly on the DR estimator.
 
 ## Bias minimization technique
 
@@ -59,12 +59,14 @@ J(\theta, \beta)=\bZero
 $$
 
 ## Population mean estimator and its properties
-
+Not surprisingly, this method involves using units from both probability and non-probability samples. In particular estimator of the population mean is as follows
 $$
 \begin{equation*}
     \hat{\mu}_{\mathrm{DR}}=\frac{1}{\hat{N}^{\mathrm{A}}} \sum_{i \in \mathcal{S}_{\mathrm{A}}} d_i^{\mathrm{A}}\left\{y_i-m\left(\boldsymbol{x}_i, \hat{\boldsymbol{\beta}}\right)\right\}+\frac{1}{\hat{N}^{\mathrm{B}}} \sum_{i \in \mathcal{S}_{\mathrm{B}}} d_i^{\mathrm{B}} m\left(\boldsymbol{x}_i, \hat{\boldsymbol{\beta}}\right),
 \end{equation*}
 $$ where $d_i^A = \pi \left(\bx_i, \btheta\right)^{-1}$, $\hat{N}^A = \sum_{i \in S_A} d_i^A$ and $\hat{N}^B = \sum_{i \in S_B} d_i^B$. We will first show how to obtain the variance of the derived estimator using separate procedures for propensity score and mass imputation (for example MLE and linear regression), and then variance derived from bias minimization technique for estimation.
+
+### Variance estimation for separate models
 
 It can be shown that parameters $\bbeta$ have no impact on asymptotic variance of $\hat{\mu}_{DR}$. Let's assume that $\hat{\bbeta} - \bbeta^* = O_p(n_A^{-1/2})$ for some fixed $\bbeta^*$. Notice that the first part of DR estimator is the $\mu_{IPW2}$ estimator with $y_i$ replaced by $y_i - \operatorname{m}\left(\bx_i,\bbeta^*\right)$. Using the asymptotic expansions developed for $\mu_{IPW2}$ and logistic regression model for propensity score we have $$
 \begin{equation}
@@ -88,6 +90,7 @@ $$ where $t_i=\pi_i^A \boldsymbol{x}_i^{\top} \mathbf{b}_3+m\left(\boldsymbol{x}
 \end{gathered}
 $$ where $W = N^{-2} \text{var}_p\left(\sum_{i \in \mathcal{S}_{\mathrm{B}}} d_i^{\mathrm{B}} t_i\right)$.
 
+### Variance estimation for bias-oriented technique
 When model is obtained by using systems of equations derived from bias minimization technique. We have variance decomposition on probability and nonprobability part, where $$
 \text{var}_B = \mathbb{E} \left\{\frac{1}{N^2} \sum_{i \in \mathcal{S}_{\mathrm{B}}} \sum_{j \in \mathcal{S}_{\mathrm{B}}} \frac{\pi_{i j}^{\mathrm{B}}-\pi_i^{\mathrm{B}} \pi_j^{\mathrm{B}}}{\pi_{i j}^{\mathrm{B}}} d_i^B m\left(\boldsymbol{x}_i, \bbeta^*\right) d_j^B m\left(\boldsymbol{x}_j, \bbeta^*\right) \right\}
 $$ which can be estimated by $$

@@ -32,5 +32,8 @@
   },
   "macros.qmd": {
     "macros.html": "d7d45e87"
+  },
+  "nomenclature.qmd": {
+    "nomenclature.html": "75ab69f5"
   }
 }

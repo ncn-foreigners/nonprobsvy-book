@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Modern inference methods for non-probability samples with R - 4&nbsp; Mass imputation</title>
+<title>Modern inference methods for non-probability samples with R - Appendix B — Nomenclature</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,8 +30,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./dr.html" rel="next">
-<link href="./ipw.html" rel="prev">
+<link href="./appendix.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -270,7 +269,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Mass imputation</span></h1>
+      <h1 class="quarto-secondary-nav-title">Appendix B — Nomenclature</h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -328,7 +327,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./mi.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Mass imputation</span></a>
+  <a href="./mi.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Mass imputation</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -366,7 +365,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./nomenclature.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Nomenclature</span></a>
+  <a href="./nomenclature.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Nomenclature</span></a>
   </div>
 </li>
       </ul>
@@ -376,27 +375,14 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </nav>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
-   
-  <ul>
-  <li><a href="#motivation-and-assumptions" id="toc-motivation-and-assumptions" class="nav-link active" data-scroll-target="#motivation-and-assumptions"><span class="toc-section-number">4.1</span>  Motivation and assumptions</a></li>
-  <li><a href="#model-based-methods" id="toc-model-based-methods" class="nav-link" data-scroll-target="#model-based-methods"><span class="toc-section-number">4.2</span>  Model-based methods</a></li>
-  <li><a href="#nearest-neighbor-imputation" id="toc-nearest-neighbor-imputation" class="nav-link" data-scroll-target="#nearest-neighbor-imputation"><span class="toc-section-number">4.3</span>  Nearest neighbor imputation</a>
-  <ul class="collapse">
-  <li><a href="#assumptions" id="toc-assumptions" class="nav-link" data-scroll-target="#assumptions"><span class="toc-section-number">4.3.1</span>  Assumptions</a></li>
-  <li><a href="#model" id="toc-model" class="nav-link" data-scroll-target="#model"><span class="toc-section-number">4.3.2</span>  Model</a></li>
-  </ul></li>
-  <li><a href="#k-nearest-neighbor-imputation" id="toc-k-nearest-neighbor-imputation" class="nav-link" data-scroll-target="#k-nearest-neighbor-imputation"><span class="toc-section-number">4.4</span>  K-nearest neighbor imputation</a></li>
-  </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/ncn-foreigners/nonprobsvy-book/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Mass imputation</span></h1>
+<h1 class="title d-none d-lg-block">Appendix B — Nomenclature</h1>
 </div>
 
 
@@ -410,75 +396,154 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 </header>
 
-<section id="motivation-and-assumptions" class="level2" data-number="4.1">
-<h2 data-number="4.1" data-anchor-id="motivation-and-assumptions"><span class="header-section-number">4.1</span> Motivation and assumptions</h2>
-<p>This method relies on framework, where imputed values of the outcome variables are created for whole probability sample (<span class="math inline">\(S_B\)</span>). In this case we treat big-data sample (<span class="math inline">\(S_A\)</span>) as a training dataset, which is used to build an imputation model. The mass imputation approach for inference with non-probability samples makes use of model-based prediction methods, but it opens the door for more flexible methods as well. We consider parametric (e.g.&nbsp;regression models) and non-parametric (nearest neighbor algorithm) methods for this problem. General framework consists of building a model based on the <span class="math inline">\(S_A\)</span> sample and for each <span class="math inline">\(i \in S_A\)</span> calculate imputed value.</p>
-</section>
-<section id="model-based-methods" class="level2" data-number="4.2">
-<h2 data-number="4.2" data-anchor-id="model-based-methods"><span class="header-section-number">4.2</span> Model-based methods</h2>
-<p>This method is based on parametric model on sample <span class="math inline">\(S_A\)</span> in the form of</p>
-<p><span class="math display">\[
-\begin{equation}
-\mathbb{E}\left(y_i \mid \bx_i\right) = m\left(\bx_i, \bbeta_{0}\right)
-\end{equation}
-\]</span></p>
-<p>for some unknown <span class="math inline">\(\bbeta_{0}\)</span> and known function <span class="math inline">\(m(\cdot)\)</span>. The specification of m-function typically follows the mean function for generalized linear models. If <span class="math inline">\(\by\)</span> is continous, we can use linear regression model with <span class="math inline">\(m\left(\boldsymbol{x}_i, \bbeta_{0}\right) = \bx_i^{T} \bbeta_0\)</span>. If <span class="math inline">\(\by\)</span> is binary, one can use logistic regression model and let <span class="math inline">\(m\left(\boldsymbol{x}_i, \bbeta_{0}\right) = \frac{\exp\left( \bx_i^{T} \bbeta_0\right)}{\exp\left( \bx_i^{T} \bbeta_0\right) + 1}\)</span>. If <span class="math inline">\(\by\)</span> represents count data, we can use log-linear model, where <span class="math inline">\(m\left(\boldsymbol{x}_i, \bbeta_{0}\right) = \exp\left(\bx_i^{T} \bbeta_0\right)\)</span>.</p>
-<p>Basing on this approach we can obtain another approach for population mean estimator. It is worth noting that this time we rely on known design weights and imputation model for units from probability samples. <span class="math display">\[
-\begin{equation}
-\frac{1}{\hat{N}^{\mathrm{B}}} \sum_{i \in \mathcal{S}_{\mathrm{B}}} d_i^{\mathrm{B}} m\left(\boldsymbol{x}_i, \hat{\bbeta}\right)
-\end{equation}
-\]</span> Theoretical calculations lead to the following variance of the estimator, where the second part is variance of the widely-known Horvits-Thompson population mean estimator, which is implemented in the R <code>survey</code> package.</p>
-<p><span class="math display">\[
-\text{var}\left(\hat{\mu}_{MI}\right) = \text{var}_A + \text{var}_B
-\]</span> The <span class="math inline">\(\text{var}_A\)</span> can be estimated by <span class="math display">\[
-\text{var}_A = \frac{1}{n_A} \sum_{i \in S_A} \hat{e}_i^2 \left(\bx_i^{T} \hat{c}\right)^2,
-\]</span> where <span class="math inline">\(\hat{e_i} = y_i - m\left(\boldsymbol{x}_i, \hat{\bbeta}\right)\)</span> and <span class="math inline">\(\hat{c} = \left\{\frac{1}{n_A} \sum_{i \in S_A} \dot{m}\left(\boldsymbol{x}_i, \hat{\bbeta}\right) \bx_i^T \right\}^{-1} N^{-1} \sum_{i \in S_B} d_i^B \bx_i\)</span>. Respectively <span class="math inline">\(\text{var}_B\)</span> can be estimated by <span class="math display">\[
-\hat{\text{var}}_B = \frac{1}{N^2} \sum_{i \in \mathcal{S}_{\mathrm{B}}} \sum_{j \in \mathcal{S}_{\mathrm{B}}} \frac{\pi_{i j}^{\mathrm{B}}-\pi_i^{\mathrm{B}} \pi_j^{\mathrm{B}}}{\pi_{i j}^{\mathrm{B}}} d_i^B m\left(\boldsymbol{x}_i, \hat{\bbeta}\right) d_j^B m\left(\boldsymbol{x}_j, \hat{\bbeta}\right)
-\]</span></p>
-</section>
-<section id="nearest-neighbor-imputation" class="level2" data-number="4.3">
-<h2 data-number="4.3" data-anchor-id="nearest-neighbor-imputation"><span class="header-section-number">4.3</span> Nearest neighbor imputation</h2>
-<p>On the other hand we can applied non-parametric method to this problem, such as nearest neighbor algorithm, that is, find the closest matching unit from sample <span class="math inline">\(S_B\)</span> based on the <span class="math inline">\(\bx\)</span> values and use the corresponding <span class="math inline">\(\by\)</span> value from this unit as the imputed value.</p>
-<section id="assumptions" class="level3" data-number="4.3.1">
-<h3 data-number="4.3.1" data-anchor-id="assumptions"><span class="header-section-number">4.3.1</span> Assumptions</h3>
-</section>
-<section id="model" class="level3" data-number="4.3.2">
-<h3 data-number="4.3.2" data-anchor-id="model"><span class="header-section-number">4.3.2</span> Model</h3>
-<p>Procedure contains two steps</p>
-<ol type="1">
-<li><p>for each <span class="math inline">\(i \in S_B\)</span> find the nearest neighbor from sample <span class="math inline">\(S_A\)</span>.</p></li>
-<li><p>Calculate the nearest neighbor imputation estimator of <span class="math inline">\(\mu_y\)</span> <span class="math display">\[
-\begin{equation}
-\hat{\mu}_\mathrm{nn}=\frac{1}{N} \sum_{i \in S_B} d_i^B y_{i(1)} .
-\end{equation}
-\]</span></p></li>
-</ol>
-<p>This methods can provide robust results, but suffers from so called curse of dimensionanlity. For <span class="math inline">\(p &gt; 1\)</span> asymptotic bias of the estimator is not negligible (Yang and Kim, 2020). Variance of an estimator</p>
-<p>We have <span class="math display">\[
-V_{\mathrm{nni}}=\lim _{n \rightarrow \infty} \frac{n}{N^2} E\left[\operatorname{var}_p\left\{\sum_{i \in S_B} d_i^B g\left(y_i\right)\right\}\right] .
-\]</span></p>
-<p>which can be estimated by <span class="math display">\[
-\hat{\text{var}}_{\mathrm{nni}}=\frac{n}{N^2} \sum_{i \in S_A} \sum_{j \in S_A} \frac{\pi_{i j}-\pi_i \pi_j}{\pi_i \pi_j} \frac{y_{i(1)}}{\pi_i} \frac{y_{j(1)}}{\pi_j}
-\]</span></p>
-</section>
-</section>
-<section id="k-nearest-neighbor-imputation" class="level2" data-number="4.4">
-<h2 data-number="4.4" data-anchor-id="k-nearest-neighbor-imputation"><span class="header-section-number">4.4</span> K-nearest neighbor imputation</h2>
-<p>Steps</p>
-<ol type="1">
-<li>For each unit <span class="math inline">\(i \in S_B\)</span> find k-nearest neighbors from sample <span class="math inline">\(S_A\)</span>. Impute the <span class="math inline">\(\by\)</span> value for unit <span class="math inline">\(i\)</span> by <span class="math inline">\(\hat{\mu}\left(\mathbf{x}_i\right)=k^{-1} \sum_{j=1}^k y_{i(j)}\)</span>.</li>
-<li>Calculate k-nearest neighbor imputation estimator of <span class="math inline">\(\mu_y\)</span> <span class="math display">\[
-\hat{\mu}_{\mathrm{knn}}=\frac{1}{N} \sum_{i \in S_B} d_i^B \hat{\mu}\left(\mathbf{x}_i\right) .
-\]</span></li>
-</ol>
-<p>Variance of an estimator</p>
-<p>We have</p>
-<p><span class="math display">\[
-\text{var}_{\mathrm{knn}}=\lim _{n \rightarrow \infty} \frac{n}{N^2}\left(E\left[\operatorname{var}_p\left\{\sum_{i \in S_B} d_i^B \mu\left(\bx_i\right)\right\}\right]+E\left\{\frac{1-\pi_A(\bx)}{\pi_A(\bx)} \sigma^2(\bx)\right\}\right),
-\]</span> where <span class="math inline">\(\sigma^2(\bx)=\operatorname{var}\{y \mid \bx\}\)</span> and <span class="math inline">\(\pi_A(\bx) = P\left(R_i=1 \mid \boldsymbol{x}\right)\)</span></p>
+<table class="table">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 69%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Symbol</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\mathbb{E}\)</span></td>
+<td>Expected value operator</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(N\)</span></td>
+<td>True population size</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\mathcal{U}\)</span></td>
+<td>Finite population with N units</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(y\)</span></td>
+<td>Response variable</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\bx\)</span></td>
+<td>Auxiliary variables</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(p\)</span></td>
+<td>Number of auxiliary variables</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(S_A\)</span></td>
+<td>Nonprobablity sample</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(S_B\)</span></td>
+<td>Probability sample</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\pi_i^B\)</span></td>
+<td>Probability of belonging to a probability sample for the given unit</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\pi_i^A\)</span></td>
+<td>Probability of belonging to a non-probability sample for the given unit</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\dot{\pi}_i^A(\cdot)\)</span></td>
+<td>Derivative of <span class="math inline">\(\pi_i^A\)</span> at point <span class="math inline">\(\cdot\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(d_i^B\)</span></td>
+<td>Design weight for the given unit in a probability sample</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(n_A\)</span></td>
+<td>Size of non-probability sample</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(n_B\)</span></td>
+<td>Size of probability sample</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\mu_{y}\)</span></td>
+<td>Mean of population for response variable</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(R_{i}^A\)</span></td>
+<td>An indicator function for nonprobability sample</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\omega_i\)</span></td>
+<td>Frequency weight</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\ell\)</span></td>
+<td>Log-likelihood function for the model</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\hat{N}\)</span></td>
+<td>Point estimate for true population size</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\text{var}\)</span></td>
+<td>Variance operator</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\text{var}_p\)</span></td>
+<td>Design-based variance operator under the probability sampling design for <span class="math inline">\(S_B\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(Diag(\cdot)\)</span></td>
+<td>A diagonal matrix constructed from vector <span class="math inline">\(\cdot\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\btheta\)</span></td>
+<td>Set of the parameters to estimate for selection model</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\bbeta\)</span></td>
+<td>Set of the parameters to estimate for outcome model</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\phi(\cdot)\)</span></td>
+<td>Probability density function of the normal distribution in point <span class="math inline">\(\cdot\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\Phi(\cdot)\)</span></td>
+<td>Cumulative distribution function of the normal distribution in point <span class="math inline">\(\cdot\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\hat{\mu}_{MI}\)</span></td>
+<td>Mass imputation estimator of population mean</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\hat{\mu}_{IPW}\)</span></td>
+<td>Inverse probability weighted estimator of population mean</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\hat{\mu}_{DR}\)</span></td>
+<td>Doubly robust estimator of population mean</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(q\)</span></td>
+<td>Model for selection mechanism for non-probability sample</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\times\)</span></td>
+<td>A element by element product of vectors</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\boldsymbol{\eta}\)</span></td>
+<td>A vector of linear predictors <span class="math inline">\((\eta_{i})\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\lambda\)</span></td>
+<td>Tuning parameter for penalization function</td>
+</tr>
+</tbody>
+</table>
 
 
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -581,14 +646,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./ipw.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Inverse probability weighting</span></span>
+      <a href="./appendix.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Appendices</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./dr.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Doubly robust methods</span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->

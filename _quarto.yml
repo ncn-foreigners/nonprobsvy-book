@@ -5,7 +5,17 @@ project:
 book:
   title: "Modern inference methods for non-probability samples with R"
   author: "Łukasz Chrostowski, Maciej Beręsewicz"
-  date: "4/20/2023"
+  sidebar:
+    background: light
+  page-navigation: true
+  theme:
+    dark: darkly
+  repo-url: https://github.com/ncn-foreigners/nonprobsvy-book
+  site-url: https://ncn-foreigners.github.io/nonprobsvy-book/
+  search: true
+  downloads: [pdf, epub]
+  repo-branch: main
+  repo-actions: [issue]
   chapters:
     - index.qmd
     - intro.qmd
@@ -14,19 +24,20 @@ book:
     - dr.qmd
     - variableselection.qmd
     - summary.qmd
-    - appendix.qmd
     - references.qmd
+  appendices: 
+    - appendix.qmd
+    - nomenclature.qmd
 
 bibliography: references.bib
-
 
 format:
   html:
     include-in-header:
      - file: macros.html
     theme: cosmo
-    fontsize: 0.9em
-    linestretch: 1.5
+    fontsize: 2.6em
+    linestretch: 2.6
   pdf:
     documentclass: scrreprt
 

@@ -7,7 +7,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Łukasz Chrostowski, Maciej Beręsewicz">
-<meta name="dcterms.date" content="2023-04-20">
 
 <title>Modern inference methods for non-probability samples with R</title>
 <style>
@@ -261,7 +260,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 
 
@@ -285,6 +283,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Modern inference methods for non-probability samples with R</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/ncn-foreigners/nonprobsvy-book" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
+    <a href="" title="Download" id="sidebar-tool-dropdown-0" class="sidebar-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-download"></i></a>
+    <ul class="dropdown-menu" aria-labelledby="sidebar-tool-dropdown-0">
+        <li>
+          <a class="dropdown-item sidebar-tools-main-item" href="./Modern-inference-methods-for-non-probability-samples-with-R.pdf">
+            <i class="bi bi-bi-file-pdf pe-1"></i>
+          Download PDF
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item sidebar-tools-main-item" href="./Modern-inference-methods-for-non-probability-samples-with-R.epub">
+            <i class="bi bi-bi-journal pe-1"></i>
+          Download ePub
+          </a>
+        </li>
+    </ul>
+</div>
     </div>
       </div>
       <div class="mt-2 flex-shrink-0 align-items-center">
@@ -296,7 +312,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Nomenclature</span></a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Welcome!</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -331,14 +347,29 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./appendix.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Appendices</span></a>
+  <a href="./references.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">References</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Appendices</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">References</span></a>
+  <a href="./appendix.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Appendices</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./nomenclature.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Nomenclature</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -348,9 +379,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#nomenclature" id="toc-nomenclature" class="nav-link active" data-scroll-target="#nomenclature"><span class="toc-section-number">1</span>  Nomenclature</a></li>
+  <li><a href="#welcome" id="toc-welcome" class="nav-link active" data-scroll-target="#welcome"><span class="toc-section-number">1</span>  Welcome!</a></li>
   </ul>
-</nav>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/ncn-foreigners/nonprobsvy-book/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -371,166 +402,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
           </div>
   </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">April 20, 2023</p>
-    </div>
-  </div>
     
   </div>
   
 
 </header>
 
-<section id="nomenclature" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Nomenclature</h1>
-<table class="table">
-<colgroup>
-<col style="width: 30%">
-<col style="width: 69%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Symbol</th>
-<th>Meaning</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><span class="math inline">\(\mathbb{E}\)</span></td>
-<td>Expected value operator</td>
-</tr>
-<tr class="even">
-<td><span class="math inline">\(N\)</span></td>
-<td>True population size</td>
-</tr>
-<tr class="odd">
-<td><span class="math inline">\(\mathcal{U}\)</span></td>
-<td>Finite population with N units</td>
-</tr>
-<tr class="even">
-<td><span class="math inline">\(y\)</span></td>
-<td>Response variable</td>
-</tr>
-<tr class="odd">
-<td><span class="math inline">\(\bx\)</span></td>
-<td>Auxiliary variables</td>
-</tr>
-<tr class="even">
-<td><span class="math inline">\(p\)</span></td>
-<td>Number of auxiliary variables</td>
-</tr>
-<tr class="odd">
-<td><span class="math inline">\(S_A\)</span></td>
-<td>Nonprobablity sample</td>
-</tr>
-<tr class="even">
-<td><span class="math inline">\(S_B\)</span></td>
-<td>Probability sample</td>
-</tr>
-<tr class="odd">
-<td><span class="math inline">\(\pi_i^B\)</span></td>
-<td>Probability of belonging to a probability sample for the given unit</td>
-</tr>
-<tr class="even">
-<td><span class="math inline">\(\pi_i^A\)</span></td>
-<td>Probability of belonging to a non-probability sample for the given unit</td>
-</tr>
-<tr class="odd">
-<td><span class="math inline">\(\dot{\pi}_i^A(\cdot)\)</span></td>
-<td>Derivative of <span class="math inline">\(\pi_i^A\)</span> at point <span class="math inline">\(\cdot\)</span></td>
-</tr>
-<tr class="even">
-<td><span class="math inline">\(d_i^B\)</span></td>
-<td>Design weight for the given unit in a probability sample</td>
-</tr>
-<tr class="odd">
-<td><span class="math inline">\(n_A\)</span></td>
-<td>Size of non-probability sample</td>
-</tr>
-<tr class="even">
-<td><span class="math inline">\(n_B\)</span></td>
-<td>Size of probability sample</td>
-</tr>
-<tr class="odd">
-<td><span class="math inline">\(\mu_{y}\)</span></td>
-<td>Mean of population for response variable</td>
-</tr>
-<tr class="even">
-<td><span class="math inline">\(R_{i}^A\)</span></td>
-<td>An indicator function for nonprobability sample</td>
-</tr>
-<tr class="odd">
-<td><span class="math inline">\(\omega_i\)</span></td>
-<td>Frequency weight</td>
-</tr>
-<tr class="even">
-<td><span class="math inline">\(\ell\)</span></td>
-<td>Log-likelihood function for the model</td>
-</tr>
-<tr class="odd">
-<td><span class="math inline">\(\hat{N}\)</span></td>
-<td>Point estimate for true population size</td>
-</tr>
-<tr class="even">
-<td><span class="math inline">\(\text{var}\)</span></td>
-<td>Variance operator</td>
-</tr>
-<tr class="odd">
-<td><span class="math inline">\(\text{var}_p\)</span></td>
-<td>Design-based variance operator under the probability sampling design for <span class="math inline">\(S_B\)</span></td>
-</tr>
-<tr class="even">
-<td><span class="math inline">\(Diag(\cdot)\)</span></td>
-<td>A diagonal matrix constructed from vector <span class="math inline">\(\cdot\)</span></td>
-</tr>
-<tr class="odd">
-<td><span class="math inline">\(\btheta\)</span></td>
-<td>Set of the parameters to estimate for selection model</td>
-</tr>
-<tr class="even">
-<td><span class="math inline">\(\bbeta\)</span></td>
-<td>Set of the parameters to estimate for outcome model</td>
-</tr>
-<tr class="odd">
-<td><span class="math inline">\(\phi(\cdot)\)</span></td>
-<td>Probability density function of the normal distribution in point <span class="math inline">\(\cdot\)</span></td>
-</tr>
-<tr class="even">
-<td><span class="math inline">\(\Phi(\cdot)\)</span></td>
-<td>Cumulative distribution function of the normal distribution in point <span class="math inline">\(\cdot\)</span></td>
-</tr>
-<tr class="odd">
-<td><span class="math inline">\(\hat{\mu}_{MI}\)</span></td>
-<td>Mass imputation estimator of population mean</td>
-</tr>
-<tr class="even">
-<td><span class="math inline">\(\hat{\mu}_{IPW}\)</span></td>
-<td>Inverse probability weighted estimator of population mean</td>
-</tr>
-<tr class="odd">
-<td><span class="math inline">\(\hat{\mu}_{DR}\)</span></td>
-<td>Doubly robust estimator of population mean</td>
-</tr>
-<tr class="even">
-<td><span class="math inline">\(q\)</span></td>
-<td>Model for selection mechanism for non-probability sample</td>
-</tr>
-<tr class="odd">
-<td><span class="math inline">\(\times\)</span></td>
-<td>A element by element product of vectors</td>
-</tr>
-<tr class="even">
-<td><span class="math inline">\(\boldsymbol{\eta}\)</span></td>
-<td>A vector of linear predictors <span class="math inline">\((\eta_{i})\)</span></td>
-</tr>
-<tr class="odd">
-<td><span class="math inline">\(\lambda\)</span></td>
-<td>Tuning parameter for penalization function</td>
-</tr>
-</tbody>
-</table>
+<section id="welcome" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Welcome!</h1>
+<p>Welcome to the book on <em>Modern inference methods for non-probability samples in R</em>! In this comprehensive guide, we will delve into the details of statistical inference, focusing specifically on the unique challenges and techniques associated with non-probability samples.</p>
+<p>Throughout this course, you will embark on a journey that combines both theoretical considerations and hands-on practicality. Whether you’re an aspiring statistician, a data scientist, or a researcher in any field, this material will equip you with the knowledge and tools needed to navigate the intricacies of non-probability samples and extract meaningful insights from your data.</p>
+<p>Here’s a glimpse of what you can expect to know:</p>
+<ol type="1">
+<li><p><strong>Understanding Non-probability Samples</strong>: Gain a deep understanding of what nonprobability samples are, their characteristics, and the contexts in which they are commonly used.</p></li>
+<li><p><strong>Challenges and Biases</strong>: Explore the inherent challenges and biases associated with non-probability samples, including selection bias, coverage bias, and non-response bias.</p></li>
+<li><p><strong>Statistical Inference Techniques</strong>: Discover specialized statistical methods designed to address the unique characteristics of non-probability samples, including propensity score weighting and imputation techniques.</p></li>
+<li><p><strong>Hands-on R Programming</strong>: Introduction of R <code>nonprobsvy</code> package for inference with non-probability sample.</p></li>
+</ol>
+<p>Have a great read!</p>
 
 
 </section>

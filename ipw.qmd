@@ -192,6 +192,7 @@ $$
 $$
 
 ## Population mean estimator and its properties
+With the estimated propensity scores we can consider two approaches for population mean estimation, depending on whether population size is known or not.
 
 $$
 \begin{equation*}
@@ -204,6 +205,8 @@ $$
     \hat{\mu}_{IPW2} = \frac{1}{\hat{N}^{A}} \sum_{i \in S_A} \frac{y_i}{\hat{\pi}_i^{A}},
 \end{equation*}
 $$ where $\hat{N^A} = \sum_{i \in S_A} \hat{d}_i^A$.
+
+In the literature (Kim et al 2020) asymptotic properties of the estimators above are obtained in details. In particular main approach is based on Taylor approximation what is performed in the following subsection.
 
 ### Variance of an estimator
 

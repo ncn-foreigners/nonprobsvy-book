@@ -1,40 +1,17 @@
-# Nomenclature
+# Welcome!
 
-| Symbol                 | Meaning                                                                        |
-|----------------------|--------------------------------------------------|
-| $\mathbb{E}$           | Expected value operator                                                        |
-| $N$                    | True population size                                                           |
-| $\mathcal{U}$          | Finite population with N units                                                 |
-| $y$                    | Response variable                                                              |
-| $\bx$                  | Auxiliary variables                                                            |
-| $p$                    | Number of auxiliary variables                                                  |
-| $S_A$                  | Nonprobablity sample                                                           |
-| $S_B$                  | Probability sample                                                             |
-| $\pi_i^B$              | Probability of belonging to a probability sample for the given unit            |
-| $\pi_i^A$              | Probability of belonging to a non-probability sample for the given unit        |
-| $\dot{\pi}_i^A(\cdot)$ | Derivative of $\pi_i^A$ at point $\cdot$                                       |
-| $d_i^B$                | Design weight for the given unit in a probability sample                       |
-| $n_A$                  | Size of non-probability sample                                                 |
-| $n_B$                  | Size of probability sample                                                     |
-| $\mu_{y}$              | Mean of population for response variable                                       |
-| $R_{i}^A$              | An indicator function for nonprobability sample                                |
-| $\omega_i$             | Frequency weight                                                               |
-| $\ell$                 | Log-likelihood function for the model                                          |
-| $\hat{N}$              | Point estimate for true population size                                        |
-| $\text{var}$           | Variance operator                                                              |
-| $\text{var}_p$         | Design-based variance operator under the probability sampling design for $S_B$ |
-| $Diag(\cdot)$          | A diagonal matrix constructed from vector $\cdot$                              |
-| $\btheta$              | Set of the parameters to estimate for selection model                          |
-| $\bbeta$               | Set of the parameters to estimate for outcome model                            |
-| $\phi(\cdot)$          | Probability density function of the normal distribution in point $\cdot$       |
-| $\Phi(\cdot)$          | Cumulative distribution function of the normal distribution in point $\cdot$   |
-| $\hat{\mu}_{MI}$       | Mass imputation estimator of population mean                                   |
-| $\hat{\mu}_{IPW}$      | Inverse probability weighted estimator of population mean                      |
-| $\hat{\mu}_{DR}$       | Doubly robust estimator of population mean                                     |
-| $q$                    | Model for selection mechanism for non-probability sample                       |
-| $\times$               | A element by element product of vectors                                        |
-| $\boldsymbol{\eta}$    | A vector of linear predictors $(\eta_{i})$                                     |
-| $\lambda$              | Tuning parameter for penalization function                                     |
+Welcome to the book on *Modern inference methods for non-probability samples in R*! In this comprehensive guide, we will delve into the details of statistical inference, focusing specifically on the unique challenges and techniques associated with non-probability samples. 
 
+Throughout this course, you will embark on a journey that combines both theoretical considerations and hands-on practicality. Whether you're an aspiring statistician, a data scientist, or a researcher in any field, this material will equip you with the knowledge and tools needed to navigate the intricacies of non-probability samples and extract meaningful insights from your data.
 
+Here's a glimpse of what you can expect to know:
 
+1. **Understanding Non-probability Samples**: Gain a deep understanding of what nonprobability samples are, their characteristics, and the contexts in which they are commonly used.
+
+2. **Challenges and Biases**: Explore the inherent challenges and biases associated with non-probability samples, including selection bias, coverage bias, and non-response bias.
+
+3. **Statistical Inference Techniques**: Discover specialized statistical methods designed to address the unique characteristics of non-probability samples, including propensity score weighting and imputation techniques.
+
+4. **Hands-on R Programming**: Introduction of R `nonprobsvy` package for inference with non-probability sample.
+
+Have a great read!

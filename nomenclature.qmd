@@ -1,0 +1,38 @@
+# Nomenclature
+
+| Symbol                 | Meaning                                                                        |
+|----------------------|-------------------------------------------------|
+| $\mathbb{E}$           | Expected value operator                                                        |
+| $N$                    | True population size                                                           |
+| $\mathcal{U}$          | Finite population with N units                                                 |
+| $y$                    | Response variable                                                              |
+| $\bx$                  | Auxiliary variables                                                            |
+| $p$                    | Number of auxiliary variables                                                  |
+| $S_A$                  | Nonprobablity sample                                                           |
+| $S_B$                  | Probability sample                                                             |
+| $\pi_i^B$              | Probability of belonging to a probability sample for the given unit            |
+| $\pi_i^A$              | Probability of belonging to a non-probability sample for the given unit        |
+| $\dot{\pi}_i^A(\cdot)$ | Derivative of $\pi_i^A$ at point $\cdot$                                       |
+| $d_i^B$                | Design weight for the given unit in a probability sample                       |
+| $n_A$                  | Size of non-probability sample                                                 |
+| $n_B$                  | Size of probability sample                                                     |
+| $\mu_{y}$              | Mean of population for response variable                                       |
+| $R_{i}^A$              | An indicator function for nonprobability sample                                |
+| $\omega_i$             | Frequency weight                                                               |
+| $\ell$                 | Log-likelihood function for the model                                          |
+| $\hat{N}$              | Point estimate for true population size                                        |
+| $\text{var}$           | Variance operator                                                              |
+| $\text{var}_p$         | Design-based variance operator under the probability sampling design for $S_B$ |
+| $Diag(\cdot)$          | A diagonal matrix constructed from vector $\cdot$                              |
+| $\btheta$              | Set of the parameters to estimate for selection model                          |
+| $\bbeta$               | Set of the parameters to estimate for outcome model                            |
+| $\phi(\cdot)$          | Probability density function of the normal distribution in point $\cdot$       |
+| $\Phi(\cdot)$          | Cumulative distribution function of the normal distribution in point $\cdot$   |
+| $\hat{\mu}_{MI}$       | Mass imputation estimator of population mean                                   |
+| $\hat{\mu}_{IPW}$      | Inverse probability weighted estimator of population mean                      |
+| $\hat{\mu}_{DR}$       | Doubly robust estimator of population mean                                     |
+| $q$                    | Model for selection mechanism for non-probability sample                       |
+| $\times$               | A element by element product of vectors                                        |
+| $\boldsymbol{\eta}$    | A vector of linear predictors $(\eta_{i})$                                     |
+| $\lambda$              | Tuning parameter for penalization function                                     |
+
