@@ -16,29 +16,28 @@ $$
 
 for some unknown $\bbeta_{0}$ and known function $m(\cdot)$. The specification of m-function typically follows the mean function for generalized linear models. If $\by$ is continous, we can use linear regression model with $m\left(\boldsymbol{x}_i, \bbeta_{0}\right) = \bx_i^{T} \bbeta_0$. If $\by$ is binary, one can use logistic regression model and let $m\left(\boldsymbol{x}_i, \bbeta_{0}\right) = \frac{\exp\left( \bx_i^{T} \bbeta_0\right)}{\exp\left( \bx_i^{T} \bbeta_0\right) + 1}$. If $\by$ represents count data, we can use log-linear model, where $m\left(\boldsymbol{x}_i, \bbeta_{0}\right) = \exp\left(\bx_i^{T} \bbeta_0\right)$.
 
-Basing on this approach we can obtain another approach for population mean estimator. It is worth noting that this time we rely on known design weights and imputation model for units from probability samples. 
-$$
+Basing on this approach we can obtain another approach for population mean estimator. It is worth noting that this time we rely on known design weights and imputation model for units from probability samples. $$
 \begin{equation}
 \frac{1}{\hat{N}^{\mathrm{B}}} \sum_{i \in \mathcal{S}_{\mathrm{B}}} d_i^{\mathrm{B}} m\left(\boldsymbol{x}_i, \hat{\bbeta}\right)
 \end{equation}
-$$
-Theoretical calculations lead to the following variance of the estimator, where the second part is variance of the widely-known Horvits-Thompson population mean estimator, which is implemented in the R `survey` package.
+$$ Theoretical calculations lead to the following variance of the estimator, where the second part is variance of the widely-known Horvits-Thompson population mean estimator, which is implemented in the R `survey` package.
 
 $$
 \text{var}\left(\hat{\mu}_{MI}\right) = \text{var}_A + \text{var}_B 
-$$
-The $\text{var}_A$ can be estimated by $$
+$$ The $\text{var}_A$ can be estimated by $$
 \text{var}_A = \frac{1}{n_A} \sum_{i \in S_A} \hat{e}_i^2 \left(\bx_i^{T} \hat{c}\right)^2,
 $$ where $\hat{e_i} = y_i - m\left(\boldsymbol{x}_i, \hat{\bbeta}\right)$ and $\hat{c} = \left\{\frac{1}{n_A} \sum_{i \in S_A} \dot{m}\left(\boldsymbol{x}_i, \hat{\bbeta}\right) \bx_i^T \right\}^{-1} N^{-1} \sum_{i \in S_B} d_i^B \bx_i$. Respectively $\text{var}_B$ can be estimated by $$
 \hat{\text{var}}_B = \frac{1}{N^2} \sum_{i \in \mathcal{S}_{\mathrm{B}}} \sum_{j \in \mathcal{S}_{\mathrm{B}}} \frac{\pi_{i j}^{\mathrm{B}}-\pi_i^{\mathrm{B}} \pi_j^{\mathrm{B}}}{\pi_{i j}^{\mathrm{B}}} d_i^B m\left(\boldsymbol{x}_i, \hat{\bbeta}\right) d_j^B m\left(\boldsymbol{x}_j, \hat{\bbeta}\right)
 $$
 
 ## Nearest neighbor imputation
-On the other hand we can applied non-parametric method to this problem, such as nearest neighbor algorithm, that is, find the closest matching unit from sample $S_B$ based on the $\bx$ values and use the corresponding $\by$ value from this unit as the imputed value. 
+
+On the other hand we can applied non-parametric method to this problem, such as nearest neighbor algorithm, that is, find the closest matching unit from sample $S_B$ based on the $\bx$ values and use the corresponding $\by$ value from this unit as the imputed value.
 
 ### Assumptions
 
 ### Model
+
 Procedure contains two steps
 
 1.  for each $i \in S_B$ find the nearest neighbor from sample $S_A$.

@@ -1,0 +1,1657 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+%
+\documentclass[
+  letterpaper,
+  DIV=11,
+  numbers=noendperiod]{scrreprt}
+
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\setcounter{secnumdepth}{5}
+% Make \paragraph and \subparagraph free-standing
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newlength{\cslentryspacingunit} % times entry-spacing
+\setlength{\cslentryspacingunit}{\parskip}
+\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
+ {% don't indent paragraphs
+  \setlength{\parindent}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1
+  \let\oldpar\par
+  \def\par{\hangindent=\cslhangindent\oldpar}
+  \fi
+  % set entry spacing
+  \setlength{\parskip}{#2\cslentryspacingunit}
+ }%
+ {}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{#1\hfill\break}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+
+\KOMAoption{captions}{tableheading}
+\makeatletter
+\makeatother
+\makeatletter
+\@ifpackageloaded{bookmark}{}{\usepackage{bookmark}}
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\AtBeginDocument{%
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Table of contents}
+\else
+  \newcommand\contentsname{Table of contents}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{List of Figures}
+\else
+  \newcommand\listfigurename{List of Figures}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{List of Tables}
+\else
+  \newcommand\listtablename{List of Tables}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{Figure}
+\else
+  \newcommand\figurename{Figure}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{Table}
+\else
+  \newcommand\tablename{Table}
+\fi
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Listing}
+\newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+\makeatletter
+\@ifpackageloaded{tcolorbox}{}{\usepackage[many]{tcolorbox}}
+\makeatother
+\makeatletter
+\@ifundefined{shadecolor}{\definecolor{shadecolor}{rgb}{.97, .97, .97}}
+\makeatother
+\makeatletter
+\makeatother
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  pdftitle={Modern inference methods for non-probability samples with R},
+  pdfauthor={Łukasz Chrostowski, Maciej Beręsewicz},
+  colorlinks=true,
+  linkcolor={blue},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={Blue},
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Modern inference methods for non-probability samples with R}
+\author{Łukasz Chrostowski, Maciej Beręsewicz}
+\date{}
+
+\begin{document}
+\maketitle
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[boxrule=0pt, frame hidden, sharp corners, interior hidden, borderline west={3pt}{0pt}{shadecolor}, enhanced, breakable]}{\end{tcolorbox}}\fi
+
+\renewcommand*\contentsname{Table of contents}
+{
+\hypersetup{linkcolor=}
+\setcounter{tocdepth}{2}
+\tableofcontents
+}
+\bookmarksetup{startatroot}
+
+\hypertarget{welcome}{%
+\chapter{Welcome!}\label{welcome}}
+
+Welcome to the book on \emph{Modern inference methods for
+non-probability samples in R}! In this comprehensive guide, we will
+delve into the details of statistical inference, focusing specifically
+on the unique challenges and techniques associated with non-probability
+samples.
+
+Throughout this course, you will embark on a journey that combines both
+theoretical considerations and hands-on practicality. Whether you're an
+aspiring statistician, a data scientist, or a researcher in any field,
+this material will equip you with the knowledge and tools needed to
+navigate the intricacies of non-probability samples and extract
+meaningful insights from your data.
+
+Here's a glimpse of what you can expect to know:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \textbf{Understanding Non-probability Samples}: Gain a deep
+  understanding of what nonprobability samples are, their
+  characteristics, and the contexts in which they are commonly used.
+\item
+  \textbf{Challenges and Biases}: Explore the inherent challenges and
+  biases associated with non-probability samples, including selection
+  bias, coverage bias, and non-response bias.
+\item
+  \textbf{Statistical Inference Techniques}: Discover specialized
+  statistical methods designed to address the unique characteristics of
+  non-probability samples, including propensity score weighting and
+  imputation techniques.
+\item
+  \textbf{Hands-on R Programming}: Introduction of R \texttt{nonprobsvy}
+  package for inference with non-probability sample.
+\end{enumerate}
+
+Have a great read!
+
+\bookmarksetup{startatroot}
+
+\hypertarget{introduction-and-overview}{%
+\chapter{Introduction and Overview}\label{introduction-and-overview}}
+
+The goal of the nonprobsvy R package is to carry out statistical
+inferences with nonprobability survey samples (including big data) when
+auxiliary information from external sources like probability samples or
+population totals/means are available. It should be noted that there are
+several packages that allow for correcting selection bias in
+non-probability samples such as GJRM (Marra et al.~2017), NonProbEst
+(Rueda et al.~2020) or even sampling (Tillé and Matei 2021). However,
+these packages do not implement state-of-the-art approaches recently
+proposed in the literature: Chen et al.~(2020), Yang et al.~(2020), Wu
+(2022) nor use survey package {[}Lumley 2004{]} for inference.
+
+We implemented propensity score weighting (e.g.~with calibration
+constraints), mass imputation (e.g.~nearest neighbor) and doubly robust
+estimators that take into account minimization of the asymptotic bias of
+the population mean estimators, variable selection or overlap between
+random and nonrandom sample. The package uses survey package
+functionalities when a probability sample is available. Probability
+sampling methods are adopted by official statistics and researchers in
+many areas, such as social or health science. Probability samples are
+collected under known sampling design and therefore
+highly-representative for the target population. On the other hand it is
+known that this type of sampling is expensive and subject to high
+non-response rates, that increases every year (source here). With
+advance new technology and big data sources, nonprobability samples
+become more and more popular in statistical inference. They contain rich
+information about target population and provide cost-time efficiency in
+comparison to probability samples. On the other hand selection mechanism
+is not known for nonprobability samples and therefore it is a great
+misuse to say that this sample are representative for the target
+population.
+
+A popular framework in data integration is to assume that auxiliary
+variables on the same population are available for probabiliy samples or
+population totals from external sources and therefore one can combine
+these information with biased nonprobability sample. In this book we
+perform and expand known methods for statistical inference using
+described framework for data integration. We can treat data integration
+as a missing data problem with following structure
+
+\begin{longtable}[]{@{}
+  >{\centering\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1039}}
+  >{\centering\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.3117}}
+  >{\centering\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1818}}
+  >{\centering\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1818}}
+  >{\centering\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2208}}@{}}
+\toprule()
+\begin{minipage}[b]{\linewidth}\centering
+Sample
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Type
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+\(\bX\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+\(Y\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Representative?
+\end{minipage} \\
+\midrule()
+\endhead
+\(S_B\) & Probability Sample & \(\checkmark\) & & Yes \\
+\(S_A\) & Non-probability Sample & \(\checkmark\) & \(\checkmark\) &
+No \\
+\bottomrule()
+\end{longtable}
+
+Instead of sample \(S_B\) we can consider vector of population
+totals/means, which will be the subject of consideration later in the
+book. Under the setting from the table above we are going to develop
+statistical methods of inference, that require certain assumptions on
+the outcome or selection models, and sampling mechanism for \(S_B\) as
+well. Structure of the book is as follow: in the chapters 2, 3 and 4 we
+describe recommended methods for the issue presented. In the chapter 5
+we propose techniques of variables selection for high-dimensional data,
+which can reduce bias of the estimator. In the last chapters, we present
+simulation results performed with the help of the package under
+development, as well as a summary and consider the methods worthy of
+further work.
+
+\bookmarksetup{startatroot}
+
+\hypertarget{inverse-probability-weighting}{%
+\chapter{Inverse probability
+weighting}\label{inverse-probability-weighting}}
+
+\hypertarget{motivation-and-assumptions}{%
+\section{Motivation and assumptions}\label{motivation-and-assumptions}}
+
+The biggest drawback of the nonprobability sampling is unknown selection
+mechanism for a unit to be included in the sample. This is why we talk
+about so called ``biased sample'' problem. Inverse probabiliy approach
+is based on assumption that reference probabiliy sample (\(S_B\)) is
+available and therefore we can estimate propensity score of selection
+mechanism.
+
+Let \(\mathcal{U}=\{1,2, \ldots, N\}\) represent the finite population
+with N units and
+\(\left\{\left(\bx_i, y_i\right), i \in \mathcal{S}_{\mathrm{A}}\right\}\)
+and \(\{\left(\bx_i, d_i^B), i \in \mathcal{S}_{\mathrm{B}}\right\}\) be
+the datasets from non-probability and probability samples respectively,
+where \(D_i^B\) are design weights for probability sample. Let
+\(\bY = \left(Y_1, Y_2, \cdots, Y_{n_{A}}\right)^{T}\) and let
+\(\bX_A\), \(\bX_B\) denote an \(n \times \left( p+1 \right)\) design
+matrices for samples \(S_A\) and \(S_B\) of the form \[
+\begin{equation*}
+    \bX_A = 
+    \begin{bmatrix}
+        1 & x_{11} & x_{12} & \cdots & x_{1p} \\
+        1 & x_{21} & x_{22} & \cdots & x_{2p} \\
+        \vdots & \vdots & \ddots & \vdots \\
+        1 &  x_{n_{A}1} & x_{n_{A}2} & \cdots & x_{n_{A}p} \\
+    \end{bmatrix}
+\end{equation*}
+\]\\
+\[
+\begin{equation*}
+    \bX_B = 
+    \begin{bmatrix}
+        1 & x_{11} & x_{12} & \cdots & x_{1p} \\
+        1 & x_{21} & x_{22} & \cdots & x_{2p} \\
+         \vdots & \vdots & \ddots & \vdots \\
+        1 & x_{n_{B}1} & x_{n_{B}2} & \cdots & x_{n_{B}p} \\
+    \end{bmatrix}
+\end{equation*}
+\\
+\]
+
+Following assumptions are required for this model:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  The selection indicator \(R_i\) and the response variable \(y_i\) are
+  independent given the set of covariates \(\bx_i\).
+\item
+  All units have a nonzero propensity score, that is, \(\pi_i^A > 0\)
+  for all \(i\).
+\item
+  The indicator variables \(R_i^A\) and \(R_j^A\) are independent for
+  given \(\bx_i\) and \(\bx_j\) for \(i \neq j\).
+\end{enumerate}
+
+There are few methods for inclusion probability estimation for \(S_A\).
+The first one is based on Maximum Likelihood approach but with
+correction for access to a random sample rather than the entire
+population. One can also construct calibration equation, so that
+estimated propensity weights allow to reproduce the whole population.
+Let us to perform technical details of these methods.
+
+\hypertarget{maximum-likelihood-estimation}{%
+\section{Maximum likelihood
+estimation}\label{maximum-likelihood-estimation}}
+
+Suppose that propensity score can be modelled parametrically as
+\(\mathbb{P}\left(R_i=1 \mid \bx_i\right) = \pi(\bx_{i}, \btheta_{0})\).
+The maximum likelihood estimator is computed as
+\(\hat{\pi}_{i}^{A} = \pi(\bx_{i}, \hat{\btheta}_{0})\), where
+\(\hat{\btheta}_{0}\) is the maximizer of the following log-likelihood
+function:
+
+\[
+    \begin{split}
+ \ell(\boldsymbol{\theta}) & =\sum_{i=1}^N\left\{R_i \log \pi_i^{\mathrm{A}}+\left(1-R_i\right) \log \left(1-\pi_i^{\mathrm{A}}\right)\right\} \\ & =\sum_{i \in \mathcal{S}_{\mathrm{A}}} \log \left\{\frac{\pi\left(\boldsymbol{x}_i, \boldsymbol{\theta}\right)}{1-\pi\left(\boldsymbol{x}_i, \boldsymbol{\theta}\right)}\right\}+\sum_{i=1}^N \log \left\{1-\pi\left(\boldsymbol{x}_i, \boldsymbol{\theta}\right)\right\}
+    \end{split}
+\]
+
+Since we do not observe \(\bx_i\) for all units, Yilin Chen, Pengfei Li
+\& Changbao Wu presented following log-likelihood function is subject to
+data integration basing on samples \(S_A\) and \(S_B\). They proposed
+logistic regression model with
+\(\pi(\bx_{i}, \btheta) = \frac{\exp(\bx_{i}^{\top}\btheta)}{\exp(\bx_{i}^{\top}\btheta) + 1}\)
+in order to estimate \(\btheta\). We expanded this approach on probit
+regression and complementary log-log model. For the sake of accuracy,
+let us recall that the probit and cloglog models are based on the
+assumption that model takes the form
+\(\pi(\bx_{i},\btheta) = \Phi(\bx_{i}^{\top}\btheta)\) and
+\(\pi(\bx_{i}, \btheta) = 1 - \exp(-\exp(\bx_{i}^{\top}\btheta))\)
+respectively. \begin{equation}\protect\hypertarget{eq-xyp}{}{
+\begin{equation} \label{eq-1}
+    \ell^{*}(\btheta) = \sum_{i \in S_{A}}\log \left\{\frac{\pi(\bx_{i}, \btheta)}{1 - \pi(\bx_{i},\btheta)}\right\} + \sum_{i \in S_{B}}d_{i}^{B}\log\{1 - \pi({\bx_{i},\btheta})\}
+\end{equation}
+}\label{eq-xyp}\end{equation} In order to maximize function from (3.1)
+equate its derivative (gradient) to zero. This will give us p+1
+nonlinear equations with respect to \(\btheta\), which will have no
+explicit solutions. To solve the given system of equations, the
+Newton-Raphson algorithm can be used. This method also requires the
+calculation of the second derivative of the log-likelihood function
+(hessian). By expanding the function (3.1) into a Taylor series, it can
+be shown that \(\hat{\btheta}\) can be found by using the following
+iterative method: \[
+\btheta^{(m)} = \btheta^{(m-1)} - \{H(\btheta^{(m-1)}\}^{-1}U(\btheta^{(m-1})),
+\] where \(\operatorname{H}\) - hessian, \(\operatorname{U}\) -
+gradient. This will give us a convergent MLE estimator (for
+\(m \rightarrow \infty\)).
+
+In the \texttt{nonprobsvy} package, in addition to the Newton-Raphson
+method, you can also use the Nelder-Mead and
+Broyden-Fletcher-Goldfarb-Shanno methods implemented in the
+\texttt{optim} and \texttt{maxLik} functions.
+
+From the chain rule for counting derivatives, we know that \[
+\begin{equation*}
+    \frac{\partial \ell}{\partial \boldsymbol{\theta}}=\frac{\partial \ell}{\partial p} \frac{\partial p}{\partial \boldsymbol{\eta}} \frac{\partial \boldsymbol{\eta}}{\partial \boldsymbol{\theta}}=\frac{\partial \ell}{\partial p} \frac{\partial p}{\partial \boldsymbol{\eta}} \boldsymbol{X}
+\end{equation*}
+\] where \(\eta=\boldsymbol{X}^{\top} \boldsymbol{\theta}\),
+\(\frac{\partial \ell}{\partial \boldsymbol{\theta}}=\boldsymbol{U} \boldsymbol{X}\)
+(\(\boldsymbol{U} = \frac{\partial \ell}{\partial {\eta}}\)) and
+\(\frac{\partial^2 \ell}{\partial \boldsymbol{\theta} \partial \boldsymbol{\theta}^{\top}}= \boldsymbol{X}^{\top} \boldsymbol{W} \boldsymbol{X}\)
+(\(\boldsymbol{W} = \frac{\partial^2 \ell}{\partial {\eta}}\)). Using
+this rule In the following subsections we present the full derivation of
+the MLE n the following subsections. Calculations include technical
+differences depending on the assumed model for the propensity score.
+
+\hypertarget{logistic-regression}{%
+\subsection{Logistic regression}\label{logistic-regression}}
+
+Log-likelihood function with logistic regression is given by \[
+\ell^{*}(\btheta) = \sum_{i \in S_A}\bx_{i}^{\top}\btheta - \sum_{i \in S_B}d_{i}^{B}\log\{1 + \exp(\bx_{i}^{\top}\btheta)\}
+\] with analytical gradient and hessian given by \[
+\frac{\partial \ell^*}{\partial\btheta} = \sum_{i \in S_{A}}\bx_{i} - \sum_{i \in S_{B}}d_{i}^{B}\pi(\bx_{i}, \btheta)\bx_{i}
+\] and \[
+    \frac{\partial^{2} \ell^{*}}{\partial\btheta^{T} \partial\btheta} =- \sum_{i \in S_B}d_i^B\pi(\bx_i,\btheta)(1 - \pi(\bx_i,\btheta))\bx_i\bx_i^{\top} = \bX_B^{\top}\operatorname{\bW}_{B}\bX_B,
+\] respectively, where \[
+\begin{align*}
+    \operatorname{\bW}_{B} =
+    diag & \left(-d_1^B\pi(\bx_{1},\btheta)(1 - \pi(\bx_{1},\btheta)), -d_2^B\pi(\bx_{2},\btheta)(1 - \pi(\bx_{2},\btheta)), \right. \\
+     & \left. \ldots, -d_{n_{B}}^{B}\pi(\bx_{n_{B}},\btheta)(1 - \pi(x_{n_{B}},\btheta))\right).
+\end{align*}
+\]
+
+\hypertarget{complementary-log-log-regression}{%
+\subsection{Complementary log-log
+regression}\label{complementary-log-log-regression}}
+
+Similarly, log-likelihood function has form of \[
+\ell^{*}(\btheta) = \sum_{i \in S_{A}}\left\{\log\{1 - \exp(-\exp(\bx_{i}^{\top}\btheta))\} + \exp(\bx_{i}^{\top}\btheta)\right\} - \sum_{i \in S_{B}} d_{i}^{B}\exp(\bx_{i}^{\top}\btheta)
+\] with analytical gradient and hessian equal to \[
+    \frac{\partial \ell^*}{\partial\btheta} = \sum_{i \in S_{A}}\frac{\exp(\bx_{i}^{\top}\btheta)\bx_{i}}{\pi(\bx_{i}, \btheta)} - \sum_{i \in S_{B}}d_{i}^{B}\exp(\bx_{i}^{T}\btheta)\bx_{i}
+\] and \[
+    \begin{split}
+    \frac{\partial^{2} \ell^{*}}{\partial\btheta^{T} \partial\btheta} & = \sum_{i \in S_A} \frac{\exp(\bx_{i}^{\top}\btheta)}{\pi(\bx_{i}, \btheta)} \left\{1 - \frac{\exp(\bx_{i}^{\top}\btheta)}{\pi(\bx_{i}, \btheta)} + \exp(\bx_{i}^{\top}\btheta)\right\}\bx_i\bx_i^{\top} - \sum_{i \in S_B}d_i^B\exp (\bx_{i}^{\top}\btheta)\bx_i\bx_i^{\top} \\ & = \bX_A^{\top}\operatorname{\bW}_{Ac}\bX_A - \bX_B^{\top}\operatorname{\bW}_{Bc}\bX_B,
+    \end{split}
+\] respectively, where \[
+\begin{align*}
+    \operatorname{\bW}_{Ac} =  Diag & \left(\frac{\exp(\bx_{1}^{\top}\btheta)}{\pi(\bx_{1}, \btheta)} \left\{1 - \frac{\exp(\bx_{1}^{\top}\btheta)}{\pi(\bx_{1}, \btheta)} + \exp(\bx_{1}^{\top}\btheta)\right\}, \right.
+    \\
+    & \left. \frac{\exp(\bx_{2}^{\top}\btheta)}{\pi(\bx_{2}, \btheta)} \left\{1 - \frac{\exp(\bx_{2}^{\top}\btheta)}{\pi(\bx_{2}, \btheta)} + \exp(\bx_{2}^{\top}\btheta)\right\}, \right.
+    \\
+    & \left. \ldots, \right.
+    \\ 
+    & \left. \frac{\exp(\bx_{n_A}^{\top}\btheta)} {\pi(\bx_{n_A}, \btheta)} \left\{1 - \frac{\exp(\bx_{n_A}^{\top}\btheta)}{\pi(\bx_{n_A}, \btheta)} + \exp(\bx_{n_A}^{\top}\btheta)\right\} \right)
+\end{align*}
+\] and \[
+\begin{align*}
+    \operatorname{\bW}_{Bc} = Diag \left(d_1^B\exp (\bx_{1}^{\top}\btheta), d_2^B\exp (\bx_{2}^{\top}\btheta), \ldots, d_{n_B}^B\exp (\bx_{n_{B}}^{\top}\btheta)\right).
+\end{align*}
+\]
+
+\hypertarget{probit-regression}{%
+\subsection{Probit regression}\label{probit-regression}}
+
+For probit model calculations are as follow \[
+\begin{align*}
+    \begin{split}
+        \ell^{*}(\btheta) & = \sum_{i \in S_{A}}\log\left\{\frac{\Phi(\bx_{i}^{\top}\btheta)}{1 - \Phi(\bx_{i}^{\top}\btheta)}\right\} + \sum_{i \in S_{B}}d_{i}^{B}\log\{1 - \Phi(\bx_{i}^{\top}\btheta)\}
+    \end{split}
+\end{align*}
+\] with analytical gradient as \[
+        \frac{\partial \ell^*}{\partial\btheta} = \sum_{i \in S_A}\frac{\phi(\bx_i^{\top}\btheta)}{\Phi(\bx_i^{\top}\btheta)(1 - \Phi(\bx_i^{\top}\btheta))}\bx_i - \sum_{i \in S_B}d_i^B\frac{\phi(\bx_i^{\top}\btheta)}{1 - \Phi(\bx_i^{\top}\btheta)}\bx_i.
+\] and hessian equals to \[
+\begin{align*}
+    \begin{split}
+\frac{\partial^{2} \ell^{*}}{\partial\btheta^{T} \partial\btheta} & = \sum_{i \in S_A}\frac{ - \bx_i^{\top} \phi(\bx_i^{\top}\btheta)}{\Phi(\bx_i^{\top}\btheta)(1 - \Phi(\bx_i^{\top}\btheta) )}\bx_i\bx_i^{\top} - \sum_{i \in S_A}\frac{\phi(\bx_i^{\top}\btheta))^{2} \left(1 - 2\Phi(\bx_i^{\top}\btheta))\right)}{\Phi(\bx_i^{\top}\btheta)^{2}(1 - \Phi(\bx_i^{\top}\btheta) )^{2}}\bx_i\bx_i^{\top} \\ & - \sum_{i \in S_B}\frac{\bx_i^{\top}\btheta \phi(\bx_i^{\top}\btheta)}{(1 -  \Phi(\bx_i^{\top}\btheta))}\bx_i\bx_i^{\top} - \sum_{i \in S_B} \frac{\phi(\bx_i^{\top}\btheta)^{2}}{\left(1 - \Phi(\bx_i^{\top}\btheta) \right)} \\ &=     \bX_A^{\top}\operatorname{\bW}_{Ap}\bX_A - \bX_B^{\top}\operatorname{\bW}_{Bp}\bX_B
+    \end{split}
+\end{align*}
+\] where \[
+\begin{align}
+ \operatorname{\bW}_{Ap} =  Diag & \left(\frac{ - \bx_1^{\top} \phi(\bx_1^{\top}\btheta)}{\Phi(\bx_1^{\top}\btheta)(1 - \Phi(\bx_1^{\top}\btheta) )}\bx_1\bx_1^{\top} - \frac{\phi(\bx_1^{\top}\btheta))^{2} \left(1 - 2\Phi(\bx_1^{\top}\btheta))\right)}{\Phi(\bx_1^{\top}\btheta)^{2}(1 - \Phi(\bx_1^{\top}\btheta) )^{2}}\bx_1\bx_1^{\top} \right.,
+    \\
+    & \left. \frac{ - \bx_2^{\top} \phi(\bx_2^{\top}\btheta)}{\Phi(\bx_2^{\top}\btheta)(1 - \Phi(\bx_2^{\top}\btheta) )}\bx_2\bx_2^{\top} - \frac{\phi(\bx_2^{\top}\btheta))^{2} \left(1 - 2\Phi(\bx_2^{\top}\btheta))\right)}{\Phi(\bx_2^{\top}\btheta)^{2}(1 - \Phi(\bx_2^{\top}\btheta) )^{2}}\bx_2\bx_2^{\top}, \right.
+    \\
+    & \left. \ldots, \right.
+    \\ 
+    & \left. \frac{ - \bx_{n_A}^{\top} \phi(\bx_{n_A}^{\top}\btheta)}{\Phi(\bx_{n_A}^{\top}\btheta)(1 - \Phi(\bx_{n_A}^{\top}\btheta) )}\bx_{n_A}\bx_{n_A}^{\top} - \frac{\phi(\bx_{n_A}^{\top}\btheta))^{2} \left(1 - 2\Phi(\bx_{n_A}^{\top}\btheta))\right)}{\Phi(\bx_{n_A}^{\top}\btheta)^{2}(1 - \Phi(\bx_{n_A}^{\top}\btheta) )^{2}}\bx_{n_A}\bx_{n_A}^{\top}\right)
+\end{align}
+\] and \[
+\begin{align}
+ \operatorname{\bW}_{Bp} = Diag & \left(\frac{\bx_1^{\top}\btheta \phi(\bx_1^{\top}\btheta)}{(1 -  \Phi(\bx_1^{\top}\btheta))}\bx_1\bx_1^{\top} - \frac{\phi(\bx_1^{\top}\btheta)^{2}}{\left(1 - \Phi(\bx_1^{\top}\btheta) \right)}, \right.
+    \\
+    & 
+    \left. \frac{\bx_2^{\top}\btheta \phi(\bx_2^{\top}\btheta)}{(1 -  \Phi(\bx_2^{\top}\btheta))}\bx_2\bx_2^{\top} - \frac{\phi(\bx_2^{\top}\btheta)^{2}}{\left(1 - \Phi(\bx_2^{\top}\btheta) \right)}, \right.
+    \\
+    & \left. \ldots, \right.
+    \\
+    & \left. \frac{\bx_{N_B}^{\top}\btheta \phi(\bx_{N_B}^{\top}\btheta)}{(1 -  \Phi(\bx_{N_B}^{\top}\btheta))}\bx_{N_B}\bx_{N_B}^{\top} - \frac{\phi(\bx_{N_B}^{\top}\btheta)^{2}}{\left(1 - \Phi(\bx_{N_B}^{\top}\btheta) \right)}\right)
+\end{align}
+\]
+
+\hypertarget{general-estimating-equations}{%
+\section{General estimating
+equations}\label{general-estimating-equations}}
+
+The pseudo score equations derived from Maximum Likelihood Estimation
+methods may be replaced by a system of general estimating equations. Let
+\(\operatorname{h}\left(\bx\right)\) be the smooth function and
+\begin{equation}\protect\hypertarget{eq-xyp}{}{
+\begin{equation}
+\mathbf{U}(\btheta)=\sum_{i \in S_A} \mathbf{h}\left(\mathbf{x}_i, \btheta\right)-\sum_{i \in S_B} d_i^B \pi\left(\mathbf{x}_i, \btheta\right) \mathbf{h}\left(\mathbf{x}_i, \btheta\right).
+\end{equation}
+}\label{eq-xyp}\end{equation} Under
+\(\operatorname{h}\left(\bx_i\right) = \bx_i\) and logistic model for
+propensity score, Equation (3.2) looks like distorted version of the
+score equation from MLE method. Then \[
+    \mathbf{U}(\btheta)=\sum_{i \in S_A} \bx_i -\sum_{i \in S_B} d_i^B \pi\left(\mathbf{x}_i, \btheta\right) \bx_i.
+\] and analytical Jacobian is given by \[
+\frac{\partial \mathbf{U}}{\partial\btheta} = - \sum_{i \in S_B} d_i^B \pi_i^A\left(\bx_i^{\mathrm{T}} \btheta \right) \left(1 -  \pi_i^A\left(\bx_i^{\mathrm{T}} \btheta \right)\right)\bx_i \bx_i^{\mathrm{T}}.
+\] The second proposed of the smooth function in the literature is
+\(\operatorname{h}\left(\bx_i\right) = \bx_i / \pi_i^A\left(\bx_i^{\mathrm{T}} \btheta \right)\),
+for which the \(\operatorname{U}\)-function takes the following form \[
+    \mathbf{U}(\btheta)=\sum_{i \in S_A}  \bx_i \pi_i^A\left(\bx_i^{\mathrm{T}} \btheta \right)^{-1} -\sum_{i \in S_B} d_i^B \bx_i.
+\] The most important difference between these two version, however, is
+the fact that for
+\(\operatorname{h}\left(\bx_i\right) = \bx_i / \pi_i^A\left(\bx_i^{\mathrm{T}} \btheta \right)\),
+\(\mathbf{U}(\btheta)\) requires only the accessed or estimated
+population totals for auxiliary variables \(\bx\). This approach can be
+particularly useful when the values of \(\bx\) at the unit for a
+probability sample are not available. Generally, the goal is to find
+solution for following system of equations \[
+\begin{equation*}
+    \sum_{i \in S_A} \mathbf{h}\left(\mathbf{x}_i, \btheta\right) = \sum_{i \in S_B} d_i^B \pi\left(\mathbf{x}_i, \btheta\right) \mathbf{h}\left(\mathbf{x}_i, \btheta\right)
+\end{equation*}
+\]
+
+Derived \(\hat{\btheta}\) estimated from this model can be less
+efficient than the one based on MLE approach, moreover, limited
+empirical results show that the solution of
+\(\mathbf{U}(\btheta) = \bZero\) can be unstable for given
+\(\operatorname{h}\left(\bx_i\right)\). On the other hand estimating
+equations based methods extend the propensity model to more restrictive
+estimation conditions, for example, when a vector of population
+totals/means is available instead of a sample \(S_B\).
+
+In total, we have six models for this estimation method depending on the
+\(\operatorname{h}\)-function and the way propensity score is
+parameterized. Let us present all of them.
+
+\hypertarget{logistic-regression-1}{%
+\subsection{Logistic regression}\label{logistic-regression-1}}
+
+As the one model for logistic regression is presented above, we have
+equation under
+\(\operatorname{h}\left(\bx_i\right) = \bx_i \pi_i^A\left(\bx_i^{\mathrm{T}} \btheta \right)^{-1}\)
+to consider. Analytical jacobian is given by \[
+    \frac{\partial \operatorname{U}(\btheta)}{\partial \btheta} = -\sum_{i \in S_A} \frac{1 - \pi_i^A\left(\bx_i^{\mathrm{T}} \btheta \right)}{\pi_i^A\left(\bx_i^{\mathrm{T}} \btheta \right)} \bx_i \bx_i^{\mathrm{T}}.
+\]
+
+\hypertarget{complementary-log-log-regression-1}{%
+\subsection{Complementary log-log
+regression}\label{complementary-log-log-regression-1}}
+
+For
+\(\operatorname{h}\left(\bx_i\right) = \bx_i \pi_i^A\left(\bx_i^{\mathrm{T}} \btheta \right)^{-1}\)
+analytical jacobian is given by \[
+    \frac{\partial \operatorname{U}(\btheta)}{\partial \btheta} = - \sum_{i \in S_A} \frac{1 - \pi_i^A\left(\bx_i^{\mathrm{T}} \btheta \right)}{\pi_i^A\left(\bx_i^{\mathrm{T}} \btheta \right)^2} \exp(\bx_i^{\mathrm{T}} \btheta) \bx_i \bx_i^{\mathrm{T}}
+\] and \(\operatorname{h}\left(\bx_i\right) = \bx_i\) we have \[
+    \frac{\partial \operatorname{U}(\btheta)}{\partial \btheta} = - \sum_{i \in S_B} \frac{1 - \pi_i^A\left(\bx_i^{\mathrm{T}} \btheta \right)}{\pi_i^B} \exp \left(\bx_i^\mathrm{T} \btheta\right) \bx_i \bx_i^{\mathrm{T}}.
+\]
+
+\hypertarget{probit-regression-1}{%
+\subsection{Probit regression}\label{probit-regression-1}}
+
+Similarly, for the probit model, under
+\(\operatorname{h}\left(\bx_i\right) = \bx_i \pi_i^A\left(\bx_i^{\mathrm{T}} \btheta \right)^{-1}\)
+analyical jacobian is given by \[
+    \frac{\partial \operatorname{U}(\btheta)}{\partial \btheta} = - \sum_{i \in S_A} \frac{\dot{\pi}_i^A\left(\bx_i^{\mathrm{T}} \btheta \right)}{\pi_i^A\left(\bx_i^{\mathrm{T}} \btheta \right)^2} \bx_i \bx_i^{\mathrm{T}}
+\] and under \(\operatorname{h}\left(\bx_i\right) = \bx_i\) we have
+
+\[
+    \frac{\partial \operatorname{U}(\partial \btheta)}{\btheta} = - \sum_{i \in S_B} \frac{\dot{\pi}_i^A\left(\bx_i^{\mathrm{T}} \btheta \right)}{\pi_i^B} \bx_i \bx_i^{\mathrm{T}}.
+\]
+
+\hypertarget{population-mean-estimator-and-its-properties}{%
+\section{Population mean estimator and its
+properties}\label{population-mean-estimator-and-its-properties}}
+
+With the estimated propensity scores we can consider two approaches for
+population mean estimation, depending on whether population size is
+known or not.
+
+\[
+\begin{equation*}
+    \hat{\mu}_{IPW1} = \frac{1}{N} \sum_{i \in S_A} \frac{y_i}{\hat{\pi}_i^{A}}
+\end{equation*}
+\]
+
+\[
+\begin{equation*}
+    \hat{\mu}_{IPW2} = \frac{1}{\hat{N}^{A}} \sum_{i \in S_A} \frac{y_i}{\hat{\pi}_i^{A}},
+\end{equation*}
+\] where \(\hat{N^A} = \sum_{i \in S_A} \hat{d}_i^A\).
+
+In the literature (Kim et al 2020) asymptotic properties of the
+estimators above are obtained in details. In particular main approach is
+based on Taylor approximation what is performed in the following
+subsection.
+
+\hypertarget{variance-of-an-estimator}{%
+\subsection{Variance of an estimator}\label{variance-of-an-estimator}}
+
+Let \(\boldsymbol{\eta} = \left(\mu, \btheta^{T}\right)^{T}\) be the set
+of parameters to estimate for inverse probability weighting model. The
+estimator
+\(\hat{\boldsymbol{\eta}} = \left(\hat{\mu}, \hat{\btheta}^{T}\right)^{T}\)
+is the solution of joint estimating equations
+\(\boldsymbol{\Phi}_n(\boldsymbol{\eta}) = \bZero\). \[
+\begin{equation}
+\boldsymbol{\Phi}_n(\boldsymbol{\eta})=\left(\begin{array}{c}
+\frac{1}{N} \sum_{i=1}^N\left[\frac{R_i\left(y_i-\mu\right)}{\pi_i^A}+\Delta \frac{R_i-\pi_i^A}{\pi_i^A}\right] \\
+\mathbf{U}(\btheta)
+\end{array}\right)=\bZero,
+\end{equation}
+\] where where \(\Delta = \mu\), if \(\hat{\mu} = \hat{\mu}_{IPW1}\) and
+\(\Delta = 0\) if \(\hat{\mu} = \hat{\mu}_{IPW2}\).
+\(\mathbf{U}(\btheta)\) is objective function corresponding to given way
+od estimation. For example in case od pseudo maximum likelihood
+estimation, we have gradient corresponding to the choosen link function.
+In case of GEE it will be on of considered estimating equations. We have
+\(\mathbb{E} \left\{\boldsymbol{\Phi}_n(\boldsymbol{\eta})\right\} = \bZero\)
+when
+\(\boldsymbol{\eta} = \boldsymbol{\eta}_{0} = \left(\mu_y, \btheta_0^{T}\right)^{T}\).
+By applying the first order Taylor expansion around
+\(\boldsymbol{\eta}_0\), we further have \[
+\begin{equation*}
+\hat{\boldsymbol{\eta}}-\boldsymbol{\eta}_0=\left[\boldsymbol{\phi}_n\left(\boldsymbol{\eta}_0\right)\right]^{-1} \boldsymbol{\Phi}_n\left(\boldsymbol{\eta}_0\right)+o_p\left(n_A^{-1 / 2}\right)=\left[E\left\{\boldsymbol{\phi}_n\left(\boldsymbol{\eta}_0\right)\right\}\right]^{-1} \boldsymbol{\Phi}_n\left(\boldsymbol{\eta}_0\right)+o_p\left(n_A^{-1 / 2}\right),
+\end{equation*}
+\] where
+\(\boldsymbol{\phi}_n(\boldsymbol{\eta})=\partial \boldsymbol{\Phi}_n(\boldsymbol{\eta}) / \partial \boldsymbol{\eta}\).
+It follows that \[
+\begin{equation}
+\operatorname{Var}(\hat{\boldsymbol{\eta}})=\left[E\left\{\boldsymbol{\phi}_n\left(\boldsymbol{\eta}_0\right)\right\}\right]^{-1} \operatorname{Var}\left\{\boldsymbol{\Phi}_n\left(\boldsymbol{\eta}_0\right)\right\}\left[E\left\{\boldsymbol{\phi}_n\left(\boldsymbol{\eta}_0\right)\right\}^{\top}\right]^{-1}+o\left(n_A^{-1}\right).
+\end{equation}
+\] Let us show how to derive this variance-covariance matrix in case of
+MLE with logistic regression model. Calculations for the rest of the
+models is available in Appendix and you are welcome to take a look at
+them. Thus, we have \[
+\boldsymbol{\Phi}_n(\boldsymbol{\eta})=\left(\begin{array}{c}
+\frac{1}{N} \sum_{i=1}^N\left[\frac{R_i\left(y_i-\mu\right)}{\pi_i^A}+\Delta \frac{R_i-\pi_i^A}{\pi_i^A}\right] \\
+\frac{1}{N} \sum_{i=1}^N R_i \boldsymbol{x}_i-\frac{1}{N} \sum_{i \in \mathcal{S}_B} d_i^B \pi_i^A \boldsymbol{x}_i
+\end{array}\right)
+\] and
+
+\[
+\phi_n(\boldsymbol{\eta})=\frac{1}{N}\left(\begin{array}{cc}
+-\sum_{i=1}^N\left\{\left(1-\frac{\Delta}{\mu}\right) \frac{R_i}{\pi_i^A}+\frac{\Delta}{\mu}\right\} & -\sum_{i=1}^N \frac{1-\pi_i^A}{\pi_i^A} R_i\left(y_i-\mu+\Delta\right) \boldsymbol{x}_i^{\top} \\
+\mathbf{0} & -\sum_{i \in \mathcal{S}_B} d_i^B \pi_i^A\left(1-\pi_i^A\right) \boldsymbol{x}_i \boldsymbol{x}_i^{\top}
+\end{array}\right)
+\] It can be shown that \[
+\left[E\left\{\boldsymbol{\phi}_n(\boldsymbol{\eta})\right\}\right]^{-1}=\left(\begin{array}{cc}
+-1 &  \mathbf{b}^{\top} \\
+\mathbf{0} & -\left[\frac{1}{N} \sum_{i=1}^N \pi_i^A\left(1-\pi_i^A\right) \boldsymbol{x}_i \boldsymbol{x}_i^{\top}\right]^{-1}
+\end{array}\right)
+\] where
+
+\[
+\mathbf{b}^{\top} = 
+\left\{N^{-1} \sum_{i=1}^N\left(1-\pi_i^{\mathrm{A}}\right) \left(y_i-\mu_y + \Delta\right) x_i^{\top}\right\}\left\{N^{-1} \sum_{i=1}^N \pi_i^{\mathrm{A}}\left(1-\pi_i^{\mathrm{A}}\right) \boldsymbol{x}_i x_i^{\top}\right\}^{-1}
+\]
+
+\(\operatorname{Var}\left\{\boldsymbol{\Phi}_n\left(\boldsymbol{\eta}_0\right)\right\}\)
+can be found using decomposition of
+\(\bPhi_n(\boldsymbol{\eta}) = \bA_1 + \bA_2\). Since the probability
+sample is assumed to be independent on non-probabillity sample, we have
+\(\operatorname{Var}\left\{\boldsymbol{\Phi}_n\left(\boldsymbol{\eta}_0\right)\right\} = \operatorname{Var}\left(\bA_1\right) + \operatorname{Var}\left(\bA_2\right)\).
+Let \[
+\mathbf{A}_1=\frac{1}{N} \sum_{i=1}^N\left(\begin{array}{c}
+\frac{R_i\left(y_i-\mu\right)}{\pi_i^A}+\Delta \frac{R_i-\pi_i^A}{\pi_i^A} \\
+R_i \boldsymbol{x}_i-\pi_i^A \boldsymbol{x}_i
+\end{array}\right), \quad \mathbf{A}_2=\frac{1}{N}\left(\begin{array}{c}
+0 \\
+\sum_{i=1}^N \pi_i^A \boldsymbol{x}_i-\sum_{i \in S_B} d_i^B \pi_i^A \boldsymbol{x}_i
+\end{array}\right)
+\]
+
+With this division, we have
+\(\operatorname{Var}\left\{\boldsymbol{\Phi}_n\left(\boldsymbol{\eta}_0\right)\right\}=\mathbf{V}_1+\mathbf{V}_2\)
+where \(\mathbf{V}_1 = Var \left(A_1\right)\) and
+\(\mathbf{V}_2 = Var \left(A_2\right)\). \(V_1\) depends only on the
+model for propensity score and \(V_2\) on sampling design for
+probability sample, both evaluated on
+\(\boldsymbol{\eta} = \boldsymbol{\eta}_0\). Finally we have \[
+\mathbf{V}_1=\frac{1}{N^2} \sum_{i=1}^N\left(\begin{array}{cc}
+\left\{\left(1-\pi_i^A\right) / \pi_i^A\right\}\left(y_i-\mu+\Delta\right)^2 & \left(1-\pi_i^A\right)\left(y_i-\mu+\Delta\right) \boldsymbol{x}_i^{\top} \\
+\left(1-\pi_i^A\right)\left(y_i-\mu+\Delta\right) \boldsymbol{x}_i & \pi_i^A\left(1-\pi_i^A\right) \boldsymbol{x}_i \boldsymbol{x}_i^{\top}
+\end{array}\right)
+\] and \[
+\mathbf{V}_2=\left(\begin{array}{ll}
+0 & \mathbf{0}^{\top} \\
+\mathbf{0} & \mathbf{D}
+\end{array}\right)
+\] where
+\(\mathbf{D}=N^{-2} V_p\left(\sum_{i \in \mathcal{S}_B} d_i^B \pi_i^A \boldsymbol{x}_i\right)\)
+and is given by \[
+\begin{equation}
+{\mathbf{D}}=\frac{1}{N^2} \sum_{i \in \mathcal{S}_{\mathrm{B}}} \sum_{j \in \mathcal{S}_{\mathrm{B}}} \frac{\pi_{i j}^{\mathrm{B}}-\pi_i^{\mathrm{B}} \pi_j^{\mathrm{B}}}{\pi_{i j}^{\mathrm{B}}} \frac{{\pi}_i^{\mathrm{A}}}{\pi_i^{\mathrm{B}}} \frac{{\pi}_j^{\mathrm{A}}}{\pi_j^{\mathrm{B}}} \boldsymbol{x}_i \boldsymbol{x}_j^{\top}
+\end{equation}
+\] The asymptotic variance for \(\mu_{IPW}\) is the first diagonal
+element of matrix \[
+\left[E\left\{\boldsymbol{\phi}_n\left(\boldsymbol{\eta}_0\right)\right\}\right]^{-1} \operatorname{Var}\left\{\boldsymbol{\Phi}_n\left(\boldsymbol{\eta}_0\right)\right\}\left[E\left\{\boldsymbol{\phi}_n\left(\boldsymbol{\eta}_0\right)\right\}^{\top}\right]^{-1}.
+\]
+
+\bookmarksetup{startatroot}
+
+\hypertarget{mass-imputation}{%
+\chapter{Mass imputation}\label{mass-imputation}}
+
+\hypertarget{motivation-and-assumptions-1}{%
+\section{Motivation and
+assumptions}\label{motivation-and-assumptions-1}}
+
+This method relies on framework, where imputed values of the outcome
+variables are created for whole probability sample (\(S_B\)). In this
+case we treat big-data sample (\(S_A\)) as a training dataset, which is
+used to build an imputation model. The mass imputation approach for
+inference with non-probability samples makes use of model-based
+prediction methods, but it opens the door for more flexible methods as
+well. We consider parametric (e.g.~regression models) and non-parametric
+(nearest neighbor algorithm) methods for this problem. General framework
+consists of building a model based on the \(S_A\) sample and for each
+\(i \in S_A\) calculate imputed value.
+
+\hypertarget{model-based-methods}{%
+\section{Model-based methods}\label{model-based-methods}}
+
+This method is based on parametric model on sample \(S_A\) in the form
+of
+
+\[
+\begin{equation}
+\mathbb{E}\left(y_i \mid \bx_i\right) = m\left(\bx_i, \bbeta_{0}\right)
+\end{equation}
+\]
+
+for some unknown \(\bbeta_{0}\) and known function \(m(\cdot)\). The
+specification of m-function typically follows the mean function for
+generalized linear models. If \(\by\) is continous, we can use linear
+regression model with
+\(m\left(\boldsymbol{x}_i, \bbeta_{0}\right) = \bx_i^{T} \bbeta_0\). If
+\(\by\) is binary, one can use logistic regression model and let
+\(m\left(\boldsymbol{x}_i, \bbeta_{0}\right) = \frac{\exp\left( \bx_i^{T} \bbeta_0\right)}{\exp\left( \bx_i^{T} \bbeta_0\right) + 1}\).
+If \(\by\) represents count data, we can use log-linear model, where
+\(m\left(\boldsymbol{x}_i, \bbeta_{0}\right) = \exp\left(\bx_i^{T} \bbeta_0\right)\).
+
+Basing on this approach we can obtain another approach for population
+mean estimator. It is worth noting that this time we rely on known
+design weights and imputation model for units from probability samples.
+\[
+\begin{equation}
+\frac{1}{\hat{N}^{\mathrm{B}}} \sum_{i \in \mathcal{S}_{\mathrm{B}}} d_i^{\mathrm{B}} m\left(\boldsymbol{x}_i, \hat{\bbeta}\right)
+\end{equation}
+\] Theoretical calculations lead to the following variance of the
+estimator, where the second part is variance of the widely-known
+Horvits-Thompson population mean estimator, which is implemented in the
+R \texttt{survey} package.
+
+\[
+\text{var}\left(\hat{\mu}_{MI}\right) = \text{var}_A + \text{var}_B 
+\] The \(\text{var}_A\) can be estimated by \[
+\text{var}_A = \frac{1}{n_A} \sum_{i \in S_A} \hat{e}_i^2 \left(\bx_i^{T} \hat{c}\right)^2,
+\] where
+\(\hat{e_i} = y_i - m\left(\boldsymbol{x}_i, \hat{\bbeta}\right)\) and
+\(\hat{c} = \left\{\frac{1}{n_A} \sum_{i \in S_A} \dot{m}\left(\boldsymbol{x}_i, \hat{\bbeta}\right) \bx_i^T \right\}^{-1} N^{-1} \sum_{i \in S_B} d_i^B \bx_i\).
+Respectively \(\text{var}_B\) can be estimated by \[
+\hat{\text{var}}_B = \frac{1}{N^2} \sum_{i \in \mathcal{S}_{\mathrm{B}}} \sum_{j \in \mathcal{S}_{\mathrm{B}}} \frac{\pi_{i j}^{\mathrm{B}}-\pi_i^{\mathrm{B}} \pi_j^{\mathrm{B}}}{\pi_{i j}^{\mathrm{B}}} d_i^B m\left(\boldsymbol{x}_i, \hat{\bbeta}\right) d_j^B m\left(\boldsymbol{x}_j, \hat{\bbeta}\right)
+\]
+
+\hypertarget{nearest-neighbor-imputation}{%
+\section{Nearest neighbor
+imputation}\label{nearest-neighbor-imputation}}
+
+On the other hand we can applied non-parametric method to this problem,
+such as nearest neighbor algorithm, that is, find the closest matching
+unit from sample \(S_B\) based on the \(\bx\) values and use the
+corresponding \(\by\) value from this unit as the imputed value.
+
+\hypertarget{assumptions}{%
+\subsection{Assumptions}\label{assumptions}}
+
+\hypertarget{model}{%
+\subsection{Model}\label{model}}
+
+Procedure contains two steps
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  for each \(i \in S_B\) find the nearest neighbor from sample \(S_A\).
+\item
+  Calculate the nearest neighbor imputation estimator of \(\mu_y\) \[
+  \begin{equation}
+  \hat{\mu}_\mathrm{nn}=\frac{1}{N} \sum_{i \in S_B} d_i^B y_{i(1)} .
+  \end{equation}
+  \]
+\end{enumerate}
+
+This methods can provide robust results, but suffers from so called
+curse of dimensionanlity. For \(p > 1\) asymptotic bias of the estimator
+is not negligible (Yang and Kim, 2020). Variance of an estimator
+
+We have \[
+V_{\mathrm{nni}}=\lim _{n \rightarrow \infty} \frac{n}{N^2} E\left[\operatorname{var}_p\left\{\sum_{i \in S_B} d_i^B g\left(y_i\right)\right\}\right] .
+\]
+
+which can be estimated by \[
+\hat{\text{var}}_{\mathrm{nni}}=\frac{n}{N^2} \sum_{i \in S_A} \sum_{j \in S_A} \frac{\pi_{i j}-\pi_i \pi_j}{\pi_i \pi_j} \frac{y_{i(1)}}{\pi_i} \frac{y_{j(1)}}{\pi_j}
+\]
+
+\hypertarget{k-nearest-neighbor-imputation}{%
+\section{K-nearest neighbor
+imputation}\label{k-nearest-neighbor-imputation}}
+
+Steps
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  For each unit \(i \in S_B\) find k-nearest neighbors from sample
+  \(S_A\). Impute the \(\by\) value for unit \(i\) by
+  \(\hat{\mu}\left(\mathbf{x}_i\right)=k^{-1} \sum_{j=1}^k y_{i(j)}\).
+\item
+  Calculate k-nearest neighbor imputation estimator of \(\mu_y\) \[
+  \hat{\mu}_{\mathrm{knn}}=\frac{1}{N} \sum_{i \in S_B} d_i^B \hat{\mu}\left(\mathbf{x}_i\right) .
+  \]
+\end{enumerate}
+
+Variance of an estimator
+
+We have
+
+\[
+\text{var}_{\mathrm{knn}}=\lim _{n \rightarrow \infty} \frac{n}{N^2}\left(E\left[\operatorname{var}_p\left\{\sum_{i \in S_B} d_i^B \mu\left(\bx_i\right)\right\}\right]+E\left\{\frac{1-\pi_A(\bx)}{\pi_A(\bx)} \sigma^2(\bx)\right\}\right),
+\] where \(\sigma^2(\bx)=\operatorname{var}\{y \mid \bx\}\) and
+\(\pi_A(\bx) = P\left(R_i=1 \mid \boldsymbol{x}\right)\)
+
+\bookmarksetup{startatroot}
+
+\hypertarget{doubly-robust-methods}{%
+\chapter{Doubly robust methods}\label{doubly-robust-methods}}
+
+The IPW and MI estimators are sensible on misspecified models for
+propensity score and outcome variable respectively. For this purpose so
+called doubly-robust methoods, which take into account these problems,
+are presented. It is quite simple idea of combination propensity score
+and imputation models during inference, but in the first part of this
+chapter we present model which is based directly on the DR estimator.
+
+\hypertarget{bias-minimization-technique}{%
+\section{Bias minimization
+technique}\label{bias-minimization-technique}}
+
+This model is derived from the form of the bias of doubly robust
+estimator. We consider set of estimating equations, for which we want to
+find regression parameters (\(\btheta, \bbeta\)). Shu Yang, Jae Kwang
+Kim and Rui Song proposed this method with logistic regression for
+selection model. As before our goal is to expand this approach. At the
+beginning let us derive bias of the estimator. We have
+
+\[
+\begin{aligned}
+bias(\hat{\mu}_{DR}) = & \mathbb{E}\left\{\hat{\mu}_{DR} - \mu\right\} \\ = & \mathbb{E}\left[ \frac{1}{N} \sum_{i=1}^N \left\{\frac{R_i^A}{\pi_i^A \left(\bx_i^{\mathrm{T}} \btheta \right)}  - 1\right\} \left\{y_i - \operatorname{m}\left( \bx_i^{\mathrm{T}} \bbeta\right)\right\} \right] \\ + & \mathbb{E}\left[  \frac{1}{N} \sum_{i=1}^N \left(R_i^B d_i^B - 1\right) \operatorname{m}\left( \bx_i^{\mathrm{T}} \bbeta \right)\right]
+\end{aligned}
+\] Since we actually care about minimizing the square of the bias, let's
+calculate its derivative against the parameter vector. \[
+\begin{aligned}
+    \frac{\partial \operatorname{bias}(\hat{\mu}_{DR})^2}{\partial \left(\bbeta^{\mathrm{T}}, \btheta^{\mathrm{T}}\right)^{\mathrm{T}}} = 2 \operatorname{bias}(\hat{\mu}_{DR}) J(\theta, \beta),
+\end{aligned}
+\] where \(J(\theta, \beta)\) is internal derivative and depends on the
+model for outcome variable and propensity score. In the basic setting
+with propensity score modelling by logistic regression we have following
+system of equations to solve \[
+\begin{equation}
+\begin{aligned}
+J(\theta, \beta)=\left(\begin{array}{c}
+J_1(\theta, \beta) \\
+J_2(\theta, \beta)
+\end{array}\right)=\left(\begin{array}{c}
+\sum_{i=1}^N R_i^A\left\{\frac{1}{\pi\left(\boldsymbol{x}_i, \boldsymbol{\theta}\right)}-1\right\}\left\{y_i-m\left(\boldsymbol{x}_i, \boldsymbol{\beta}\right)\right\} \boldsymbol{x}_i \\
+\sum_{i=1}^N \frac{R_i^A}{\pi\left(\boldsymbol{x}_i, \boldsymbol{\theta}\right)} \frac{\partial m\left(\boldsymbol{x}_i, \boldsymbol{\beta}\right)}{\partial \bbeta}  - \sum_{i \in \mathcal{S}_{\mathrm{B}}} d_i^{\mathrm{B}} \frac{\partial m\left(\boldsymbol{x}_i, \boldsymbol{\beta}\right)}{\partial \bbeta} 
+\end{array}\right)
+\end{aligned}
+\end{equation}
+\] where \(\left(\boldsymbol{x}_i, \boldsymbol{\beta}\right)\) is
+working model for outcome variable, for example in linear regression
+case we have \[
+m\left(\boldsymbol{x}_i, \boldsymbol{\beta}\right) = \bx_i^{T} \bbeta
+\] and \[
+\frac{\partial m\left(\boldsymbol{x}_i, \boldsymbol{\beta}\right)}{\partial \bbeta} = \bx_i.
+\] For complementary log-log model we have \[
+\begin{equation}
+J(\theta, \beta)=\left(\begin{array}{c}
+J_1(\theta, \beta) \\
+J_2(\theta, \beta)
+\end{array}\right)=\left(\begin{array}{c}
+\frac{1}{N} \sum_{i=1}^N R_i^A\left\{\frac{1 - \pi_i^A\left(\bx_i^{\mathrm{T}} \btheta \right)}{\pi_i^A\left(\bx_i^{\mathrm{T}} \btheta \right)^2} \exp(\bx_i^{\mathrm{T}} \btheta)\right\}\left\{y_i-m\left(\bx_i^{\mathrm{T}} \beta\right)\right\} \bx_i \\
+\frac{1}{N} \sum_{i=1}^N\left\{\frac{R_i^A}{\pi_i^A\left(\bx^{\mathrm{T}}\theta\right)}-d_i^B R_i^B\right\} \frac{\partial m\left(\bx_i^{\mathrm{T}} \beta\right)}{\partial \beta}
+\end{array}\right)
+\end{equation}
+\] and probit model
+
+\[
+\begin{equation}
+J(\theta, \beta)=\left(\begin{array}{c}
+J_1(\theta, \beta) \\
+J_2(\theta, \beta)
+\end{array}\right)=\left(\begin{array}{c}
+\frac{1}{N} \sum_{i=1}^N R_i^A\frac{\dot{\pi_i^A}\left(\bx_i^{\mathrm{T}} \btheta \right)}{\pi_i^A\left(\bx_i^{\mathrm{T}} \btheta \right)^2} \left\{y_i-m\left(\bx_i^{\mathrm{T}} \beta\right)\right\} \bx_i \\
+\frac{1}{N} \sum_{i=1}^N\left\{\frac{R_i^A}{\pi_i^A\left(\bx^{\mathrm{T}}\theta\right)}-d_i^B R_i^B\right\} \frac{\partial m\left(\bx_i^{\mathrm{T}} \beta\right)}{\partial \beta}
+\end{array}\right)
+\end{equation}
+\]
+
+Goal is to solve following system of equations \[
+J(\theta, \beta)=\bZero
+\]
+
+\hypertarget{population-mean-estimator-and-its-properties-1}{%
+\section{Population mean estimator and its
+properties}\label{population-mean-estimator-and-its-properties-1}}
+
+Not surprisingly, this method involves using units from both probability
+and non-probability samples. In particular estimator of the population
+mean is as follows \[
+\begin{equation*}
+    \hat{\mu}_{\mathrm{DR}}=\frac{1}{\hat{N}^{\mathrm{A}}} \sum_{i \in \mathcal{S}_{\mathrm{A}}} d_i^{\mathrm{A}}\left\{y_i-m\left(\boldsymbol{x}_i, \hat{\boldsymbol{\beta}}\right)\right\}+\frac{1}{\hat{N}^{\mathrm{B}}} \sum_{i \in \mathcal{S}_{\mathrm{B}}} d_i^{\mathrm{B}} m\left(\boldsymbol{x}_i, \hat{\boldsymbol{\beta}}\right),
+\end{equation*}
+\] where \(d_i^A = \pi \left(\bx_i, \btheta\right)^{-1}\),
+\(\hat{N}^A = \sum_{i \in S_A} d_i^A\) and
+\(\hat{N}^B = \sum_{i \in S_B} d_i^B\). We will first show how to obtain
+the variance of the derived estimator using separate procedures for
+propensity score and mass imputation (for example MLE and linear
+regression), and then variance derived from bias minimization technique
+for estimation.
+
+\hypertarget{variance-estimation-for-separate-models}{%
+\subsection{Variance estimation for separate
+models}\label{variance-estimation-for-separate-models}}
+
+It can be shown that parameters \(\bbeta\) have no impact on asymptotic
+variance of \(\hat{\mu}_{DR}\). Let's assume that
+\(\hat{\bbeta} - \bbeta^* = O_p(n_A^{-1/2})\) for some fixed
+\(\bbeta^*\). Notice that the first part of DR estimator is the
+\(\mu_{IPW2}\) estimator with \(y_i\) replaced by
+\(y_i - \operatorname{m}\left(\bx_i,\bbeta^*\right)\). Using the
+asymptotic expansions developed for \(\mu_{IPW2}\) and logistic
+regression model for propensity score we have \[
+\begin{equation}
+\begin{aligned}
+\frac{1}{\hat{N}^A} \sum_{i=1}^N \frac{R_i\left\{y_i-m\left(\boldsymbol{x}_i, \boldsymbol{\beta}^*\right)\right\}}{\hat{\pi}_i^A}= & h_N+\frac{1}{N} \sum_{i=1}^N R_i\left\{\frac{y_i-m\left(\boldsymbol{x}_i, \boldsymbol{\beta}^*\right)-h_N}{\pi_i^A}-\mathbf{b}_3^{\top} \boldsymbol{x}_i\right\} \\
+& +\mathbf{b}^{\top} \frac{1}{N} \sum_{i \in \mathcal{S}_B} d_i^B \pi_i^A \boldsymbol{x}_i+o_p\left(n_A^{-1 / 2}\right),
+\end{aligned}
+\end{equation}
+\] where
+\(h_N=N^{-1} \sum_{i=1}^N\left\{y_i-m\left(\boldsymbol{x}_i, \boldsymbol{\beta}^*\right)\right\}\)
+and
+
+\[
+\mathbf{b}^{\top}=\left[\frac{1}{N} \sum_{i=1}^N\left(1-\pi_i^A\right)\left\{y_i-m\left(\boldsymbol{x}_i, \boldsymbol{\beta}^*\right)-h_N\right\} \boldsymbol{x}_i^{\top}\right]\left\{\frac{1}{N} \sum_{i=1}^N \pi_i^A\left(1-\pi_i^A\right) \boldsymbol{x}_i \boldsymbol{x}_i^{\top}\right\}^{-1}
+\] The second part of the estimator has the following expansion \[
+\frac{1}{\hat{N}^B} \sum_{i \in \mathcal{S}_B} d_i^B m\left(\bx_i,\bbeta^*\right)=\frac{1}{N} \sum_{i=1}^N m\left(\bx_i,\bbeta^*\right)+\frac{1}{N} \sum_{i \in \mathcal{S}_B} d_i^B\left\{m\left(\bx_i,\bbeta^*\right)-\frac{1}{N} \sum_{i=1}^N m_i\right\}+O_p\left(n_B^{-1}\right)
+\] Further, putting these two parts together, we have \[
+\hat{\mu}_{D R 2}-\mu_y=\frac{1}{N} \sum_{i=1}^N R_i\left\{\frac{y_i-m\left(\boldsymbol{x}_i, \boldsymbol{\beta}^*\right)-h_N}{\pi_i^A}-\mathbf{b}_3^{\top} \boldsymbol{x}_i\right\}+\frac{1}{N} \sum_{i \in \mathcal{S}_B} d_i^B t_i+o_p\left(n_A^{-1 / 2}\right),
+\] where
+\(t_i=\pi_i^A \boldsymbol{x}_i^{\top} \mathbf{b}_3+m\left(\boldsymbol{x}_i, \boldsymbol{\beta}^*\right)-N^{-1} \sum_{i=1}^N m\left(\boldsymbol{x}_i, \boldsymbol{\beta}^*\right)\).
+Finally \[
+\begin{gathered} \text{var}(\hat{\mu}_{DR}) =
+\frac{1}{N^2} \sum_{i=1}^N\left(1-\pi_i^{\mathrm{A}}\right) \pi_i^{\mathrm{A}}\left[\left\{y_i-m\left(\boldsymbol{x}_i, \boldsymbol{\beta}^*\right)-h_{\mathrm{N}}\right\} /\right. \\
+\left.\pi_i^{\mathrm{A}}-\mathbf{b}_3^{\top} \boldsymbol{x}_i\right]^2+W,
+\end{gathered}
+\] where
+\(W = N^{-2} \text{var}_p\left(\sum_{i \in \mathcal{S}_{\mathrm{B}}} d_i^{\mathrm{B}} t_i\right)\).
+
+\hypertarget{variance-estimation-for-bias-oriented-technique}{%
+\subsection{Variance estimation for bias-oriented
+technique}\label{variance-estimation-for-bias-oriented-technique}}
+
+When model is obtained by using systems of equations derived from bias
+minimization technique. We have variance decomposition on probability
+and nonprobability part, where \[
+\text{var}_B = \mathbb{E} \left\{\frac{1}{N^2} \sum_{i \in \mathcal{S}_{\mathrm{B}}} \sum_{j \in \mathcal{S}_{\mathrm{B}}} \frac{\pi_{i j}^{\mathrm{B}}-\pi_i^{\mathrm{B}} \pi_j^{\mathrm{B}}}{\pi_{i j}^{\mathrm{B}}} d_i^B m\left(\boldsymbol{x}_i, \bbeta^*\right) d_j^B m\left(\boldsymbol{x}_j, \bbeta^*\right) \right\}
+\] which can be estimated by \[
+\hat{\text{var}}_B = \frac{1}{N^2} \sum_{i \in \mathcal{S}_{\mathrm{B}}} \sum_{j \in \mathcal{S}_{\mathrm{B}}} \frac{\pi_{i j}^{\mathrm{B}}-\pi_i^{\mathrm{B}} \pi_j^{\mathrm{B}}}{\pi_{i j}^{\mathrm{B}}} d_i^B m\left(\boldsymbol{x}_i, \hat{\bbeta}\right) d_j^B m\left(\boldsymbol{x}_j, \hat{\bbeta}\right)
+\] For non-probability part we have \[
+\text{var}_A = \frac{1}{N^2} \sum_{i=1}^N \mathbb{E} \left[R_i^A \left\{ \frac{1 - 2 \pi_i^A}{\left( \pi_i^A \right) ^2} \right\} \sigma_i^2 + \sigma_i^2 \right]
+\] what can be estimated by \[
+\hat{\text{var}}_A = \frac{1}{N^2} \sum_{i=1}^N R_i^A \left\{ \frac{1 - 2 \hat{\pi}_i^A}{\left( \hat{\pi}_i^A \right) ^2} \right\} \hat{\sigma}_i^2 + \sum_{i \in S_B} d_i^B \hat{\sigma}_i^2,
+\] where \(\hat{\sigma}_i^2\) is consistent estimator of
+\(\sigma_i^2 = \text{var}\left(y_i \mid \bx_i\right)\).
+
+\bookmarksetup{startatroot}
+
+\hypertarget{techniques-of-variables-selection-for-high-dimensional-data}{%
+\chapter{Techniques of variables selection for high-dimensional
+data}\label{techniques-of-variables-selection-for-high-dimensional-data}}
+
+\hypertarget{motivation}{%
+\section{Motivation}\label{motivation}}
+
+In the presence of high-dimensional data, variable selection is
+important, because it can reduce variablity in estimation resulting from
+using irrelevant variables for model building. There is a considerable
+body of literature on variable selection, but little about techniques
+for data integration that can successfully recognize the strengths and
+the limitations of each source of data. The selection of variables is
+the basis of a two-step approach to estimation, where in first one we
+select important variables and in the second one re-estimate model. For
+the first step it is proposed penalized logistic regression model for
+propensity score estimation (Yang et al, 2020), but we expand this
+approach on complementary log-log and probit models. For a mass
+imputation based on a parametric model it is considered penalized OLS
+(Ordinary least squared) method. It is worth mentioning that Yang, Kim
+and Rui (2020), in their article on this topic, used the SCAD (Smoothly
+Clipped Absolute Deviation) penalization, but one can uses LASSO (Least
+Absolute Shrinkage and Selection Operator) and MCP (Minimax Concave
+Penalty) techniques as well, what will be considered in the next
+subsection.
+
+\hypertarget{existed-techniques}{%
+\section{Existed techniques}\label{existed-techniques}}
+
+Let \(\operatorname{U}\left(\btheta, \bbeta\right)\) be the join
+estimating function for \(\left(\btheta, \bbeta\right)\). When p is
+large, we consider the penalized estimating functions for
+\(\left(\btheta, \bbeta\right)\) as
+
+\[
+\operatorname{U}^p\left(\btheta, \bbeta\right) = \operatorname{U}\left(\btheta, \bbeta\right) -\left(\begin{array}{c}
+q_{\lambda_\theta}(|\btheta|) \operatorname{sgn}(\btheta) \\
+q_{\lambda_\beta}(|\bbeta|) \operatorname{sgn}(\bbeta)
+\end{array}\right),
+\] where \(q_{\lambda_{\theta}}\) and \(q_{\lambda_{\beta}}\) are some
+smooth functions. We let
+\(q_{\lambda}\left(x\right) = \frac{\partial p_{\lambda}}{\partial x}\),
+where \(p_{\lambda}\) is some penalization function.
+
+Before the full performance of the estimation model with variable
+selection it is recommended to explain penalization techniques. We focus
+on proposed function and its derivative, which are particularly crucial.
+After that we mark some important similarities and differences between
+these methods.
+
+\hypertarget{lasso}{%
+\subsection{LASSO}\label{lasso}}
+
+It is probably the most popular method for variable selection, which is
+also known as L1 regularization. \[
+p_{\lambda}(x) = \lambda |x|
+\] and its derivative
+
+\[
+q_{\lambda}(x)= \begin{cases} - \lambda & \text { if }x < 0, \\ \left[-\lambda, \lambda\right] & \text { if } x = 0 \\ \lambda & \text { if }x > 0\end{cases}
+\]
+
+\hypertarget{scad}{%
+\subsection{SCAD}\label{scad}}
+
+\[
+p_{\lambda}(x ; \gamma)= \begin{cases}\lambda|x| & \text { if }|x| \leq \lambda, \\ \frac{2 \gamma \lambda|x|-x^2-\lambda^2}{2(\gamma-1)} & \text { if } \lambda<|x|<\gamma \lambda \\ \frac{\lambda^2(\gamma+1)}{2} & \text { if }|x| \geq \gamma \lambda\end{cases}
+\] and derivative is \[
+q_{\lambda}(x ;  \gamma)= \begin{cases}\lambda & \text { if }|x| \leq \lambda \\ \frac{\gamma \lambda-|x|}{\gamma-1} & \text { if } \lambda<|x|<\gamma \lambda \\ 0 & \text { if }|x| \geq \gamma \lambda\end{cases}
+\]
+
+\hypertarget{mcp}{%
+\subsection{MCP}\label{mcp}}
+
+\[
+p_{\lambda}(x ; \gamma)= \begin{cases}\lambda|x|-\frac{x^2}{2 \gamma}, & \text { if }|x| \leq \gamma \lambda \\ \frac{1}{2} \gamma \lambda^2, & \text { if }|x|>\gamma \lambda\end{cases}
+\] and derivative is \[
+q_\lambda(x ; \gamma)= \begin{cases}\left(\lambda-\frac{|x|}{\gamma}\right) \operatorname{sign}(x), & \text { if }|x| \leq \gamma \lambda, \\ 0, & \text { if }|x|>\gamma \lambda\end{cases}
+\]
+
+\hypertarget{solution}{%
+\section{Solution}\label{solution}}
+
+By minorization-maximization algorithm, the penalized estimator
+\(\left(\hat{\btheta}, \hat{\bbeta}\right)\) satisfies
+
+\[
+\operatorname{U}^p\left(\hat{\btheta}, \hat{\bbeta}\right) = \operatorname{U}\left(\hat{\btheta}, \hat{\bbeta}\right) -\left(\begin{array}{c}
+q_{\lambda_\hat{\theta}}(|\hat{\btheta}|) \operatorname{sgn}(\hat{\btheta}) \frac{|\hat{\btheta}|}{\epsilon + |\hat{\btheta}|} \\
+q_{\lambda_\hat{\beta}}(|\hat{\bbeta}|) \operatorname{sgn}(\hat{\bbeta}) \frac{|\hat{\bbeta}|}{\epsilon + |\hat{\bbeta}|}
+\end{array}\right) = \bZero
+\] Let
+\(\nabla\left(\btheta, \bbeta \right) = \frac{\partial \operatorname{U}\left(\btheta, \bbeta\right)}{\partial \left(\btheta^{T} \bbeta^{T}\right)^{T}} = Diag \left(\frac{\partial U_1 \left(\btheta \right)}{\partial \btheta^{T}}, \frac{\partial U_2 \left(\bbeta \right)}{\partial \bbeta^{T}} \right)\),
+where \(U_1\) is objective function for selection model and \(U_2\) for
+outcome model. Let
+\(\boldsymbol{\alpha} = \left(\btheta, \bbeta\right)\) and
+
+\[
+\Lambda(\boldsymbol{\alpha})=\left(\begin{array}{ccc}
+q_{\lambda_1}\left(\left|\alpha_1\right|\right) & \ldots & 0 \\
+\vdots & \ddots & \vdots \\
+0 & \ldots & q_{\lambda_{2 p}}\left(\left|\alpha_{2 p}\right|\right)
+\end{array}\right)
+\] Newton-Raphson procedure for j-variable and k-update
+
+\[
+\hat{\alpha}_j^{[k]}=\hat{\alpha}_j^{[k-1]}+\left\{\nabla_{j j}\left(\hat{\alpha}^{[k-1]}\right)+N \Lambda_{j j}\left(\hat{\alpha}^{[k-1]}\right)\right\}^{-1}\left\{U_j\left(\hat{\alpha}^{[k-1]}\right)-N \Lambda_{j j}\left(\hat{\alpha}^{[k-1]}\right) \hat{\alpha}_j^{[k-1]}\right\}
+\]
+
+It is recommended to use K-fold cross validation for selectiing tuning
+parameters \(\left(\lambda_{\theta}, \lambda_{\beta}\right)\) which
+minimize following loss functions for set of parameters \(\balpha\).
+
+\[
+\operatorname{Loss}\left(\lambda_\theta\right)=\sum_{j=1}^p\left(\sum_{i=1}^N\left[\frac{R_i^A}{\pi_i^A\left\{\bx_i^{\mathrm{T}} \hat{\theta}\left(\lambda_\theta\right)\right\}}-\frac{I_{\mathrm{A}, i}}{\pi_{\mathrm{A}, i}}\right] \bx_{i, j}\right)^2,
+\]
+
+\[
+\operatorname{Loss}\left(\lambda_\beta\right)=\sum_{i=1}^N R_i^A\left[y_i-m\left\{\bx_i^{\mathrm{T}} \hat{\beta}\left(\lambda_\beta\right)\right\}\right]^2,
+\] where \(\hat{\theta}\left(\lambda_\theta\right)\) and
+\(\hat{\beta}\left(\lambda_\beta\right)\) are penalized estimators with
+tuning parameters \(\lambda_\theta\), \(\lambda_\beta\) for selection
+and outcome model respectively. For estimation we consider only the
+union of covariates \(\bX_C\), where
+\(C = \hat{M}_{\theta} + \hat{M}_{\beta}\) and
+\(\hat{M}_{\theta} = \left\{j: \hat{\theta}_j \ne 0\right\}\) and
+\(\hat{M}_{\beta} = \left\{j: \hat{\beta}_j \ne 0\right\}\). In short,
+we estimate only on truly important variables for selection and outcome
+models.
+
+\bookmarksetup{startatroot}
+
+\hypertarget{summary}{%
+\chapter{Summary}\label{summary}}
+
+\bookmarksetup{startatroot}
+
+\hypertarget{references}{%
+\chapter{References}\label{references}}
+
+\hypertarget{refs}{}
+\begin{CSLReferences}{1}{0}
+\leavevmode\vadjust pre{\hypertarget{ref-kim20}{}}%
+Jae Kwang Kim, Yilin Chen, Seho Park. 2020. {``Combining Nonprobability
+and Probability Survey Samples Through Mass Imputation.''} \emph{J R
+Stat Soc Series} 184: 941--63.
+
+\leavevmode\vadjust pre{\hypertarget{ref-kim22}{}}%
+Kim, Jae Kwang. 2022. {``A Gentle Introduction to Data Integration in
+Survey Sampling.''} \emph{The Survey Statistician} 85: 19--29.
+
+\leavevmode\vadjust pre{\hypertarget{ref-shu20}{}}%
+Shu Yang, Rui Song, Jae Kwang Kim. 2020. {``Doubly Robust Inference When
+Combining Probability and Nonprobability Samples with High Dimensional
+Data.''} \emph{J. R. Statist. Soc. B}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-chen20}{}}%
+Yilin Chen, Changbao Wu, Pengfei Li. 2020. {``Doubly Robust Inference
+with Nonprobability Survey Samples.''} \emph{Journal of the American
+Statistical Association} 115 (532): 2011--21.
+\url{https://doi.org/10.1080/01621459.2019.1677241}.
+
+\end{CSLReferences}
+
+(Yilin Chen 2020) (Jae Kwang Kim 2020) (Kim 2022) (Shu Yang 2020)
+
+\appendix
+\addcontentsline{toc}{part}{Appendices}
+
+\hypertarget{appendices-1}{%
+\chapter{Appendices}\label{appendices-1}}
+
+\[
+\newcommand{\bSigma}{\boldsymbol{\Sigma}}
+\newcommand{\bOmega}{\boldsymbol{\Omega}}
+\newcommand{\bTheta}{\boldsymbol{\Theta}}
+\newcommand{\bPi}{\boldsymbol{\Pi}}
+\newcommand{\bbeta}{\boldsymbol{\beta}}
+\newcommand{\balpha}{\boldsymbol{\alpha}}
+\newcommand{\brho}{\boldsymbol{\rho}}
+\newcommand{\beps}{\boldsymbol{\epsilon}}
+\newcommand{\blambda}{\boldsymbol{\lambda}}
+\newcommand{\bgamma}{\boldsymbol{\gamma}}
+\newcommand{\btheta}{\boldsymbol{\theta}}
+\newcommand{\bmu}{\boldsymbol{\mu}}
+\newcommand{\bpi}{\boldsymbol{\pi}}
+\newcommand{\bphi}{\boldsymbol{\phi}}
+\newcommand{\bPhi}{\boldsymbol{\Phi}}
+\newcommand{\boldeta}{\boldsymbol{\eta}}
+\newcommand{\bx}{\boldsymbol{x}}
+\newcommand{\bD}{\boldsymbol{D}}
+\newcommand{\bV}{\boldsymbol{V}}
+\newcommand{\bv}{\boldsymbol{v}}
+\newcommand{\bY}{\boldsymbol{Y}}
+\newcommand{\bA}{\boldsymbol{A}}
+\newcommand{\bB}{\boldsymbol{B}}
+\newcommand{\bR}{\boldsymbol{R}}
+\newcommand{\bM}{\boldsymbol{M}}
+\newcommand{\bI}{\boldsymbol{I}}
+\newcommand{\bC}{\boldsymbol{C}}
+\newcommand{\bW}{\boldsymbol{W}}
+\newcommand{\bw}{\boldsymbol{w}}
+\newcommand{\bd}{\boldsymbol{d}}
+\newcommand{\bT}{\boldsymbol{T}}
+\newcommand{\bt}{\boldsymbol{t}}
+\newcommand{\bZ}{\boldsymbol{Z}}
+\newcommand{\bX}{\boldsymbol{X}}
+\newcommand{\bz}{\boldsymbol{z}}
+\newcommand{\by}{\boldsymbol{y}}
+\newcommand{\br}{\boldsymbol{r}}
+\newcommand{\bp}{\boldsymbol{p}}
+\newcommand{\bb}{\boldsymbol{b}}
+\newcommand{\bZero}{\boldsymbol{0}}
+\newcommand{\bOne}{\boldsymbol{1}}
+\]
+
+\hypertarget{ipw-estimator-variance}{%
+\section{IPW estimator variance}\label{ipw-estimator-variance}}
+
+Similarly as in second chapter wi will derive variance of an IPW
+estimator, but this time we will consider all of the other models for
+propensity score. In the first part we expand Taylor approximation for
+MLE model with complementary log-log and probit regression for
+propensity score. In the next part we this approach for variance
+estimation in GEE models.
+
+\hypertarget{mle-complementary-log-log-model}{%
+\subsection{MLE (complementary log-log
+model)}\label{mle-complementary-log-log-model}}
+
+Recall that we have following system of equation to solve for cloglog
+model with corresponding objective function (gradient).
+
+\[
+\begin{equation*}
+\boldsymbol{\Phi}_n(\boldsymbol{\eta})=\left(\begin{array}{c}
+\frac{1}{N} \sum_{i=1}^N\left[\frac{R_i\left(y_i-\mu\right)}{\pi_i^A}+\Delta \frac{R_i-\pi_i^A}{\pi_i^A}\right] \\
+\frac{1}{N}\sum_{i=1}^N R_i \frac{\exp(\bx_{i}^{\top}\btheta)\bx_{i}}{\pi(\bx_{i}, \btheta)} - \sum_{i \in S_{B}}d_{i}^{B}\exp(\bx_{i}^{T}\btheta)\bx_{i}
+\end{array}\right) = \bZero
+\end{equation*}
+\] for which derivative along \(\boldsymbol{\eta}\) is
+
+\[
+\begin{equation*}
+\phi_n(\boldsymbol{\eta})=\frac{1}{N}\left(\begin{array}{cc}
+-\sum_{i=1}^N\left\{\left(1-\frac{\Delta}{\mu}\right) \frac{R_i}{\pi_i^A}+\frac{\Delta}{\mu}\right\} & \sum_{i=1}^N \frac{R_i\left(y_i-\mu + \Delta\right)\left(1 - \pi_i^A\right)\log \left(1 - \pi_i^A\right)}{\left(\pi_i^A\right)^2} \boldsymbol{x}_i^{\top} \\
+\mathbf{0} & \operatorname{H}(\btheta)
+\end{array}\right),
+\end{equation*}
+\] where \(\operatorname{H}\) is hessian in point \(\btheta\). We can
+show that \[
+\begin{equation*}
+\left[E(\phi_n(\boldsymbol{\eta}))\right]^{-1}=\left(\begin{array}{cc}
+-1 & \mathbf{b}^T \\
+\mathbf{0} & \left[\frac{1}{N}\operatorname{E}\left(\operatorname{H}(\btheta)\right)\right]^{-1}
+\end{array}\right),
+\end{equation*}
+\] where \[
+\mathbf{b}^{\top} = \sum_{i=1}^N \frac{1-\pi_i^A}{\pi_i^A} \log \left(1 - \pi_i^A\right) \left(y_i - \mu_y + \Delta\right) \bx_i^{\top}\left[\operatorname{E}\left(\operatorname{H} (\btheta)\right)\right]^{-1}.
+\] Decomposition for this model has following form
+
+\[
+\begin{equation*}
+    \operatorname{\bA_1} = \frac{1}{N} \sum_{i=1}^N
+    \left(\begin{array}{c}
+        \frac{R_i\left(y_i - \mu\right)}{\pi_i^A} + \Delta\frac{R_i - \pi_i^A}{\pi_i^A}  \\
+       \pi_i^A \frac{\log\left(1 - \pi_i^A\right)}{\pi_i^A} \bx_i -  R_i \frac{\log\left(1 - \pi_i^A\right)}{\pi_i^A} \bx_i
+    \end{array}\right)
+\end{equation*}
+\] and \[
+\begin{equation*}
+    \operatorname{\bA_2} = \frac{1}{N} 
+    \left(\begin{array}{c}
+        0  \\
+        \sum_{i \in \mathcal{S}_B} d_i^B \log \left(1 - \pi_i^A\right) \bx_i - \sum_{i=1}^N \pi_i^A  \frac{\log \left(1 - \pi_i^A\right)}{\pi_i^A} \bx_i
+    \end{array}\right)
+\end{equation*}
+\] and respectively \[
+\begin{equation*}
+\operatorname{Var}\left(\bA_1\right) = \frac{1}{N^2} \sum_{i=1}^N
+\left(\begin{array}{cc}
+    \left(y_i - \mu + \Delta\right)^2 \left((\pi_i^A)^{-1} - 1\right)  & - \frac{\left(1 - \pi_i^A\right)}{\pi_i^A} \log\left(1 - \pi_i^A\right)\left(y_i - \mu + \Delta\right)\bx_i^{\top}  \\
+    - \frac{\left(1 - \pi_i^A\right)}{\pi_i^A} \log\left(1 - \pi_i^A\right)\left(y_i - \mu + \Delta\right)\bx_i
+    & \frac{\left(1 - \pi_i^A\right) \log^2\left(1 - \pi_i^A\right)}{\pi_i^A} \bx_i \bx_i^{\top}
+\end{array}\right)
+\end{equation*}
+\] \[
+\begin{equation*}
+\operatorname{Var}\left(\bA_2\right) = 
+\left(\begin{array}{cc}
+     0 & \boldsymbol{0}^{\top} \\
+     \boldsymbol{0} & \bD 
+\end{array}\right),
+\end{equation*}
+\] where \[
+\begin{align}
+    \bD = \frac{1}{N^2}V_p\left(\sum_{i \in \mathcal{S}_B} d_i^B \log \left(1 - \pi_i^A\right) \bx_i\right) 
+\end{align}
+\] is variance-covariance matrix for sampling design for \(S_B\) and can
+be estimated as \ldots{}
+
+\hypertarget{mle-probit-model}{%
+\subsection{MLE (probit model)}\label{mle-probit-model}}
+
+From the model for probit regression we have following system to solve
+\[
+\begin{equation} 
+\boldsymbol{\Phi}_n(\boldsymbol{\eta})=\left(\begin{array}{c}
+\frac{1}{N} \sum_{i=1}^N\left[\frac{R_i\left(y_i-\mu\right)}{\pi_i^A}+\Delta \frac{R_i-\pi_i^A}{\pi_i^A}\right] \\
+\frac{1}{N} \sum_{i=1}^N R_i \frac{\dot{\pi}_i^A}{\pi_i^A\left(1 - \pi_{i}^A\right)} \boldsymbol{x}_i-\frac{1}{N} \sum_{i \in \mathcal{S}_B} d_i^B \frac{\dot{\pi}_i^A}{1 - \pi_i^A} \boldsymbol{x}_i
+\end{array}\right)=\mathbf{0},
+\end{equation}
+\] AS before we have to derive
+\(\boldsymbol{\phi}_n(\boldsymbol{\eta})=\partial \boldsymbol{\Phi}_n(\boldsymbol{\eta}) / \partial \boldsymbol{\eta}\)
+and find decomposition of \(\boldsymbol{\phi}_n(\boldsymbol{\eta})\) and
+its variance-covariance matrices. Thus, we have \[
+\begin{equation*}
+\phi_n(\boldsymbol{\eta})=\frac{1}{N}\left(\begin{array}{cc}
+-\sum_{i=1}^N\left\{\left(1-\frac{\Delta}{\mu}\right) \frac{R_i}{\pi_i^A}+\frac{\Delta}{\mu}\right\} & -\sum_{i=1}^N \frac{R_i\left(y_i-\mu + \frac{\Delta}{\mu}\right)\dot{\pi}_i^A}{\left(\pi_i^A\right)^2} \boldsymbol{x}_i^{\top} \\
+\mathbf{0} & \operatorname{H}(\btheta)
+\end{array}\right).
+\end{equation*}
+\] where \(\operatorname{H}\) is hessian corresponding to set of
+parameters \(\btheta\). We can show that \[
+\begin{equation*}
+\left[E(\phi_n(\boldsymbol{\eta}))\right]^{-1}=\left(\begin{array}{cc}
+-1 & \mathbf{b}^T\\
+\mathbf{0} & \left[\frac{1}{N}\operatorname{E}\left(\operatorname{H}(\btheta)\right)\right]^{-1}
+\end{array}\right),
+\end{equation*}
+\] where \[
+\mathbf{b}^T = - \sum_{i=1}^N \frac{\left(y_i-\mu + \frac{\Delta}{\mu}\right)\dot{\pi}_i^A}{\pi_i^A}\boldsymbol{x}_i^{\top}\left[\operatorname{E}\left(\operatorname{H}(\btheta)\right)\right]^{-1}
+\] and by the decomposition of \(\Phi_n(\boldsymbol{\eta})\) we get \[
+\begin{equation*}
+    \operatorname{\bA_1} = \frac{1}{N} \sum_{i=1}^N
+    \left(\begin{array}{c}
+        \frac{R_i\left(y_i - \mu\right)}{\pi_i^A} + \Delta\frac{R_i - \pi_i^A}{\pi_i^A}  \\
+         R_i\frac{\dot{\pi}_i^A}{\pi_i^A\left(1 - \pi_i^A\right)} \bx_i - \pi_i^A \frac{\dot{\pi_i^A}}{\pi_i^A \left(1 - \pi_i^A\right)} \bx_i
+    \end{array}\right)
+\end{equation*}
+\] and \[
+\begin{equation*}
+    \operatorname{\bA_2} = \frac{1}{N} 
+    \left(\begin{array}{c}
+        0  \\
+        \sum_{i=1}^N \pi_i^A \frac{\dot{\pi_i^A}}{\pi_i^A\left(1 - \pi_i^A\right)} - \sum_{i \in S_B} d_i^B\frac{\dot{\pi}_i^A}{1 - \pi_i^A} \bx_i
+    \end{array}\right)
+\end{equation*}
+\] with following variance-covariance matrices \[
+\begin{equation*}
+\operatorname{Var}\left(\bA_1\right) = \frac{1}{N^2} \sum_{i=1}^N
+\left(\begin{array}{cc}
+     \left(y_i - \mu + \Delta\right)^2 \left((\pi_i^A)^{-1} - 1\right) &     \frac{\dot{\pi}_i^A\left(y_i - \mu + \Delta\right)}{\pi_i^A}\bx_{i}^{\top}  \\
+    \frac{\dot{\pi}_i^A\left(y_i - \mu + \Delta\right)}{\pi_i^A}\bx_{i} & \frac{\dot{\pi}_i^A}{\pi_i^A\left(1 - \pi_i^A\right)}\bx_i\bx_i^{\top} 
+\end{array}\right)
+\end{equation*}
+\] and \[
+\begin{equation*}
+\operatorname{Var}\left(\bA_2\right) = 
+\left(\begin{array}{cc}
+     0 & \boldsymbol{0}^{\top} \\
+     \boldsymbol{0} & \bD 
+\end{array}\right),
+\end{equation*}
+\] where \[
+\begin{align} 
+    \bD = \frac{1}{N^2}V_p\left(\sum_{i \in S_B} d_i^B \frac{\dot{\pi}_i^A}{1 - \pi_i^A}\bx_i\right)
+\end{align}
+\] is variance covariance matrix corresponding to probability sample.
+
+\hypertarget{gee}{%
+\subsection{GEE}\label{gee}}
+
+For generalized estimating equations we have following system of
+equations to consider \[
+\begin{equation}
+\boldsymbol{\Phi}_n(\boldsymbol{\eta})=\left(\begin{array}{c}
+\frac{1}{N} \sum_{i=1}^N\left[\frac{R_i\left(y_i-\mu\right)}{\pi_i^A}+\Delta \frac{R_i-\pi_i^A}{\pi_i^A}\right] \\
+\frac{1}{N} \sum_{i=1}^N R_i \operatorname{h}\left(\bx_i\right)-\frac{1}{N} \sum_{i \in \mathcal{S}_B} d_i^B \pi_i^A \operatorname{h}\left(\bx_i\right)
+\end{array}\right)=\mathbf{0}
+\end{equation}
+\] We have following decomposition of
+\(\boldsymbol{\Phi}_n(\boldsymbol{\eta})\) for this approach \[
+\begin{equation}
+\mathbf{A}_1=\frac{1}{N} \sum_{i=1}^N\left(\begin{array}{c}
+\frac{R_i\left(y_i-\mu\right)}{\pi_i^A}+\Delta \frac{R_i-\pi_i^A}{\pi_i^A} \\
+R_i \operatorname{h}\left(\bx_i\right)
+\end{array}\right), \quad \mathbf{A}_2=\frac{1}{N}\left(\begin{array}{c}
+0 \\
+- \sum_{i \in S_B} d_i^B \pi_i^A \operatorname{h}\left(\bx_i\right)
+\end{array}\right)
+\end{equation}
+\] It can be shown that\\
+1. for \(\operatorname{h}\left(\bx_i\right) = \bx_i\)
+
+\[
+\mathbf{V}_1=\frac{1}{N^2} \sum_{i=1}^N\left(\begin{array}{cc}
+\left\{\left(1-\pi_i^A\right) / \pi_i^A\right\}\left(y_i-\mu+\Delta\right)^2 & \left(1-\pi_i^A\right)\left(y_i-\mu+\Delta\right) \boldsymbol{x}_i^{\top} \\
+\left(1-\pi_i^A\right)\left(y_i-\mu+\Delta\right) \boldsymbol{x}_i & \pi_i^A\left(1-\pi_i^A\right) \boldsymbol{x}_i \boldsymbol{x}_i^{\top}
+\end{array}\right)
+\] and \[
+\mathbf{V}_2=\left(\begin{array}{cc}
+0 & \mathbf{0}^{\top} \\
+\mathbf{0} & \mathbf{D}
+\end{array}\right)
+\] where
+\[\mathbf{D}=N^{-2} V_p\left(\sum_{i \in \mathcal{S}_B} d_i^B \pi_i^A \boldsymbol{x}_i\right)\]\\
+2. for
+\(\operatorname{h}\left(\bx_i\right) = \bx_i \pi_i^A(\bx_i, \btheta) ^{-1}\)
+\[
+\mathbf{V}_1=\frac{1}{N^2} \sum_{i=1}^N\left(\begin{array}{cc}
+\left\{\left(1-\pi_i^A\right) / \pi_i^A\right\}\left(y_i-\mu+\Delta\right)^2 & \frac{\left(1-\pi_i^A\right)}{\pi_i^A}\left(y_i-\mu+\Delta\right) \boldsymbol{x}_i^{\top} \\
+\frac{\left(1-\pi_i^A\right)}{\pi_i^A}\left(y_i-\mu+\Delta\right) \boldsymbol{x}_i & \left(1-\pi_i^A\right) \boldsymbol{x}_i \boldsymbol{x}_i^{\top}
+\end{array}\right)
+\] and \[
+\mathbf{V}_2=\left(\begin{array}{cc}
+0 & \mathbf{0}^{\top} \\
+\mathbf{0} & \mathbf{D}
+\end{array}\right)
+\] where
+\[\mathbf{D}=N^{-2} V_p\left(\sum_{i \in \mathcal{S}_B} d_i^B \boldsymbol{x}_i\right).\]
+To determine the variance-covariance matrix for
+\(\hat{\boldsymbol{\eta}}\) we need to derive
+\(\boldsymbol{\phi}_n(\boldsymbol{\eta})=\partial \boldsymbol{\Phi}_n(\boldsymbol{\eta}) / \partial \boldsymbol{\eta}\)
+which depends on the choosen \(h\)-function and model for propensity
+score.
+
+\hypertarget{dr-estimator-variance}{%
+\section{DR estimator variance}\label{dr-estimator-variance}}
+
+In this subsection we show how to derive variance for doubly robust
+estimator under probit and cloglog models for propensity score and
+General estimating equations as well. The derivation in analogous to
+that of the section on doubly robust methods for non-probability sample.
+The technical difference lies in the imputation of another modeling
+function for propensity score.
+
+\hypertarget{mle-with-cloglog-and-probit-models}{%
+\subsection{MLE with cloglog and probit
+models}\label{mle-with-cloglog-and-probit-models}}
+
+Using the equation (2.1) on \(\mu_{IPW2}\) for the probit model we have
+\[
+\begin{equation}
+\begin{aligned}
+\frac{1}{\hat{N}^A} \sum_{i=1}^N \frac{R_i\left\{y_i-m\left(\boldsymbol{x}_i, \boldsymbol{\beta}^*\right)\right\}}{\hat{\pi}_i^A} = & h_N+\frac{1}{N} \sum_{i=1}^N R_i\left\{\frac{y_i-m\left(\boldsymbol{x}_i, \boldsymbol{\beta}^*\right)-h_N}{\pi_i^A}-\mathbf{b}^{\top} \frac{\dot{\pi}_i^A}{\pi_i^A \left(1 - \pi_i^A\right)} \boldsymbol{x}_i\right\} \\
+& +\mathbf{b}_3^{\top} \frac{1}{N} \sum_{i \in \mathcal{S}_B} d_i^B \frac{\dot{\pi}_i^A}{\left(1 - \pi_i^A\right)} \boldsymbol{x}_i+o_p\left(n_A^{-1 / 2}\right),
+\end{aligned}
+\end{equation}
+\] where
+\(h_n = \frac{1}{N} \sum_{i=1}^N \left(y_i - \operatorname{m}\left(\bx_i,\bbeta^*\right)\right)\)
+and \[
+\mathbf{b}^{\top} = -\sum_{i=1}^N \frac{\left(y_i - \operatorname{m}\left(\bx_i,\bbeta^*\right) - h_n\right)\dot{\pi}_i^A}{\pi_i^A}\boldsymbol{x}_i^{\top}\left[\operatorname{E}\left(\operatorname{H}(\btheta)\right)\right]^{-1}.
+\] The second part of the estimator has the following expansion \[
+\begin{equation} \label{eq2}
+\frac{1}{\hat{N}^B} \sum_{i \in \mathcal{S}_B} d_i^B m\left(\bx_i,\bbeta^*\right)=\frac{1}{N} \sum_{i=1}^N m\left(\bx_i,\bbeta^*\right)+\frac{1}{N} \sum_{i \in \mathcal{S}_B} d_i^B\left\{m\left(\bx_i,\bbeta^*\right)-\frac{1}{N} \sum_{i=1}^N m\left(\bx_i,\bbeta^*\right)\right\}+O_p\left(n_B^{-1}\right)
+\end{equation}
+\] Putting these two parts together implies: \[
+\begin{equation}
+\begin{aligned}
+\hat{\mu}_{D R 2}-\mu_y = & \frac{1}{N} \sum_{i=1}^N R_i\left\{\frac{y_i-m\left(\boldsymbol{x}_i, \boldsymbol{\beta}^*\right)-h_N}{\pi_i^A}-\mathbf{b}_3^{\top} \frac{\dot{\pi}_i^A}{\pi_i^A \left(1 - \pi_i^A \right)} \boldsymbol{x}_i\right\} \\
+& +\frac{1}{N} \sum_{i \in \mathcal{S}_B} d_i^B t_i +o_p\left(n_A^{-1 / 2}\right)
+\end{aligned}
+\end{equation}
+\] It follows that \[
+\begin{equation*}
+    \begin{aligned}
+        \text{var}\left(\hat{\mu}_{DR}\right) = & \frac{1}{N^2} \sum_{i=1}^N \left(1 - \pi_i^A\right)\pi_i^A \left[\frac{y_i - \operatorname{m}\left(\bx_i,\bbeta^*\right) - h_n}{\pi_i^A} - \mathbf{b}_3^T\frac{\dot{\pi}_i^A}{\pi_i^A \left(1 - \pi_i^A \right)}\bx_i\right]^2 \\ & + \operatorname{W} + o(n_A^{-1}),
+    \end{aligned}
+\end{equation*}
+\] where \[
+\begin{align}
+    \operatorname{W} = \frac{1}{N^2}\text{var}_p\left(\sum_{i \in S_B} d_i^B t_i\right)
+\end{align}
+\] and
+\(t_i = \frac{\dot{\pi}_i^A}{1 - \pi_i^A} \bx_i^{\top} \mathbf{b}_3 + \operatorname{m}\left(\bx_i,\bbeta^*\right)- \frac{1}{N} \sum_{i=1}^N \operatorname{m}\left(\bx_i,\bbeta^*\right)\).
+
+When propensity scores are estimating by complementary log-log model,
+the results are as follows \[
+\begin{equation}
+\begin{aligned}
+\frac{1}{\hat{N}^A} \sum_{i=1}^N \frac{R_i\left\{y_i-m\left(\boldsymbol{x}_i, \boldsymbol{\beta}^*\right)\right\}}{\hat{\pi}_i^A} = & h_N+\frac{1}{N} \sum_{i=1}^N R_i\left\{\frac{y_i-m\left(\boldsymbol{x}_i, \boldsymbol{\beta}^*\right)-h_N}{\pi_i^A}-\mathbf{b}^{\top} \frac{\log \left(1 - \pi_i^A\right)}{\pi_i^A} \boldsymbol{x}_i\right\} \\
+& +\mathbf{b}_3^{\top} \frac{1}{N} \sum_{i \in \mathcal{S}_B} d_i^B \log \left(1 - \pi_i^A\right) \boldsymbol{x}_i+o_p\left(n_A^{-1 / 2}\right),
+\end{aligned}
+\end{equation}
+\] where
+\[\mathbf{b}^{\top} = -\sum_{i=1}^N \frac{\left(y_i - \operatorname{m}\left(\bx_i,\bbeta^*\right) - h_n\right)\left(1 - \pi_i^A\right) \log \left(1 - \pi_i^A\right)}{\pi_i^A}\boldsymbol{x}_i^{\top}\left[\operatorname{E}\left(\operatorname{H}_{l}(\btheta)\right)\right]^{-1}.\]
+The second part of the \(\hat{\mu}_{DR}\) is expanded as in (2.6) \[
+\begin{equation}
+\begin{aligned}
+\hat{\mu}_{D R 2}-\mu_y = & \frac{1}{N} \sum_{i=1}^N R_i\left\{\frac{y_i-m\left(\boldsymbol{x}_i, \boldsymbol{\beta}^*\right)-h_N}{\pi_i^A}-\mathbf{b}_3^{\top} \frac{\log \left(1 - \pi_i^A\right)}{\pi_i^A} \boldsymbol{x}_i\right\} \\
+& +\frac{1}{N} \sum_{i \in \mathcal{S}_B} d_i^B t_i +o_p\left(n_A^{-1 / 2}\right),
+\end{aligned}
+\end{equation}
+\] what implies that \[
+\begin{equation*}
+    \begin{aligned}
+        \operatorname{Var}\left(\hat{\mu}_{DR}\right) = & \frac{1}{N^2} \sum_{i=1}^N \left(1 - \pi_i^A\right)\pi_i^A \left[\frac{y_i - \operatorname{m}\left(\bx_i,\bbeta^*\right) - h_n}{\pi_i^A} - \mathbf{b}_3^T \frac{\log\left(1 - \pi_i^A\right)}{\pi_i^A}\bx_i\right]^2 \\ & + 
+        \operatorname{W} + o(n_A^{-1}),
+    \end{aligned}
+\end{equation*}
+\] where \[
+\begin{align} 
+    \operatorname{W} = \frac{1}{N^2}\text{var}_p\left(\sum_{i \in S_B} d_i^B t_i\right)
+\end{align}
+\] and
+\(t_i = \log \left(1 - \pi_i^A \right) \bx_i^{\top} \mathbf{b}_3 + \operatorname{m}\left(\bx_i,\bbeta^*\right)- \frac{1}{N} \sum_{i=1}^N \operatorname{m}\left(\bx_i,\bbeta^*\right)\).
+
+\hypertarget{gee-1}{%
+\subsection{GEE}\label{gee-1}}
+
+As with MLE, we will use Taylor expansion to derive the variance for the
+DR of the estimator. For \(\operatorname{h}\left(\bx_i\right) = \bx_i\)
+we have \[
+\begin{aligned}
+\frac{1}{\hat{N}^A} \sum_{i=1}^N \frac{R_i\left\{y_i-m\left(\boldsymbol{x}_i, \boldsymbol{\beta}^*\right)\right\}}{\hat{\pi}_i^A}= & h_N+\frac{1}{N} \sum_{i=1}^N R_i\left\{\frac{y_i-m\left(\boldsymbol{x}_i, \boldsymbol{\beta}^*\right)-h_N}{\pi_i^A}-\mathbf{b}^{\top} \boldsymbol{x}_i\right\} \\
+& +\mathbf{b}^{\top} \frac{1}{N} \sum_{i \in \mathcal{S}_B} d_i^B \pi_i^A \boldsymbol{x}_i+o_p\left(n_A^{-1 / 2}\right)
+\end{aligned}
+\] where
+\(h_N=N^{-1} \sum_{i=1}^N\left\{y_i-m\left(\boldsymbol{x}_i, \boldsymbol{\beta}^*\right)\right\}\).
+
+The second part of \(\hat{\mu}_{D R 2}\) given in is the Hájek estimator
+under the probability sampling design for \(\mathcal{S}_B\), which has
+the following expansion \[
+\frac{1}{\hat{N}^B} \sum_{i \in \mathcal{S}_B} d_i^B m_i=\frac{1}{N} \sum_{i=1}^N m_i+\frac{1}{N} \sum_{i \in \mathcal{S}_B} d_i^B\left\{m_i-\frac{1}{N} \sum_{i=1}^N m_i\right\}+O_p\left(n_B^{-1}\right)
+\], where \(m_i=m\left(\boldsymbol{x}_i, \boldsymbol{\beta}^*\right)\).
+Putting these two parts together we have \[
+\hat{\mu}_{D R 2}-\mu_y=\frac{1}{N} \sum_{i=1}^N R_i\left\{\frac{y_i-m\left(\boldsymbol{x}_i, \boldsymbol{\beta}^*\right)-h_N}{\pi_i^A}-\mathbf{b}^{\top} \boldsymbol{x}_i\right\}+\frac{1}{N} \sum_{i \in \mathcal{S}_B} d_i^B t_i+o_p\left(n_A^{-1 / 2}\right)
+\] where
+\(t_i=\pi_i^A \boldsymbol{x}_i^{\top} \mathbf{b}_3+m\left(\boldsymbol{x}_i, \boldsymbol{\beta}^*\right)-N^{-1} \sum_{i=1}^N m\left(\boldsymbol{x}_i, \boldsymbol{\beta}^*\right)\)
+and it follows that \[
+\begin{gathered}
+\text{var}_{\mathrm{DR} 2}=\frac{1}{N^2} \sum_{i=1}^N\left(1-\pi_i^{\mathrm{A}}\right) \pi_i^{\mathrm{A}}\left[\left\{\frac{y_i-m\left(\boldsymbol{x}_i, \boldsymbol{\beta}^*\right)-h_{\mathrm{N}}}{\pi_i^A}\right\} -
+\mathbf{b}^{\top} \boldsymbol{x}_i\right]^2 + N^{-2} V_p\left(\sum_{i \in \mathcal{S}_{\mathrm{B}}} d_i^{\mathrm{B}} t_i\right)
+\end{gathered}
+\]
+
+By analogy, it can be shown that for
+\(\operatorname{h}\left(\bx_i\right) = \bx_i \pi_i^A\left(\bx_i^{\mathrm{T}} \btheta \right)^{-1}\)
+we have \[
+\begin{gathered}
+\text{var}_{\mathrm{DR} 2}=\frac{1}{N^2} \sum_{i=1}^N\left(1-\pi_i^{\mathrm{A}}\right) \pi_i^{\mathrm{A}}\left[\left\{\frac{y_i-m\left(\boldsymbol{x}_i, \boldsymbol{\beta}^*\right)-h_{\mathrm{N}}}{\pi_i^A}\right\} -
+\frac{\mathbf{b}_3^{\top} \boldsymbol{x}_i}{\pi_i^A}\right]^2 + N^{-2} V_p\left(\sum_{i \in \mathcal{S}_{\mathrm{B}}} d_i^{\mathrm{B}} t_i\right)
+\end{gathered}
+\] where
+\(t_i= \boldsymbol{x}_i^{\top} \mathbf{b}_3+m\left(\boldsymbol{x}_i, \boldsymbol{\beta}^*\right)-N^{-1} \sum_{i=1}^N m\left(\boldsymbol{x}_i, \boldsymbol{\beta}^*\right)\)
+and independently of the function of \(\operatorname{h}\)
+
+\begin{verbatim}
+1. for logit model
+\end{verbatim}
+
+\[
+\mathbf{b}^{\top}=\left[\frac{1}{N} \sum_{i=1}^N\left(1-\pi_i^A\right)\left\{y_i-m\left(\boldsymbol{x}_i, \boldsymbol{\beta}^*\right)-h_N\right\} \boldsymbol{x}_i^{\top}\right]\left\{\frac{1}{N} \sum_{i=1}^N \pi_i^A\left(1-\pi_i^A\right) \boldsymbol{x}_i \boldsymbol{x}_i^{\top}\right\}^{-1}
+\]
+
+\begin{verbatim}
+2. for complementary loglog model
+\end{verbatim}
+
+\[\mathbf{b}^{\top} = -\sum_{i=1}^N \frac{\left(y_i - \operatorname{m}\left(\bx_i,\bbeta^*\right) - h_n\right)\left(1 - \pi_i^A\right) \log \left(1 - \pi_i^A\right)}{\pi_i^A}\boldsymbol{x}_i^{\top} \left\{\frac{1}{N}\sum_{i=1}^N \left(1 - \pi_i^A\right) \exp\left(\bx_i^{\top}\btheta\right) \bx_i \bx_i^{\top}\right\} ^ {-1}\]
+
+\begin{verbatim}
+3. for probit model
+\end{verbatim}
+
+\[\mathbf{b}^{\top} = -\sum_{i=1}^N \frac{\left(y_i - \operatorname{m}\left(\bx_i,\bbeta^*\right) - h_n\right)\dot{\pi}_i^A}{\pi_i^A}\boldsymbol{x}_i^{\top} \left\{\frac{1}{N}\sum_{i=1}^N \pi_i^A \bx_i \bx_i^{\top}\right\} ^ {-1}\]
+
+\hypertarget{nomenclature}{%
+\chapter{Nomenclature}\label{nomenclature}}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.3099}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.6901}}@{}}
+\toprule()
+\begin{minipage}[b]{\linewidth}\raggedright
+Symbol
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Meaning
+\end{minipage} \\
+\midrule()
+\endhead
+\(\mathbb{E}\) & Expected value operator \\
+\(N\) & True population size \\
+\(\mathcal{U}\) & Finite population with N units \\
+\(y\) & Response variable \\
+\(\bx\) & Auxiliary variables \\
+\(p\) & Number of auxiliary variables \\
+\(S_A\) & Nonprobablity sample \\
+\(S_B\) & Probability sample \\
+\(\pi_i^B\) & Probability of belonging to a probability sample for the
+given unit \\
+\(\pi_i^A\) & Probability of belonging to a non-probability sample for
+the given unit \\
+\(\dot{\pi}_i^A(\cdot)\) & Derivative of \(\pi_i^A\) at point
+\(\cdot\) \\
+\(d_i^B\) & Design weight for the given unit in a probability sample \\
+\(n_A\) & Size of non-probability sample \\
+\(n_B\) & Size of probability sample \\
+\(\mu_{y}\) & Mean of population for response variable \\
+\(R_{i}^A\) & An indicator function for nonprobability sample \\
+\(\omega_i\) & Frequency weight \\
+\(\ell\) & Log-likelihood function for the model \\
+\(\hat{N}\) & Point estimate for true population size \\
+\(\text{var}\) & Variance operator \\
+\(\text{var}_p\) & Design-based variance operator under the probability
+sampling design for \(S_B\) \\
+\(Diag(\cdot)\) & A diagonal matrix constructed from vector \(\cdot\) \\
+\(\btheta\) & Set of the parameters to estimate for selection model \\
+\(\bbeta\) & Set of the parameters to estimate for outcome model \\
+\(\phi(\cdot)\) & Probability density function of the normal
+distribution in point \(\cdot\) \\
+\(\Phi(\cdot)\) & Cumulative distribution function of the normal
+distribution in point \(\cdot\) \\
+\(\hat{\mu}_{MI}\) & Mass imputation estimator of population mean \\
+\(\hat{\mu}_{IPW}\) & Inverse probability weighted estimator of
+population mean \\
+\(\hat{\mu}_{DR}\) & Doubly robust estimator of population mean \\
+\(q\) & Model for selection mechanism for non-probability sample \\
+\(\times\) & A element by element product of vectors \\
+\(\boldsymbol{\eta}\) & A vector of linear predictors \((\eta_{i})\) \\
+\(\lambda\) & Tuning parameter for penalization function \\
+\bottomrule()
+\end{longtable}
+
+
+
+\end{document}

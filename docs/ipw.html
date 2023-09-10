@@ -451,7 +451,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <li><p>All units have a nonzero propensity score, that is, <span class="math inline">\(\pi_i^A &gt; 0\)</span> for all <span class="math inline">\(i\)</span>.</p></li>
 <li><p>The indicator variables <span class="math inline">\(R_i^A\)</span> and <span class="math inline">\(R_j^A\)</span> are independent for given <span class="math inline">\(\bx_i\)</span> and <span class="math inline">\(\bx_j\)</span> for <span class="math inline">\(i \neq j\)</span>.</p></li>
 </ol>
-<p>There are few methods for inclusion probability estimation for <span class="math inline">\(S_A\)</span>. The first one is based on Maximum Likelihood approach but with correction for access to a random sample rather than the entire population. On can also construct calibration equation, so that estimated propensity weights allow to reproduce the whole population. Let us to perform technical details of these methods.</p>
+<p>There are few methods for inclusion probability estimation for <span class="math inline">\(S_A\)</span>. The first one is based on Maximum Likelihood approach but with correction for access to a random sample rather than the entire population. One can also construct calibration equation, so that estimated propensity weights allow to reproduce the whole population. Let us to perform technical details of these methods.</p>
 </section>
 <section id="maximum-likelihood-estimation" class="level2" data-number="3.2">
 <h2 data-number="3.2" data-anchor-id="maximum-likelihood-estimation"><span class="header-section-number">3.2</span> Maximum likelihood estimation</h2>
@@ -562,7 +562,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 \begin{equation}
 \mathbf{U}(\btheta)=\sum_{i \in S_A} \mathbf{h}\left(\mathbf{x}_i, \btheta\right)-\sum_{i \in S_B} d_i^B \pi\left(\mathbf{x}_i, \btheta\right) \mathbf{h}\left(\mathbf{x}_i, \btheta\right).
 \end{equation}
-\tag{3.2}\]</span></span> Under <span class="math inline">\(\operatorname{h}\left(\bx_i\right) = \bx_i\)</span> and logistic model for propensity score, Equation (3.2) looks like disorted version of the score equation from MLE method. Then <span class="math display">\[
+\tag{3.2}\]</span></span> Under <span class="math inline">\(\operatorname{h}\left(\bx_i\right) = \bx_i\)</span> and logistic model for propensity score, Equation (3.2) looks like distorted version of the score equation from MLE method. Then <span class="math display">\[
     \mathbf{U}(\btheta)=\sum_{i \in S_A} \bx_i -\sum_{i \in S_B} d_i^B \pi\left(\mathbf{x}_i, \btheta\right) \bx_i.
 \]</span> and analytical Jacobian is given by <span class="math display">\[
 \frac{\partial \mathbf{U}}{\partial\btheta} = - \sum_{i \in S_B} d_i^B \pi_i^A\left(\bx_i^{\mathrm{T}} \btheta \right) \left(1 -  \pi_i^A\left(\bx_i^{\mathrm{T}} \btheta \right)\right)\bx_i \bx_i^{\mathrm{T}}.

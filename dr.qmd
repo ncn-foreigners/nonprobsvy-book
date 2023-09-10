@@ -59,8 +59,8 @@ J(\theta, \beta)=\bZero
 $$
 
 ## Population mean estimator and its properties
-Not surprisingly, this method involves using units from both probability and non-probability samples. In particular estimator of the population mean is as follows
-$$
+
+Not surprisingly, this method involves using units from both probability and non-probability samples. In particular estimator of the population mean is as follows $$
 \begin{equation*}
     \hat{\mu}_{\mathrm{DR}}=\frac{1}{\hat{N}^{\mathrm{A}}} \sum_{i \in \mathcal{S}_{\mathrm{A}}} d_i^{\mathrm{A}}\left\{y_i-m\left(\boldsymbol{x}_i, \hat{\boldsymbol{\beta}}\right)\right\}+\frac{1}{\hat{N}^{\mathrm{B}}} \sum_{i \in \mathcal{S}_{\mathrm{B}}} d_i^{\mathrm{B}} m\left(\boldsymbol{x}_i, \hat{\boldsymbol{\beta}}\right),
 \end{equation*}
@@ -91,6 +91,7 @@ $$ where $t_i=\pi_i^A \boldsymbol{x}_i^{\top} \mathbf{b}_3+m\left(\boldsymbol{x}
 $$ where $W = N^{-2} \text{var}_p\left(\sum_{i \in \mathcal{S}_{\mathrm{B}}} d_i^{\mathrm{B}} t_i\right)$.
 
 ### Variance estimation for bias-oriented technique
+
 When model is obtained by using systems of equations derived from bias minimization technique. We have variance decomposition on probability and nonprobability part, where $$
 \text{var}_B = \mathbb{E} \left\{\frac{1}{N^2} \sum_{i \in \mathcal{S}_{\mathrm{B}}} \sum_{j \in \mathcal{S}_{\mathrm{B}}} \frac{\pi_{i j}^{\mathrm{B}}-\pi_i^{\mathrm{B}} \pi_j^{\mathrm{B}}}{\pi_{i j}^{\mathrm{B}}} d_i^B m\left(\boldsymbol{x}_i, \bbeta^*\right) d_j^B m\left(\boldsymbol{x}_j, \bbeta^*\right) \right\}
 $$ which can be estimated by $$
