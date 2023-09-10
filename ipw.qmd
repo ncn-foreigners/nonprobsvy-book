@@ -4,7 +4,7 @@
 
 The biggest drawback of the nonprobability sampling is unknown selection mechanism for a unit to be included in the sample. This is why we talk about so called "biased sample" problem. Inverse probabiliy approach is based on assumption that reference probabiliy sample ($S_B$) is available and therefore we can estimate propensity score of selection mechanism.
 
-Let $\mathcal{U}=\{1,2, \ldots, N\}$ represent the finite population with N units and $\left\{\left(\bx_i, y_i\right), i \in \mathcal{S}_{\mathrm{A}}\right\}$ and $\{\left(\bx_i, d_i^B), i \in \mathcal{S}_{\mathrm{B}}\right\}$ be the datasets from non-probability and probability samples respectively and let $\bY = \left(Y_1, Y_2, \cdots, Y_{n_{A}}\right)^{T}$ and let $\bX_A$, $\bX_B$ denote an $n \times \left( p+1 \right)$ matrices of regression coefficients for samples $S_A$ and $S_B$ of the form $$
+Let $\mathcal{U}=\{1,2, \ldots, N\}$ represent the finite population with N units and $\left\{\left(\bx_i, y_i\right), i \in \mathcal{S}_{\mathrm{A}}\right\}$ and $\{\left(\bx_i, d_i^B), i \in \mathcal{S}_{\mathrm{B}}\right\}$ be the datasets from non-probability and probability samples respectively, where $D_i^B$ are design weights for probability sample. Let $\bY = \left(Y_1, Y_2, \cdots, Y_{n_{A}}\right)^{T}$ and let $\bX_A$, $\bX_B$ denote an $n \times \left( p+1 \right)$ design matrices for samples $S_A$ and $S_B$ of the form $$
 \begin{equation*}
     \bX_A = 
     \begin{bmatrix}
@@ -36,7 +36,7 @@ Following assumptions are required for this model:
 
 3.  The indicator variables $R_i^A$ and $R_j^A$ are independent for given $\bx_i$ and $\bx_j$ for $i \neq j$.
 
-There are few methods for inclusion probability estimation for $S_A$. The first one is based on Maximum Likelihood approach but with correction for access to a random sample rather than the entire population. On can also construct calibration equation, so that estimated propensity weights allow to reproduce the whole population. Let us to perform technical details of these methods.
+There are few methods for inclusion probability estimation for $S_A$. The first one is based on Maximum Likelihood approach but with correction for access to a random sample rather than the entire population. One can also construct calibration equation, so that estimated propensity weights allow to reproduce the whole population. Let us to perform technical details of these methods.
 
 ## Maximum likelihood estimation
 
@@ -48,11 +48,11 @@ $$
     \end{split}
 $$
 
-Since we do not observe $\bx_i$ for all units, Yilin Chen, Pengfei Li & Changbao Wu presented following log-likelihood function is subject to data integration basing on samples $S_A$ and $S_B$. They proposed logistic regression model with $\pi(\bx_{i}, \btheta) = \frac{\exp(\bx_{i}^{\top}\btheta)}{\exp(\bx_{i}^{\top}\btheta) + 1}$ in order to estimate $\btheta$. We expanded this approach on probit regression and complementary log-log model. For the sake of accuracy, let us recall that the probit and cloglog models are based on the assumption that model takes the form $\pi(\bx_{i},\btheta) = \Phi(\bx_{i}^{\top}\btheta)$ and $\pi(\bx_{i}, \btheta) = 1 - \exp(-\exp(\bx_{i}^{\top}\btheta))$ respectively.
-
-$$
+Since we do not observe $\bx_i$ for all units, Yilin Chen, Pengfei Li & Changbao Wu presented following log-likelihood function is subject to data integration basing on samples $S_A$ and $S_B$. They proposed logistic regression model with $\pi(\bx_{i}, \btheta) = \frac{\exp(\bx_{i}^{\top}\btheta)}{\exp(\bx_{i}^{\top}\btheta) + 1}$ in order to estimate $\btheta$. We expanded this approach on probit regression and complementary log-log model. For the sake of accuracy, let us recall that the probit and cloglog models are based on the assumption that model takes the form $\pi(\bx_{i},\btheta) = \Phi(\bx_{i}^{\top}\btheta)$ and $\pi(\bx_{i}, \btheta) = 1 - \exp(-\exp(\bx_{i}^{\top}\btheta))$ respectively. $$
+\begin{equation} \label{eq-1}
     \ell^{*}(\btheta) = \sum_{i \in S_{A}}\log \left\{\frac{\pi(\bx_{i}, \btheta)}{1 - \pi(\bx_{i},\btheta)}\right\} + \sum_{i \in S_{B}}d_{i}^{B}\log\{1 - \pi({\bx_{i},\btheta})\}
-$$ In order to maximize function from (3.1) equate its derivative (gradient) to zero. This will give us p+1 nonlinear equations with respect to $\btheta$, which will have no explicit solutions. To solve the given system of equations, the Newton-Raphson algorithm can be used. This method also requires the calculation of the second derivative of the log-likelihood function (hessian). By expanding the function (3.1) into a Taylor series, it can be shown that $\hat{\btheta}$ can be found by using the following iterative method: $$
+\end{equation}
+$$ {#eq-xyp} In order to maximize function from (3.1) equate its derivative (gradient) to zero. This will give us p+1 nonlinear equations with respect to $\btheta$, which will have no explicit solutions. To solve the given system of equations, the Newton-Raphson algorithm can be used. This method also requires the calculation of the second derivative of the log-likelihood function (hessian). By expanding the function (3.1) into a Taylor series, it can be shown that $\hat{\btheta}$ can be found by using the following iterative method: $$
 \btheta^{(m)} = \btheta^{(m-1)} - \{H(\btheta^{(m-1)}\}^{-1}U(\btheta^{(m-1})),
 $$ where $\operatorname{H}$ - hessian, $\operatorname{U}$ - gradient. This will give us a convergent MLE estimator (for $m \rightarrow \infty$).
 
@@ -60,7 +60,7 @@ In the `nonprobsvy` package, in addition to the Newton-Raphson method, you can a
 
 From the chain rule for counting derivatives, we know that $$
 \begin{equation*}
-    \frac{\partial \ell}{\partial \boldsymbol{\theta}}=\frac{\partial \ell}{\partial p} \frac{\partial p}{\partial \eta} \frac{\partial \eta}{\partial \boldsymbol{\theta}}=\frac{\partial \ell}{\partial p} \frac{\partial p}{\partial \eta} \boldsymbol{X}
+    \frac{\partial \ell}{\partial \boldsymbol{\theta}}=\frac{\partial \ell}{\partial p} \frac{\partial p}{\partial \boldsymbol{\eta}} \frac{\partial \boldsymbol{\eta}}{\partial \boldsymbol{\theta}}=\frac{\partial \ell}{\partial p} \frac{\partial p}{\partial \boldsymbol{\eta}} \boldsymbol{X}
 \end{equation*}
 $$ where $\eta=\boldsymbol{X}^{\top} \boldsymbol{\theta}$, $\frac{\partial \ell}{\partial \boldsymbol{\theta}}=\boldsymbol{U} \boldsymbol{X}$ ($\boldsymbol{U} = \frac{\partial \ell}{\partial {\eta}}$) and $\frac{\partial^2 \ell}{\partial \boldsymbol{\theta} \partial \boldsymbol{\theta}^{\top}}= \boldsymbol{X}^{\top} \boldsymbol{W} \boldsymbol{X}$ ($\boldsymbol{W} = \frac{\partial^2 \ell}{\partial {\eta}}$). Using this rule In the following subsections we present the full derivation of the MLE n the following subsections. Calculations include technical differences depending on the assumed model for the propensity score.
 
@@ -151,7 +151,7 @@ The pseudo score equations derived from Maximum Likelihood Estimation methods ma
 \begin{equation}
 \mathbf{U}(\btheta)=\sum_{i \in S_A} \mathbf{h}\left(\mathbf{x}_i, \btheta\right)-\sum_{i \in S_B} d_i^B \pi\left(\mathbf{x}_i, \btheta\right) \mathbf{h}\left(\mathbf{x}_i, \btheta\right).
 \end{equation}
-$$ Under $\operatorname{h}\left(\bx_i\right) = \bx_i$ and logistic model for propensity score, Equation (2.1) looks like disorted version of the score equation from MLE method. Then $$
+$$ {#eq-xyp} Under $\operatorname{h}\left(\bx_i\right) = \bx_i$ and logistic model for propensity score, Equation (3.2) looks like distorted version of the score equation from MLE method. Then $$
     \mathbf{U}(\btheta)=\sum_{i \in S_A} \bx_i -\sum_{i \in S_B} d_i^B \pi\left(\mathbf{x}_i, \btheta\right) \bx_i.
 $$ and analytical Jacobian is given by $$
 \frac{\partial \mathbf{U}}{\partial\btheta} = - \sum_{i \in S_B} d_i^B \pi_i^A\left(\bx_i^{\mathrm{T}} \btheta \right) \left(1 -  \pi_i^A\left(\bx_i^{\mathrm{T}} \btheta \right)\right)\bx_i \bx_i^{\mathrm{T}}.
@@ -192,6 +192,7 @@ $$
 $$
 
 ## Population mean estimator and its properties
+
 With the estimated propensity scores we can consider two approaches for population mean estimation, depending on whether population size is known or not.
 
 $$
@@ -249,7 +250,7 @@ $$
 \left\{N^{-1} \sum_{i=1}^N\left(1-\pi_i^{\mathrm{A}}\right) \left(y_i-\mu_y + \Delta\right) x_i^{\top}\right\}\left\{N^{-1} \sum_{i=1}^N \pi_i^{\mathrm{A}}\left(1-\pi_i^{\mathrm{A}}\right) \boldsymbol{x}_i x_i^{\top}\right\}^{-1}
 $$
 
-$\operatorname{Var}\left\{\boldsymbol{\Phi}_n\left(\boldsymbol{\eta}_0\right)\right\}$ can be found using decomposition of $\bPhi_n(\boldsymbol{\eta}) = \bA_1 + \bA_2$. Then $\operatorname{Var}\left\{\boldsymbol{\Phi}_n\left(\boldsymbol{\eta}_0\right)\right\} = \operatorname{Var}\left(\bA_1\right) + \operatorname{Var}\left(\bA_2\right)$. Let $$
+$\operatorname{Var}\left\{\boldsymbol{\Phi}_n\left(\boldsymbol{\eta}_0\right)\right\}$ can be found using decomposition of $\bPhi_n(\boldsymbol{\eta}) = \bA_1 + \bA_2$. Since the probability sample is assumed to be independent on non-probabillity sample, we have $\operatorname{Var}\left\{\boldsymbol{\Phi}_n\left(\boldsymbol{\eta}_0\right)\right\} = \operatorname{Var}\left(\bA_1\right) + \operatorname{Var}\left(\bA_2\right)$. Let $$
 \mathbf{A}_1=\frac{1}{N} \sum_{i=1}^N\left(\begin{array}{c}
 \frac{R_i\left(y_i-\mu\right)}{\pi_i^A}+\Delta \frac{R_i-\pi_i^A}{\pi_i^A} \\
 R_i \boldsymbol{x}_i-\pi_i^A \boldsymbol{x}_i
