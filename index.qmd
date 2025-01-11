@@ -1,17 +1,17 @@
 # Welcome!
 
-Welcome to the book on *Modern inference methods for non-probability samples in R*! In this comprehensive guide, we will delve into the details of statistical inference, focusing specifically on the unique challenges and techniques associated with non-probability samples. 
+Welcome to the book on *Modern inference methods for non-probability samples in R*! In this comprehensive guide, we will delve into the details of statistical inference, focusing specifically on the unique challenges and techniques associated with non-probability samples.
 
 Throughout this course, you will embark on a journey that combines both theoretical considerations and hands-on practicality. Whether you're an aspiring statistician, a data scientist, or a researcher in any field, this material will equip you with the knowledge and tools needed to navigate the intricacies of non-probability samples and extract meaningful insights from your data.
 
 Here's a glimpse of what you can expect to know:
 
-1. **Understanding Non-probability Samples**: Gain a deep understanding of what nonprobability samples are, their characteristics, and the contexts in which they are commonly used.
+1.  **Understanding Non-probability Samples**: Gain a deep understanding of what nonprobability samples are, their characteristics, and the contexts in which they are commonly used.
 
-2. **Challenges and Biases**: Explore the inherent challenges and biases associated with non-probability samples, including selection bias, coverage bias, and non-response bias.
+2.  **Challenges and Biases**: Explore the inherent challenges and biases associated with non-probability samples, including selection bias, coverage bias, and non-response bias.
 
-3. **Statistical Inference Techniques**: Discover specialized statistical methods designed to address the unique characteristics of non-probability samples, including propensity score weighting and imputation techniques.
+3.  **Statistical Inference Techniques**: Discover specialized statistical methods designed to address the unique characteristics of non-probability samples, including propensity score weighting and imputation techniques.
 
-4. **Hands-on R Programming**: Introduction of R `nonprobsvy` package for inference with non-probability sample.
+4.  **Hands-on R Programming**: Introduction of R `nonprobsvy` package for inference with non-probability sample.
 
 Have a great read!

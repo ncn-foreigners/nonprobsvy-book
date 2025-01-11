@@ -8,8 +8,6 @@ book:
   sidebar:
     background: light
   page-navigation: true
-  theme:
-    dark: darkly
   repo-url: https://github.com/ncn-foreigners/nonprobsvy-book
   site-url: https://ncn-foreigners.github.io/nonprobsvy-book/
   search: true
@@ -18,16 +16,19 @@ book:
   repo-actions: [issue]
   chapters:
     - index.qmd
-    - intro.qmd
-    - ipw.qmd
-    - mi.qmd
-    - dr.qmd
-    - variableselection.qmd
-    - summary.qmd
-    - references.qmd
+    - 01-Introduction.qmd
+    - 02-Case-Study.qmd
+    - 03-Inverse-Probability-Weighting.qmd
+    - 04-Mass-Imputation.qmd
+    - 05-Doubly-Robust-Estimation.qmd
+    - 06-Advanced-Topics.qmd
+    - 07-Summary.qmd
+    - 10-References.qmd
   appendices: 
-    - appendix.qmd
-    - nomenclature.qmd
+    - text: "Appendix A: Additional Material"
+      file: 08-Appendix.qmd
+    - text: "Appendix B: Nomenclature"
+      file: 09-Nomenclature.qmd
 
 bibliography: references.bib
 
@@ -36,9 +37,17 @@ format:
     include-in-header:
      - file: macros.html
     theme: cosmo
-    fontsize: 2.6em
-    linestretch: 2.6
+    fontsize: 1em
+    linestretch: 1.5
   pdf:
     documentclass: scrreprt
+    toc: true
+    number-sections: true
+    colorlinks: true
+    papersize: letter
+    geometry:
+      - margin=1in
+    include-in-header:
+      - macros.tex
 
 editor: visual

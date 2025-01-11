@@ -26,7 +26,7 @@ J_2(\theta, \beta)
 \end{array}\right)
 \end{aligned}
 \end{equation}
-$$ where $\left(\boldsymbol{x}_i, \boldsymbol{\beta}\right)$ is working model for outcome variable, for example in linear regression case we have $$
+$$ where $m\left(\boldsymbol{x}_i, \boldsymbol{\beta}\right)$ is working model for outcome variable, for example in linear regression case we have $$
 m\left(\boldsymbol{x}_i, \boldsymbol{\beta}\right) = \bx_i^{T} \bbeta
 $$ and $$
 \frac{\partial m\left(\boldsymbol{x}_i, \boldsymbol{\beta}\right)}{\partial \bbeta} = \bx_i.

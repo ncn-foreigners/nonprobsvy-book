@@ -2,7 +2,7 @@
 
 ## Motivation and assumptions
 
-This method relies on framework, where imputed values of the outcome variables are created for whole probability sample ($S_B$). In this case we treat big-data sample ($S_A$) as a training dataset, which is used to build an imputation model. The mass imputation approach for inference with non-probability samples makes use of model-based prediction methods, but it opens the door for more flexible methods as well. We consider parametric (e.g. regression models) and non-parametric (nearest neighbor algorithm) methods for this problem. General framework consists of building a model based on the $S_A$ sample and for each $i \in S_A$ calculate imputed value.
+This method relies on framework, where imputed values of the outcome variables are created for whole probability sample ($S_B$). In this case we treat big-data sample ($S_A$) as a training dataset, which is used to build an imputation model. The mass imputation approach for inference with non-probability samples makes use of model-based prediction methods, but it opens the door for more flexible methods as well. We consider parametric (e.g. regression models) and non-parametric (nearest neighbor algorithm) methods for this problem. General framework consists of building a model based on the $S_A$ sample and for each $i \in S_B$ calculate imputed value.
 
 ## Model-based methods
 

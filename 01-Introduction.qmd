@@ -7,7 +7,7 @@ We implemented propensity score weighting (e.g. with calibration constraints), m
 A popular framework in data integration is to assume that auxiliary variables on the same population are available for probabiliy samples or population totals from external sources and therefore one can combine these information with biased nonprobability sample. In this book we perform and expand known methods for statistical inference using described framework for data integration. We can treat data integration as a missing data problem with following structure
 
 | Sample |          Type          |    $\bX$     |     $Y$      | Representative? |
-|:------:|:----------------------:|:------------:|:------------:|:---------------:|
+|:------------:|:----------------:|:------------:|:------------:|:------------:|
 | $S_B$  |   Probability Sample   | $\checkmark$ |              |       Yes       |
 | $S_A$  | Non-probability Sample | $\checkmark$ | $\checkmark$ |       No        |
 

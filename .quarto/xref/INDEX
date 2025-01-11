@@ -35,5 +35,35 @@
   },
   "nomenclature.qmd": {
     "nomenclature.html": "75ab69f5"
+  },
+  "01-Introduction.qmd": {
+    "01-Introduction.html": "0f84ba26"
+  },
+  "02-Case-Study.qmd": {
+    "02-Case-Study.html": "9a23f582"
+  },
+  "03-Inverse-Probability-Weighting.qmd": {
+    "03-Inverse-Probability-Weighting.html": "f45714da"
+  },
+  "04-Mass-Imputation.qmd": {
+    "04-Mass-Imputation.html": "43dd8bce"
+  },
+  "05-Doubly-Robust-Estimation.qmd": {
+    "05-Doubly-Robust-Estimation.html": "60ceab5a"
+  },
+  "06-Advanced-Topics.qmd": {
+    "06-Advanced-Topics.html": "bd85722a"
+  },
+  "07-Summary.qmd": {
+    "07-Summary.html": "99e5f4d6"
+  },
+  "10-References.qmd": {
+    "10-References.html": "c649b778"
+  },
+  "08-Appendix.qmd": {
+    "08-Appendix.html": "1103b8f7"
+  },
+  "09-Nomenclature.qmd": {
+    "09-Nomenclature.html": "df6e2c89"
   }
 }
