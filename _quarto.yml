@@ -4,7 +4,7 @@ project:
 
 book:
   title: "Modern inference methods for non-probability samples with R"
-  author: "Łukasz Chrostowski, Maciej Beręsewicz"
+  author: "Łukasz Chrostowski, Maciej Beręsewicz, Bartosz Bogulas, Cyprian Jurkowski"
   sidebar:
     background: light
   page-navigation: true
