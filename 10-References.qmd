@@ -1,9 +1,0 @@
-### References
-
-::: {#refs}
-:::
-
-[@chen20]
-[@kim20]
-[@kim22]
-[@shu20]

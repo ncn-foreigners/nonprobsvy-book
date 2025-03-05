@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Łukasz Chrostowski, Maciej Beręsewicz, Bartosz Bogulas, Cyprian Jurkowski">
 
-<title>Modern inference methods for non-probability samples with R</title>
+<title>1&nbsp; Introduction and Overview – Modern inference methods for non-probability samples with R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,7 +20,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -31,7 +50,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./Introduction.html" rel="next">
+<link href="./Case-Study.html" rel="next">
+<link href="./index.html" rel="prev">
 <link href="./images/logo.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -469,6 +489,35 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 
 
@@ -481,7 +530,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Welcome!</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Introduction.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction and Overview</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -529,13 +578,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Welcome!</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Introduction.html" class="sidebar-item-text sidebar-link">
+  <a href="./Introduction.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction and Overview</span></span></a>
   </div>
 </li>
@@ -609,33 +658,21 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
-   
-  <ul>
-  <li><a href="#welcome" id="toc-welcome" class="nav-link active" data-scroll-target="#welcome">Welcome!</a></li>
-  </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/ncn-foreigners/nonprobsvy-book/edit/main/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ncn-foreigners/nonprobsvy-book/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Modern inference methods for non-probability samples with R</h1>
+<h1 class="title"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction and Overview</span></h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Łukasz Chrostowski, Maciej Beręsewicz, Bartosz Bogulas, Cyprian Jurkowski </p>
-          </div>
-  </div>
     
   
     
@@ -646,22 +683,70 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </header>
 
 
+<p>The goal of the <code>nonprobsvy</code> R package is to perform statistical inference on non-probability survey samples, including big data, when auxiliary information from external sources such as probability samples or population totals and means is available. It should be noted that there are several packages that allow for correcting selection bias in non-probability samples, such as <code>GJRM</code> <span class="citation" data-cites="GJRM">(<a href="References.html#ref-GJRM" role="doc-biblioref">Marra and Rodicw 2023</a>)</span>, <code>NonProbEst</code> <span class="citation" data-cites="NonProbEst-pkg">(<a href="References.html#ref-NonProbEst-pkg" role="doc-biblioref">Luis Castro Martín and Mar Rueda 2020</a>)</span>, or even <code>sampling</code> <span class="citation" data-cites="sampling">(<a href="References.html#ref-sampling" role="doc-biblioref">Tillé and Matei 2021</a>)</span>. However, these packages do not implement state-of-the-art approaches that have recently been proposed in the literature e.g., <span class="citation" data-cites="chen2020doubly yang_doubly_2020 wu2022statistical">(<a href="References.html#ref-chen2020doubly" role="doc-biblioref">Chen, Li, and Wu 2020</a>; <a href="References.html#ref-yang_doubly_2020" role="doc-biblioref">Yang, Kim, and Song 2020</a>; <a href="References.html#ref-wu2022statistical" role="doc-biblioref">Wu 2022</a>)</span>, nor do they use the <code>survey</code> package <span class="citation" data-cites="lumley2004">(<a href="References.html#ref-lumley2004" role="doc-biblioref">Lumley 2004</a>)</span> for inference.</p>
+<p>We implemented propensity score weighting (e.g., with calibration constraints), mass imputation (e.g., nearest neighbor), and doubly robust estimators that account for minimizing the asymptotic bias of the population mean estimators, variable selection, and the overlap between random and nonrandom sample. The package uses functionalities from the <code>survey</code> package when a probability sample is available. Probability sampling methods are adopted by official statistics and researchers in many areas, such as social or health science. Probability samples are collected under a known sampling design and are therefore highly representative of the target population. However, this type of sampling is expensive and subject to high non-response rates, which increase every year (source here). With advances in technology and the increasing availability of big data sources, non-probability samples are becoming increasingly popular in statistical inference. They contain rich information about the target population and offer cost and time efficiency compared to probability samples. On the other hand, the selection mechanism for non-probability samples is not known, so it is misleading to claim that these samples are representative of the target population.</p>
+<p>A popular framework in data integration assumes that auxiliary variables for the same population are available for probabiliy samples or from population totals provided by external sources, and therefore one can combine this information with biased non-probability samples. In this book, we implement and expand upon established methods for statistical inference using the data integration framework described above. We can treat data integration as a missing data problem with the following structure:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Sample</th>
+<th style="text-align: center;">Type</th>
+<th style="text-align: center;"><span class="math inline">\(\bX\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(Y\)</span></th>
+<th style="text-align: center;">Representative?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(S_B\)</span></td>
+<td style="text-align: center;">Probability Sample</td>
+<td style="text-align: center;"><span class="math inline">\(\checkmark\)</span></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">Yes</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(S_A\)</span></td>
+<td style="text-align: center;">Non-probability Sample</td>
+<td style="text-align: center;"><span class="math inline">\(\checkmark\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\checkmark\)</span></td>
+<td style="text-align: center;">No</td>
+</tr>
+</tbody>
+</table>
+<p>Instead of sample <span class="math inline">\(S_B\)</span>, we can consider a vector of population totals or means, which will be discussed later in the book. Based on the setting from the table above, we are going to develop statistical inference methods that require certain assumptions about the outcome or selection models, as well as sampling mechanism for <span class="math inline">\(S_B\)</span>.</p>
+<p>The structure of the book is as follows: In Chapters 2, 3 and 4, we describe recommended methods for addressing the presented issues. In Chapter 5, we propose techniques of variable selection for high-dimensional data, which can help reduce estimator bias. In the final last chapters, we present simulation results obtained using the package under development, provide a summary, and discuss methods that warrant further research.</p>
 
-<section id="welcome" class="level1 unnumbered">
-<h1 class="unnumbered">Welcome!</h1><p><img src="images/logo.png" title="Modern inference methods for non-probability samples with R" class="quarto-cover-image img-fluid"></p>
-<p>Welcome to the book <strong>“Modern inference methods for non-probability samples in R”</strong>. In this comprehensive guide, we will delve into the details of statistical inference, focusing specifically on the unique challenges and techniques associated with non-probability samples.</p>
-<p>Throughout this course, you will embark on a journey that combines both theoretical considerations and practical, hands-on applications Whether you’re an aspiring statistician, a data scientist, or a researcher in any field, this material will equip you with the knowledge and tools needed to navigate the intricacies of non-probability samples and extract meaningful insights from your data.</p>
-<p>Here’s a glimpse of what you can expect:</p>
-<ul>
-<li><p><strong>Understanding Non-probability Samples</strong>: Gain a deep understanding of what non-probability samples are, their characteristics, and the contexts in which they are commonly used.</p></li>
-<li><p><strong>Challenges and Biases</strong>: Explore the inherent challenges and biases associated with non-probability samples, including selection bias, coverage bias, and non-response bias.</p></li>
-<li><p><strong>Statistical Inference Techniques</strong>: Discover specialized statistical methods designed to address the unique characteristics of non-probability samples, including propensity score weighting and imputation techniques.</p></li>
-<li><p><strong>Hands-on R Programming</strong>: An introduction to the R package <code>nonprobsvy</code> for inference with non-probability samples.</p></li>
-</ul>
-<p>Have a great read!</p>
 
-
-</section>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-chen2020doubly" class="csl-entry" role="listitem">
+Chen, Yilin, Pengfei Li, and Changbao Wu. 2020. <span>“Doubly Robust Inference with Nonprobability Survey Samples.”</span> <em>Journal of the American Statistical Association</em> 115 (532): 2011–21.
+</div>
+<div id="ref-NonProbEst-pkg" class="csl-entry" role="listitem">
+Luis Castro Martín, Ramón Ferri García, and María del Mar Rueda. 2020. <em>NonProbEst: Estimation in Nonprobability Sampling</em>.
+</div>
+<div id="ref-lumley2004" class="csl-entry" role="listitem">
+Lumley, Thomas. 2004. <span>“Survey r Package.”</span>
+</div>
+<div id="ref-GJRM" class="csl-entry" role="listitem">
+Marra, Giampero, and Rosalba Rodicw. 2023. <em>GJRM: Generalized Joint Regression Modelling</em>.
+</div>
+<div id="ref-sampling" class="csl-entry" role="listitem">
+Tillé, Yves, and Alina Matei. 2021. <em>Sampling: Survey Sampling</em>. <a href="https://CRAN.R-project.org/package=sampling">https://CRAN.R-project.org/package=sampling</a>.
+</div>
+<div id="ref-wu2022statistical" class="csl-entry" role="listitem">
+Wu, Changbao. 2022. <span>“Statistical Inference with Non-Probability Survey Samples.”</span> <em>Survey Methodology</em> 48: 283–311.
+</div>
+<div id="ref-yang_doubly_2020" class="csl-entry" role="listitem">
+Yang, Shu, Jae Kwang Kim, and Rui Song. 2020. <span>“Doubly <span>Robust</span> <span>Inference</span> When <span>Combining</span> <span>Probability</span> and <span>Non</span>-<span>Probability</span> <span>Samples</span> with <span>High</span> <span>Dimensional</span> <span>Data</span>.”</span> <em>Journal of the Royal Statistical Society Series B: Statistical Methodology</em> 82 (2): 445–65. <a href="https://doi.org/10.1111/rssb.12354">https://doi.org/10.1111/rssb.12354</a>.
+</div>
+</div>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -1230,10 +1315,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./index.html" class="pagination-link" aria-label="Welcome!">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Welcome!</span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./Introduction.html" class="pagination-link" aria-label="Introduction and Overview">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction and Overview</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./Case-Study.html" class="pagination-link" aria-label="Inverse probability weighting">
+        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Inverse probability weighting</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -1245,7 +1333,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ncn-foreigners/nonprobsvy-book/edit/main/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ncn-foreigners/nonprobsvy-book/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="toc-actions"><ul><li><a href="https://github.com/ncn-foreigners/nonprobsvy-book/edit/main/Introduction.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ncn-foreigners/nonprobsvy-book/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p>This book was built with <a href="https://quarto.org/">Quarto</a>.</p>
 </div>

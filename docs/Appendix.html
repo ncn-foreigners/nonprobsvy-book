@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Łukasz Chrostowski, Maciej Beręsewicz, Bartosz Bogulas, Cyprian Jurkowski">
 
-<title>Modern inference methods for non-probability samples with R</title>
+<title>Appendix A — Appendices – Modern inference methods for non-probability samples with R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -31,19 +30,18 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./Introduction.html" rel="next">
+<link href="./Nomenclature.html" rel="next">
+<link href="./References.html" rel="prev">
 <link href="./images/logo.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -469,6 +467,35 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 
 
@@ -481,7 +508,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Welcome!</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Appendix.html">Appendices</a></li><li class="breadcrumb-item"><a href="./Appendix.html"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Appendix A: Additional Material</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -516,7 +543,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
           </li>
       </ul>
     </div>
-  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
 </div>
     </div>
       </div>
@@ -529,14 +560,14 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Welcome!</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Introduction.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction and Overview</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -592,7 +623,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Appendix.html" class="sidebar-item-text sidebar-link">
+  <a href="./Appendix.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Appendix A: Additional Material</span></span></a>
   </div>
 </li>
@@ -614,28 +645,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#welcome" id="toc-welcome" class="nav-link active" data-scroll-target="#welcome">Welcome!</a></li>
+  <li><a href="#ipw-estimator-variance" id="toc-ipw-estimator-variance" class="nav-link active" data-scroll-target="#ipw-estimator-variance"><span class="header-section-number">A.1</span> IPW estimator variance</a>
+  <ul class="collapse">
+  <li><a href="#mle-complementary-log-log-model" id="toc-mle-complementary-log-log-model" class="nav-link" data-scroll-target="#mle-complementary-log-log-model"><span class="header-section-number">A.1.1</span> MLE (complementary log-log model)</a></li>
+  <li><a href="#mle-probit-model" id="toc-mle-probit-model" class="nav-link" data-scroll-target="#mle-probit-model"><span class="header-section-number">A.1.2</span> MLE (probit model)</a></li>
+  <li><a href="#gee" id="toc-gee" class="nav-link" data-scroll-target="#gee"><span class="header-section-number">A.1.3</span> GEE</a></li>
+  </ul></li>
+  <li><a href="#dr-estimator-variance" id="toc-dr-estimator-variance" class="nav-link" data-scroll-target="#dr-estimator-variance"><span class="header-section-number">A.2</span> DR estimator variance</a>
+  <ul class="collapse">
+  <li><a href="#mle-with-cloglog-and-probit-models" id="toc-mle-with-cloglog-and-probit-models" class="nav-link" data-scroll-target="#mle-with-cloglog-and-probit-models"><span class="header-section-number">A.2.1</span> MLE with cloglog and probit models</a></li>
+  <li><a href="#gee-1" id="toc-gee-1" class="nav-link" data-scroll-target="#gee-1"><span class="header-section-number">A.2.2</span> GEE</a></li>
+  </ul></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/ncn-foreigners/nonprobsvy-book/edit/main/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ncn-foreigners/nonprobsvy-book/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/ncn-foreigners/nonprobsvy-book/edit/main/Appendix.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ncn-foreigners/nonprobsvy-book/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Appendix.html">Appendices</a></li><li class="breadcrumb-item"><a href="./Appendix.html"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Appendix A: Additional Material</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Modern inference methods for non-probability samples with R</h1>
+<h1 class="title">Appendix A — Appendices</h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Łukasz Chrostowski, Maciej Beręsewicz, Bartosz Bogulas, Cyprian Jurkowski </p>
-          </div>
-  </div>
     
   
     
@@ -646,21 +681,327 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </header>
 
 
+<div class="hidden">
+<p><span class="math display">\[
+\newcommand{\bSigma}{\boldsymbol{\Sigma}}
+\newcommand{\bOmega}{\boldsymbol{\Omega}}
+\newcommand{\bTheta}{\boldsymbol{\Theta}}
+\newcommand{\bPi}{\boldsymbol{\Pi}}
+\newcommand{\bbeta}{\boldsymbol{\beta}}
+\newcommand{\balpha}{\boldsymbol{\alpha}}
+\newcommand{\brho}{\boldsymbol{\rho}}
+\newcommand{\beps}{\boldsymbol{\epsilon}}
+\newcommand{\blambda}{\boldsymbol{\lambda}}
+\newcommand{\bgamma}{\boldsymbol{\gamma}}
+\newcommand{\btheta}{\boldsymbol{\theta}}
+\newcommand{\bmu}{\boldsymbol{\mu}}
+\newcommand{\bpi}{\boldsymbol{\pi}}
+\newcommand{\bphi}{\boldsymbol{\phi}}
+\newcommand{\bPhi}{\boldsymbol{\Phi}}
+\newcommand{\boldeta}{\boldsymbol{\eta}}
+\newcommand{\bx}{\boldsymbol{x}}
+\newcommand{\bD}{\boldsymbol{D}}
+\newcommand{\bV}{\boldsymbol{V}}
+\newcommand{\bv}{\boldsymbol{v}}
+\newcommand{\bY}{\boldsymbol{Y}}
+\newcommand{\bA}{\boldsymbol{A}}
+\newcommand{\bB}{\boldsymbol{B}}
+\newcommand{\bR}{\boldsymbol{R}}
+\newcommand{\bM}{\boldsymbol{M}}
+\newcommand{\bI}{\boldsymbol{I}}
+\newcommand{\bC}{\boldsymbol{C}}
+\newcommand{\bW}{\boldsymbol{W}}
+\newcommand{\bw}{\boldsymbol{w}}
+\newcommand{\bd}{\boldsymbol{d}}
+\newcommand{\bT}{\boldsymbol{T}}
+\newcommand{\bt}{\boldsymbol{t}}
+\newcommand{\bZ}{\boldsymbol{Z}}
+\newcommand{\bX}{\boldsymbol{X}}
+\newcommand{\bz}{\boldsymbol{z}}
+\newcommand{\by}{\boldsymbol{y}}
+\newcommand{\br}{\boldsymbol{r}}
+\newcommand{\bp}{\boldsymbol{p}}
+\newcommand{\bb}{\boldsymbol{b}}
+\newcommand{\bZero}{\boldsymbol{0}}
+\newcommand{\bOne}{\boldsymbol{1}}
+\]</span></p>
+</div>
+<section id="ipw-estimator-variance" class="level2" data-number="A.1">
+<h2 data-number="A.1" data-anchor-id="ipw-estimator-variance"><span class="header-section-number">A.1</span> IPW estimator variance</h2>
+<p>Similarly as in second chapter wi will derive variance of an IPW estimator, but this time we will consider all of the other models for propensity score. In the first part we expand Taylor approximation for MLE model with complementary log-log and probit regression for propensity score. In the next part we this approach for variance estimation in GEE models.</p>
+<section id="mle-complementary-log-log-model" class="level3" data-number="A.1.1">
+<h3 data-number="A.1.1" data-anchor-id="mle-complementary-log-log-model"><span class="header-section-number">A.1.1</span> MLE (complementary log-log model)</h3>
+<p>Recall that we have following system of equation to solve for cloglog model with corresponding objective function (gradient).</p>
+<p><span class="math display">\[
+\begin{equation*}
+\boldsymbol{\Phi}_n(\boldsymbol{\eta})=\left(\begin{array}{c}
+\frac{1}{N} \sum_{i=1}^N\left[\frac{R_i\left(y_i-\mu\right)}{\pi_i^A}+\Delta \frac{R_i-\pi_i^A}{\pi_i^A}\right] \\
+\frac{1}{N}\sum_{i=1}^N R_i \frac{\exp(\bx_{i}^{\top}\btheta)\bx_{i}}{\pi(\bx_{i}, \btheta)} - \sum_{i \in S_{B}}d_{i}^{B}\exp(\bx_{i}^{T}\btheta)\bx_{i}
+\end{array}\right) = \bZero
+\end{equation*}
+\]</span> for which derivative along <span class="math inline">\(\boldsymbol{\eta}\)</span> is</p>
+<p><span class="math display">\[
+\begin{equation*}
+\phi_n(\boldsymbol{\eta})=\frac{1}{N}\left(\begin{array}{cc}
+-\sum_{i=1}^N\left\{\left(1-\frac{\Delta}{\mu}\right) \frac{R_i}{\pi_i^A}+\frac{\Delta}{\mu}\right\} &amp; \sum_{i=1}^N \frac{R_i\left(y_i-\mu + \Delta\right)\left(1 - \pi_i^A\right)\log \left(1 - \pi_i^A\right)}{\left(\pi_i^A\right)^2} \boldsymbol{x}_i^{\top} \\
+\mathbf{0} &amp; \operatorname{H}(\btheta)
+\end{array}\right),
+\end{equation*}
+\]</span> where <span class="math inline">\(\operatorname{H}\)</span> is hessian in point <span class="math inline">\(\btheta\)</span>. We can show that <span class="math display">\[
+\begin{equation*}
+\left[E(\phi_n(\boldsymbol{\eta}))\right]^{-1}=\left(\begin{array}{cc}
+-1 &amp; \mathbf{b}^T \\
+\mathbf{0} &amp; \left[\frac{1}{N}\operatorname{E}\left(\operatorname{H}(\btheta)\right)\right]^{-1}
+\end{array}\right),
+\end{equation*}
+\]</span> where <span class="math display">\[
+\mathbf{b}^{\top} = \sum_{i=1}^N \frac{1-\pi_i^A}{\pi_i^A} \log \left(1 - \pi_i^A\right) \left(y_i - \mu_y + \Delta\right) \bx_i^{\top}\left[\operatorname{E}\left(\operatorname{H} (\btheta)\right)\right]^{-1}.
+\]</span> Decomposition for this model has following form</p>
+<p><span class="math display">\[
+\begin{equation*}
+    \operatorname{\bA_1} = \frac{1}{N} \sum_{i=1}^N
+    \left(\begin{array}{c}
+        \frac{R_i\left(y_i - \mu\right)}{\pi_i^A} + \Delta\frac{R_i - \pi_i^A}{\pi_i^A}  \\
+       \pi_i^A \frac{\log\left(1 - \pi_i^A\right)}{\pi_i^A} \bx_i -  R_i \frac{\log\left(1 - \pi_i^A\right)}{\pi_i^A} \bx_i
+    \end{array}\right)
+\end{equation*}
+\]</span> and <span class="math display">\[
+\begin{equation*}
+    \operatorname{\bA_2} = \frac{1}{N}
+    \left(\begin{array}{c}
+        0  \\
+        \sum_{i \in \mathcal{S}_B} d_i^B \log \left(1 - \pi_i^A\right) \bx_i - \sum_{i=1}^N \pi_i^A  \frac{\log \left(1 - \pi_i^A\right)}{\pi_i^A} \bx_i
+    \end{array}\right)
+\end{equation*}
+\]</span> and respectively <span class="math display">\[
+\begin{equation*}
+\operatorname{Var}\left(\bA_1\right) = \frac{1}{N^2} \sum_{i=1}^N
+\left(\begin{array}{cc}
+    \left(y_i - \mu + \Delta\right)^2 \left((\pi_i^A)^{-1} - 1\right)  &amp; - \frac{\left(1 - \pi_i^A\right)}{\pi_i^A} \log\left(1 - \pi_i^A\right)\left(y_i - \mu + \Delta\right)\bx_i^{\top}  \\
+    - \frac{\left(1 - \pi_i^A\right)}{\pi_i^A} \log\left(1 - \pi_i^A\right)\left(y_i - \mu + \Delta\right)\bx_i
+    &amp; \frac{\left(1 - \pi_i^A\right) \log^2\left(1 - \pi_i^A\right)}{\pi_i^A} \bx_i \bx_i^{\top}
+\end{array}\right)
+\end{equation*}
+\]</span> <span class="math display">\[
+\begin{equation*}
+\operatorname{Var}\left(\bA_2\right) =
+\left(\begin{array}{cc}
+     0 &amp; \boldsymbol{0}^{\top} \\
+     \boldsymbol{0} &amp; \bD
+\end{array}\right),
+\end{equation*}
+\]</span> where <span class="math display">\[
+\begin{align}
+    \bD = \frac{1}{N^2}V_p\left(\sum_{i \in \mathcal{S}_B} d_i^B \log \left(1 - \pi_i^A\right) \bx_i\right)
+\end{align}
+\]</span> is variance-covariance matrix for sampling design for <span class="math inline">\(S_B\)</span> and can be estimated as …</p>
+</section>
+<section id="mle-probit-model" class="level3" data-number="A.1.2">
+<h3 data-number="A.1.2" data-anchor-id="mle-probit-model"><span class="header-section-number">A.1.2</span> MLE (probit model)</h3>
+<p>From the model for probit regression we have following system to solve <span class="math display">\[
+\begin{equation}
+\boldsymbol{\Phi}_n(\boldsymbol{\eta})=\left(\begin{array}{c}
+\frac{1}{N} \sum_{i=1}^N\left[\frac{R_i\left(y_i-\mu\right)}{\pi_i^A}+\Delta \frac{R_i-\pi_i^A}{\pi_i^A}\right] \\
+\frac{1}{N} \sum_{i=1}^N R_i \frac{\dot{\pi}_i^A}{\pi_i^A\left(1 - \pi_{i}^A\right)} \boldsymbol{x}_i-\frac{1}{N} \sum_{i \in \mathcal{S}_B} d_i^B \frac{\dot{\pi}_i^A}{1 - \pi_i^A} \boldsymbol{x}_i
+\end{array}\right)=\mathbf{0},
+\end{equation}
+\]</span> AS before we have to derive <span class="math inline">\(\boldsymbol{\phi}_n(\boldsymbol{\eta})=\partial \boldsymbol{\Phi}_n(\boldsymbol{\eta}) / \partial \boldsymbol{\eta}\)</span> and find decomposition of <span class="math inline">\(\boldsymbol{\phi}_n(\boldsymbol{\eta})\)</span> and its variance-covariance matrices. Thus, we have <span class="math display">\[
+\begin{equation*}
+\phi_n(\boldsymbol{\eta})=\frac{1}{N}\left(\begin{array}{cc}
+-\sum_{i=1}^N\left\{\left(1-\frac{\Delta}{\mu}\right) \frac{R_i}{\pi_i^A}+\frac{\Delta}{\mu}\right\} &amp; -\sum_{i=1}^N \frac{R_i\left(y_i-\mu + \frac{\Delta}{\mu}\right)\dot{\pi}_i^A}{\left(\pi_i^A\right)^2} \boldsymbol{x}_i^{\top} \\
+\mathbf{0} &amp; \operatorname{H}(\btheta)
+\end{array}\right).
+\end{equation*}
+\]</span> where <span class="math inline">\(\operatorname{H}\)</span> is hessian corresponding to set of parameters <span class="math inline">\(\btheta\)</span>. We can show that <span class="math display">\[
+\begin{equation*}
+\left[E(\phi_n(\boldsymbol{\eta}))\right]^{-1}=\left(\begin{array}{cc}
+-1 &amp; \mathbf{b}^T\\
+\mathbf{0} &amp; \left[\frac{1}{N}\operatorname{E}\left(\operatorname{H}(\btheta)\right)\right]^{-1}
+\end{array}\right),
+\end{equation*}
+\]</span> where <span class="math display">\[
+\mathbf{b}^T = - \sum_{i=1}^N \frac{\left(y_i-\mu + \frac{\Delta}{\mu}\right)\dot{\pi}_i^A}{\pi_i^A}\boldsymbol{x}_i^{\top}\left[\operatorname{E}\left(\operatorname{H}(\btheta)\right)\right]^{-1}
+\]</span> and by the decomposition of <span class="math inline">\(\Phi_n(\boldsymbol{\eta})\)</span> we get <span class="math display">\[
+\begin{equation*}
+    \operatorname{\bA_1} = \frac{1}{N} \sum_{i=1}^N
+    \left(\begin{array}{c}
+        \frac{R_i\left(y_i - \mu\right)}{\pi_i^A} + \Delta\frac{R_i - \pi_i^A}{\pi_i^A}  \\
+         R_i\frac{\dot{\pi}_i^A}{\pi_i^A\left(1 - \pi_i^A\right)} \bx_i - \pi_i^A \frac{\dot{\pi_i^A}}{\pi_i^A \left(1 - \pi_i^A\right)} \bx_i
+    \end{array}\right)
+\end{equation*}
+\]</span> and <span class="math display">\[
+\begin{equation*}
+    \operatorname{\bA_2} = \frac{1}{N}
+    \left(\begin{array}{c}
+        0  \\
+        \sum_{i=1}^N \pi_i^A \frac{\dot{\pi_i^A}}{\pi_i^A\left(1 - \pi_i^A\right)} - \sum_{i \in S_B} d_i^B\frac{\dot{\pi}_i^A}{1 - \pi_i^A} \bx_i
+    \end{array}\right)
+\end{equation*}
+\]</span> with following variance-covariance matrices <span class="math display">\[
+\begin{equation*}
+\operatorname{Var}\left(\bA_1\right) = \frac{1}{N^2} \sum_{i=1}^N
+\left(\begin{array}{cc}
+     \left(y_i - \mu + \Delta\right)^2 \left((\pi_i^A)^{-1} - 1\right) &amp;     \frac{\dot{\pi}_i^A\left(y_i - \mu + \Delta\right)}{\pi_i^A}\bx_{i}^{\top}  \\
+    \frac{\dot{\pi}_i^A\left(y_i - \mu + \Delta\right)}{\pi_i^A}\bx_{i} &amp; \frac{\dot{\pi}_i^A}{\pi_i^A\left(1 - \pi_i^A\right)}\bx_i\bx_i^{\top}
+\end{array}\right)
+\end{equation*}
+\]</span> and <span class="math display">\[
+\begin{equation*}
+\operatorname{Var}\left(\bA_2\right) =
+\left(\begin{array}{cc}
+     0 &amp; \boldsymbol{0}^{\top} \\
+     \boldsymbol{0} &amp; \bD
+\end{array}\right),
+\end{equation*}
+\]</span> where <span class="math display">\[
+\begin{align}
+    \bD = \frac{1}{N^2}V_p\left(\sum_{i \in S_B} d_i^B \frac{\dot{\pi}_i^A}{1 - \pi_i^A}\bx_i\right)
+\end{align}
+\]</span> is variance covariance matrix corresponding to probability sample.</p>
+</section>
+<section id="gee" class="level3" data-number="A.1.3">
+<h3 data-number="A.1.3" data-anchor-id="gee"><span class="header-section-number">A.1.3</span> GEE</h3>
+<p>For generalized estimating equations we have following system of equations to consider <span class="math display">\[
+\begin{equation}
+\boldsymbol{\Phi}_n(\boldsymbol{\eta})=\left(\begin{array}{c}
+\frac{1}{N} \sum_{i=1}^N\left[\frac{R_i\left(y_i-\mu\right)}{\pi_i^A}+\Delta \frac{R_i-\pi_i^A}{\pi_i^A}\right] \\
+\frac{1}{N} \sum_{i=1}^N R_i \operatorname{h}\left(\bx_i\right)-\frac{1}{N} \sum_{i \in \mathcal{S}_B} d_i^B \pi_i^A \operatorname{h}\left(\bx_i\right)
+\end{array}\right)=\mathbf{0}
+\end{equation}
+\]</span> We have following decomposition of <span class="math inline">\(\boldsymbol{\Phi}_n(\boldsymbol{\eta})\)</span> for this approach <span class="math display">\[
+\begin{equation}
+\mathbf{A}_1=\frac{1}{N} \sum_{i=1}^N\left(\begin{array}{c}
+\frac{R_i\left(y_i-\mu\right)}{\pi_i^A}+\Delta \frac{R_i-\pi_i^A}{\pi_i^A} \\
+R_i \operatorname{h}\left(\bx_i\right)
+\end{array}\right), \quad \mathbf{A}_2=\frac{1}{N}\left(\begin{array}{c}
+0 \\
+- \sum_{i \in S_B} d_i^B \pi_i^A \operatorname{h}\left(\bx_i\right)
+\end{array}\right)
+\end{equation}
+\]</span> It can be shown that<br>
+1. for <span class="math inline">\(\operatorname{h}\left(\bx_i\right) = \bx_i\)</span></p>
+<p><span class="math display">\[
+\mathbf{V}_1=\frac{1}{N^2} \sum_{i=1}^N\left(\begin{array}{cc}
+\left\{\left(1-\pi_i^A\right) / \pi_i^A\right\}\left(y_i-\mu+\Delta\right)^2 &amp; \left(1-\pi_i^A\right)\left(y_i-\mu+\Delta\right) \boldsymbol{x}_i^{\top} \\
+\left(1-\pi_i^A\right)\left(y_i-\mu+\Delta\right) \boldsymbol{x}_i &amp; \pi_i^A\left(1-\pi_i^A\right) \boldsymbol{x}_i \boldsymbol{x}_i^{\top}
+\end{array}\right)
+\]</span> and <span class="math display">\[
+\mathbf{V}_2=\left(\begin{array}{cc}
+0 &amp; \mathbf{0}^{\top} \\
+\mathbf{0} &amp; \mathbf{D}
+\end{array}\right)
+\]</span> where <span class="math display">\[\mathbf{D}=N^{-2} V_p\left(\sum_{i \in \mathcal{S}_B} d_i^B \pi_i^A \boldsymbol{x}_i\right)\]</span><br>
+2. for <span class="math inline">\(\operatorname{h}\left(\bx_i\right) = \bx_i \pi_i^A(\bx_i, \btheta) ^{-1}\)</span> <span class="math display">\[
+\mathbf{V}_1=\frac{1}{N^2} \sum_{i=1}^N\left(\begin{array}{cc}
+\left\{\left(1-\pi_i^A\right) / \pi_i^A\right\}\left(y_i-\mu+\Delta\right)^2 &amp; \frac{\left(1-\pi_i^A\right)}{\pi_i^A}\left(y_i-\mu+\Delta\right) \boldsymbol{x}_i^{\top} \\
+\frac{\left(1-\pi_i^A\right)}{\pi_i^A}\left(y_i-\mu+\Delta\right) \boldsymbol{x}_i &amp; \left(1-\pi_i^A\right) \boldsymbol{x}_i \boldsymbol{x}_i^{\top}
+\end{array}\right)
+\]</span> and <span class="math display">\[
+\mathbf{V}_2=\left(\begin{array}{cc}
+0 &amp; \mathbf{0}^{\top} \\
+\mathbf{0} &amp; \mathbf{D}
+\end{array}\right)
+\]</span> where <span class="math display">\[\mathbf{D}=N^{-2} V_p\left(\sum_{i \in \mathcal{S}_B} d_i^B \boldsymbol{x}_i\right).\]</span> To determine the variance-covariance matrix for <span class="math inline">\(\hat{\boldsymbol{\eta}}\)</span> we need to derive <span class="math inline">\(\boldsymbol{\phi}_n(\boldsymbol{\eta})=\partial \boldsymbol{\Phi}_n(\boldsymbol{\eta}) / \partial \boldsymbol{\eta}\)</span> which depends on the choosen <span class="math inline">\(h\)</span>-function and model for propensity score.</p>
+</section>
+</section>
+<section id="dr-estimator-variance" class="level2" data-number="A.2">
+<h2 data-number="A.2" data-anchor-id="dr-estimator-variance"><span class="header-section-number">A.2</span> DR estimator variance</h2>
+<p>In this subsection we show how to derive variance for doubly robust estimator under probit and cloglog models for propensity score and General estimating equations as well. The derivation in analogous to that of the section on doubly robust methods for non-probability sample. The technical difference lies in the imputation of another modeling function for propensity score.</p>
+<section id="mle-with-cloglog-and-probit-models" class="level3" data-number="A.2.1">
+<h3 data-number="A.2.1" data-anchor-id="mle-with-cloglog-and-probit-models"><span class="header-section-number">A.2.1</span> MLE with cloglog and probit models</h3>
+<p>Using the equation (2.1) on <span class="math inline">\(\mu_{IPW2}\)</span> for the probit model we have <span class="math display">\[
+\begin{equation}
+\begin{aligned}
+\frac{1}{\hat{N}^A} \sum_{i=1}^N \frac{R_i\left\{y_i-m\left(\boldsymbol{x}_i, \boldsymbol{\beta}^*\right)\right\}}{\hat{\pi}_i^A} = &amp; h_N+\frac{1}{N} \sum_{i=1}^N R_i\left\{\frac{y_i-m\left(\boldsymbol{x}_i, \boldsymbol{\beta}^*\right)-h_N}{\pi_i^A}-\mathbf{b}^{\top} \frac{\dot{\pi}_i^A}{\pi_i^A \left(1 - \pi_i^A\right)} \boldsymbol{x}_i\right\} \\
+&amp; +\mathbf{b}_3^{\top} \frac{1}{N} \sum_{i \in \mathcal{S}_B} d_i^B \frac{\dot{\pi}_i^A}{\left(1 - \pi_i^A\right)} \boldsymbol{x}_i+o_p\left(n_A^{-1 / 2}\right),
+\end{aligned}
+\end{equation}
+\]</span> where <span class="math inline">\(h_n = \frac{1}{N} \sum_{i=1}^N \left(y_i - \operatorname{m}\left(\bx_i,\bbeta^*\right)\right)\)</span> and <span class="math display">\[
+\mathbf{b}^{\top} = -\sum_{i=1}^N \frac{\left(y_i - \operatorname{m}\left(\bx_i,\bbeta^*\right) - h_n\right)\dot{\pi}_i^A}{\pi_i^A}\boldsymbol{x}_i^{\top}\left[\operatorname{E}\left(\operatorname{H}(\btheta)\right)\right]^{-1}.
+\]</span> The second part of the estimator has the following expansion <span class="math display">\[
+\begin{equation} \label{eq2}
+\frac{1}{\hat{N}^B} \sum_{i \in \mathcal{S}_B} d_i^B m\left(\bx_i,\bbeta^*\right)=\frac{1}{N} \sum_{i=1}^N m\left(\bx_i,\bbeta^*\right)+\frac{1}{N} \sum_{i \in \mathcal{S}_B} d_i^B\left\{m\left(\bx_i,\bbeta^*\right)-\frac{1}{N} \sum_{i=1}^N m\left(\bx_i,\bbeta^*\right)\right\}+O_p\left(n_B^{-1}\right)
+\end{equation}
+\]</span> Putting these two parts together implies: <span class="math display">\[
+\begin{equation}
+\begin{aligned}
+\hat{\mu}_{D R 2}-\mu_y = &amp; \frac{1}{N} \sum_{i=1}^N R_i\left\{\frac{y_i-m\left(\boldsymbol{x}_i, \boldsymbol{\beta}^*\right)-h_N}{\pi_i^A}-\mathbf{b}_3^{\top} \frac{\dot{\pi}_i^A}{\pi_i^A \left(1 - \pi_i^A \right)} \boldsymbol{x}_i\right\} \\
+&amp; +\frac{1}{N} \sum_{i \in \mathcal{S}_B} d_i^B t_i +o_p\left(n_A^{-1 / 2}\right)
+\end{aligned}
+\end{equation}
+\]</span> It follows that <span class="math display">\[
+\begin{equation*}
+    \begin{aligned}
+        \text{var}\left(\hat{\mu}_{DR}\right) = &amp; \frac{1}{N^2} \sum_{i=1}^N \left(1 - \pi_i^A\right)\pi_i^A \left[\frac{y_i - \operatorname{m}\left(\bx_i,\bbeta^*\right) - h_n}{\pi_i^A} - \mathbf{b}_3^T\frac{\dot{\pi}_i^A}{\pi_i^A \left(1 - \pi_i^A \right)}\bx_i\right]^2 \\ &amp; + \operatorname{W} + o(n_A^{-1}),
+    \end{aligned}
+\end{equation*}
+\]</span> where <span class="math display">\[
+\begin{align}
+    \operatorname{W} = \frac{1}{N^2}\text{var}_p\left(\sum_{i \in S_B} d_i^B t_i\right)
+\end{align}
+\]</span> and <span class="math inline">\(t_i = \frac{\dot{\pi}_i^A}{1 - \pi_i^A} \bx_i^{\top} \mathbf{b}_3 + \operatorname{m}\left(\bx_i,\bbeta^*\right)- \frac{1}{N} \sum_{i=1}^N \operatorname{m}\left(\bx_i,\bbeta^*\right)\)</span>.</p>
+<p>When propensity scores are estimating by complementary log-log model, the results are as follows <span class="math display">\[
+\begin{equation}
+\begin{aligned}
+\frac{1}{\hat{N}^A} \sum_{i=1}^N \frac{R_i\left\{y_i-m\left(\boldsymbol{x}_i, \boldsymbol{\beta}^*\right)\right\}}{\hat{\pi}_i^A} = &amp; h_N+\frac{1}{N} \sum_{i=1}^N R_i\left\{\frac{y_i-m\left(\boldsymbol{x}_i, \boldsymbol{\beta}^*\right)-h_N}{\pi_i^A}-\mathbf{b}^{\top} \frac{\log \left(1 - \pi_i^A\right)}{\pi_i^A} \boldsymbol{x}_i\right\} \\
+&amp; +\mathbf{b}_3^{\top} \frac{1}{N} \sum_{i \in \mathcal{S}_B} d_i^B \log \left(1 - \pi_i^A\right) \boldsymbol{x}_i+o_p\left(n_A^{-1 / 2}\right),
+\end{aligned}
+\end{equation}
+\]</span> where <span class="math display">\[\mathbf{b}^{\top} = -\sum_{i=1}^N \frac{\left(y_i - \operatorname{m}\left(\bx_i,\bbeta^*\right) - h_n\right)\left(1 - \pi_i^A\right) \log \left(1 - \pi_i^A\right)}{\pi_i^A}\boldsymbol{x}_i^{\top}\left[\operatorname{E}\left(\operatorname{H}_{l}(\btheta)\right)\right]^{-1}.\]</span> The second part of the <span class="math inline">\(\hat{\mu}_{DR}\)</span> is expanded as in (2.6) <span class="math display">\[
+\begin{equation}
+\begin{aligned}
+\hat{\mu}_{D R 2}-\mu_y = &amp; \frac{1}{N} \sum_{i=1}^N R_i\left\{\frac{y_i-m\left(\boldsymbol{x}_i, \boldsymbol{\beta}^*\right)-h_N}{\pi_i^A}-\mathbf{b}_3^{\top} \frac{\log \left(1 - \pi_i^A\right)}{\pi_i^A} \boldsymbol{x}_i\right\} \\
+&amp; +\frac{1}{N} \sum_{i \in \mathcal{S}_B} d_i^B t_i +o_p\left(n_A^{-1 / 2}\right),
+\end{aligned}
+\end{equation}
+\]</span> what implies that <span class="math display">\[
+\begin{equation*}
+    \begin{aligned}
+        \operatorname{Var}\left(\hat{\mu}_{DR}\right) = &amp; \frac{1}{N^2} \sum_{i=1}^N \left(1 - \pi_i^A\right)\pi_i^A \left[\frac{y_i - \operatorname{m}\left(\bx_i,\bbeta^*\right) - h_n}{\pi_i^A} - \mathbf{b}_3^T \frac{\log\left(1 - \pi_i^A\right)}{\pi_i^A}\bx_i\right]^2 \\ &amp; +
+        \operatorname{W} + o(n_A^{-1}),
+    \end{aligned}
+\end{equation*}
+\]</span> where <span class="math display">\[
+\begin{align}
+    \operatorname{W} = \frac{1}{N^2}\text{var}_p\left(\sum_{i \in S_B} d_i^B t_i\right)
+\end{align}
+\]</span> and <span class="math inline">\(t_i = \log \left(1 - \pi_i^A \right) \bx_i^{\top} \mathbf{b}_3 + \operatorname{m}\left(\bx_i,\bbeta^*\right)- \frac{1}{N} \sum_{i=1}^N \operatorname{m}\left(\bx_i,\bbeta^*\right)\)</span>.</p>
+</section>
+<section id="gee-1" class="level3" data-number="A.2.2">
+<h3 data-number="A.2.2" data-anchor-id="gee-1"><span class="header-section-number">A.2.2</span> GEE</h3>
+<p>As with MLE, we will use Taylor expansion to derive the variance for the DR of the estimator. For <span class="math inline">\(\operatorname{h}\left(\bx_i\right) = \bx_i\)</span> we have <span class="math display">\[
+\begin{aligned}
+\frac{1}{\hat{N}^A} \sum_{i=1}^N \frac{R_i\left\{y_i-m\left(\boldsymbol{x}_i, \boldsymbol{\beta}^*\right)\right\}}{\hat{\pi}_i^A}= &amp; h_N+\frac{1}{N} \sum_{i=1}^N R_i\left\{\frac{y_i-m\left(\boldsymbol{x}_i, \boldsymbol{\beta}^*\right)-h_N}{\pi_i^A}-\mathbf{b}^{\top} \boldsymbol{x}_i\right\} \\
+&amp; +\mathbf{b}^{\top} \frac{1}{N} \sum_{i \in \mathcal{S}_B} d_i^B \pi_i^A \boldsymbol{x}_i+o_p\left(n_A^{-1 / 2}\right)
+\end{aligned}
+\]</span> where <span class="math inline">\(h_N=N^{-1} \sum_{i=1}^N\left\{y_i-m\left(\boldsymbol{x}_i, \boldsymbol{\beta}^*\right)\right\}\)</span>.</p>
+<p>The second part of <span class="math inline">\(\hat{\mu}_{D R 2}\)</span> given in is the Hájek estimator under the probability sampling design for <span class="math inline">\(\mathcal{S}_B\)</span>, which has the following expansion <span class="math display">\[
+\frac{1}{\hat{N}^B} \sum_{i \in \mathcal{S}_B} d_i^B m_i=\frac{1}{N} \sum_{i=1}^N m_i+\frac{1}{N} \sum_{i \in \mathcal{S}_B} d_i^B\left\{m_i-\frac{1}{N} \sum_{i=1}^N m_i\right\}+O_p\left(n_B^{-1}\right)
+\]</span>, where <span class="math inline">\(m_i=m\left(\boldsymbol{x}_i, \boldsymbol{\beta}^*\right)\)</span>. Putting these two parts together we have <span class="math display">\[
+\hat{\mu}_{D R 2}-\mu_y=\frac{1}{N} \sum_{i=1}^N R_i\left\{\frac{y_i-m\left(\boldsymbol{x}_i, \boldsymbol{\beta}^*\right)-h_N}{\pi_i^A}-\mathbf{b}^{\top} \boldsymbol{x}_i\right\}+\frac{1}{N} \sum_{i \in \mathcal{S}_B} d_i^B t_i+o_p\left(n_A^{-1 / 2}\right)
+\]</span> where <span class="math inline">\(t_i=\pi_i^A \boldsymbol{x}_i^{\top} \mathbf{b}_3+m\left(\boldsymbol{x}_i, \boldsymbol{\beta}^*\right)-N^{-1} \sum_{i=1}^N m\left(\boldsymbol{x}_i, \boldsymbol{\beta}^*\right)\)</span> and it follows that <span class="math display">\[
+\begin{gathered}
+\text{var}_{\mathrm{DR} 2}=\frac{1}{N^2} \sum_{i=1}^N\left(1-\pi_i^{\mathrm{A}}\right) \pi_i^{\mathrm{A}}\left[\left\{\frac{y_i-m\left(\boldsymbol{x}_i, \boldsymbol{\beta}^*\right)-h_{\mathrm{N}}}{\pi_i^A}\right\} -
+\mathbf{b}^{\top} \boldsymbol{x}_i\right]^2 + N^{-2} V_p\left(\sum_{i \in \mathcal{S}_{\mathrm{B}}} d_i^{\mathrm{B}} t_i\right)
+\end{gathered}
+\]</span></p>
+<p>By analogy, it can be shown that for <span class="math inline">\(\operatorname{h}\left(\bx_i\right) = \bx_i \pi_i^A\left(\bx_i^{\mathrm{T}} \btheta \right)^{-1}\)</span> we have <span class="math display">\[
+\begin{gathered}
+\text{var}_{\mathrm{DR} 2}=\frac{1}{N^2} \sum_{i=1}^N\left(1-\pi_i^{\mathrm{A}}\right) \pi_i^{\mathrm{A}}\left[\left\{\frac{y_i-m\left(\boldsymbol{x}_i, \boldsymbol{\beta}^*\right)-h_{\mathrm{N}}}{\pi_i^A}\right\} -
+\frac{\mathbf{b}_3^{\top} \boldsymbol{x}_i}{\pi_i^A}\right]^2 + N^{-2} V_p\left(\sum_{i \in \mathcal{S}_{\mathrm{B}}} d_i^{\mathrm{B}} t_i\right)
+\end{gathered}
+\]</span> where <span class="math inline">\(t_i= \boldsymbol{x}_i^{\top} \mathbf{b}_3+m\left(\boldsymbol{x}_i, \boldsymbol{\beta}^*\right)-N^{-1} \sum_{i=1}^N m\left(\boldsymbol{x}_i, \boldsymbol{\beta}^*\right)\)</span> and independently of the function of <span class="math inline">\(\operatorname{h}\)</span></p>
+<pre><code>1. for logit model</code></pre>
+<p><span class="math display">\[
+\mathbf{b}^{\top}=\left[\frac{1}{N} \sum_{i=1}^N\left(1-\pi_i^A\right)\left\{y_i-m\left(\boldsymbol{x}_i, \boldsymbol{\beta}^*\right)-h_N\right\} \boldsymbol{x}_i^{\top}\right]\left\{\frac{1}{N} \sum_{i=1}^N \pi_i^A\left(1-\pi_i^A\right) \boldsymbol{x}_i \boldsymbol{x}_i^{\top}\right\}^{-1}
+\]</span></p>
+<pre><code>2. for complementary loglog model</code></pre>
+<p><span class="math display">\[\mathbf{b}^{\top} = -\sum_{i=1}^N \frac{\left(y_i - \operatorname{m}\left(\bx_i,\bbeta^*\right) - h_n\right)\left(1 - \pi_i^A\right) \log \left(1 - \pi_i^A\right)}{\pi_i^A}\boldsymbol{x}_i^{\top} \left\{\frac{1}{N}\sum_{i=1}^N \left(1 - \pi_i^A\right) \exp\left(\bx_i^{\top}\btheta\right) \bx_i \bx_i^{\top}\right\} ^ {-1}\]</span></p>
+<pre><code>3. for probit model</code></pre>
+<p><span class="math display">\[\mathbf{b}^{\top} = -\sum_{i=1}^N \frac{\left(y_i - \operatorname{m}\left(\bx_i,\bbeta^*\right) - h_n\right)\dot{\pi}_i^A}{\pi_i^A}\boldsymbol{x}_i^{\top} \left\{\frac{1}{N}\sum_{i=1}^N \pi_i^A \bx_i \bx_i^{\top}\right\} ^ {-1}\]</span></p>
 
-<section id="welcome" class="level1 unnumbered">
-<h1 class="unnumbered">Welcome!</h1><p><img src="images/logo.png" title="Modern inference methods for non-probability samples with R" class="quarto-cover-image img-fluid"></p>
-<p>Welcome to the book <strong>“Modern inference methods for non-probability samples in R”</strong>. In this comprehensive guide, we will delve into the details of statistical inference, focusing specifically on the unique challenges and techniques associated with non-probability samples.</p>
-<p>Throughout this course, you will embark on a journey that combines both theoretical considerations and practical, hands-on applications Whether you’re an aspiring statistician, a data scientist, or a researcher in any field, this material will equip you with the knowledge and tools needed to navigate the intricacies of non-probability samples and extract meaningful insights from your data.</p>
-<p>Here’s a glimpse of what you can expect:</p>
-<ul>
-<li><p><strong>Understanding Non-probability Samples</strong>: Gain a deep understanding of what non-probability samples are, their characteristics, and the contexts in which they are commonly used.</p></li>
-<li><p><strong>Challenges and Biases</strong>: Explore the inherent challenges and biases associated with non-probability samples, including selection bias, coverage bias, and non-response bias.</p></li>
-<li><p><strong>Statistical Inference Techniques</strong>: Discover specialized statistical methods designed to address the unique characteristics of non-probability samples, including propensity score weighting and imputation techniques.</p></li>
-<li><p><strong>Hands-on R Programming</strong>: An introduction to the R package <code>nonprobsvy</code> for inference with non-probability samples.</p></li>
-</ul>
-<p>Have a great read!</p>
 
-
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -684,150 +1025,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
   toggleBodyColorPrimary();  
-  const disableStylesheet = (stylesheets) => {
-    for (let i=0; i < stylesheets.length; i++) {
-      const stylesheet = stylesheets[i];
-      stylesheet.rel = 'prefetch';
-    }
-  }
-  const enableStylesheet = (stylesheets) => {
-    for (let i=0; i < stylesheets.length; i++) {
-      const stylesheet = stylesheets[i];
-      stylesheet.rel = 'stylesheet';
-    }
-  }
-  const manageTransitions = (selector, allowTransitions) => {
-    const els = window.document.querySelectorAll(selector);
-    for (let i=0; i < els.length; i++) {
-      const el = els[i];
-      if (allowTransitions) {
-        el.classList.remove('notransition');
-      } else {
-        el.classList.add('notransition');
-      }
-    }
-  }
-  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
-    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
-    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
-    let newTheme = '';
-    if(darkModeDefault) {
-      newTheme = isAlternate ? baseTheme : alternateTheme;
-    } else {
-      newTheme = isAlternate ? alternateTheme : baseTheme;
-    }
-    const changeGiscusTheme = () => {
-      // From: https://github.com/giscus/giscus/issues/336
-      const sendMessage = (message) => {
-        const iframe = document.querySelector('iframe.giscus-frame');
-        if (!iframe) return;
-        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
-      }
-      sendMessage({
-        setConfig: {
-          theme: newTheme
-        }
-      });
-    }
-    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
-    if (isGiscussLoaded) {
-      changeGiscusTheme();
-    }
-  }
-  const toggleColorMode = (alternate) => {
-    // Switch the stylesheets
-    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
-    manageTransitions('#quarto-margin-sidebar .nav-link', false);
-    if (alternate) {
-      enableStylesheet(alternateStylesheets);
-      for (const sheetNode of alternateStylesheets) {
-        if (sheetNode.id === "quarto-bootstrap") {
-          toggleBodyColorMode(sheetNode);
-        }
-      }
-    } else {
-      disableStylesheet(alternateStylesheets);
-      toggleBodyColorPrimary();
-    }
-    manageTransitions('#quarto-margin-sidebar .nav-link', true);
-    // Switch the toggles
-    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
-    for (let i=0; i < toggles.length; i++) {
-      const toggle = toggles[i];
-      if (toggle) {
-        if (alternate) {
-          toggle.classList.add("alternate");     
-        } else {
-          toggle.classList.remove("alternate");
-        }
-      }
-    }
-    // Hack to workaround the fact that safari doesn't
-    // properly recolor the scrollbar when toggling (#1455)
-    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
-      manageTransitions("body", false);
-      window.scrollTo(0, 1);
-      setTimeout(() => {
-        window.scrollTo(0, 0);
-        manageTransitions("body", true);
-      }, 40);  
-    }
-  }
-  const isFileUrl = () => { 
-    return window.location.protocol === 'file:';
-  }
-  const hasAlternateSentinel = () => {  
-    let styleSentinel = getColorSchemeSentinel();
-    if (styleSentinel !== null) {
-      return styleSentinel === "alternate";
-    } else {
-      return false;
-    }
-  }
-  const setStyleSentinel = (alternate) => {
-    const value = alternate ? "alternate" : "default";
-    if (!isFileUrl()) {
-      window.localStorage.setItem("quarto-color-scheme", value);
-    } else {
-      localAlternateSentinel = value;
-    }
-  }
-  const getColorSchemeSentinel = () => {
-    if (!isFileUrl()) {
-      const storageValue = window.localStorage.getItem("quarto-color-scheme");
-      return storageValue != null ? storageValue : localAlternateSentinel;
-    } else {
-      return localAlternateSentinel;
-    }
-  }
-  const darkModeDefault = false;
-  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
-  // Dark / light mode switch
-  window.quartoToggleColorScheme = () => {
-    // Read the current dark / light value 
-    let toAlternate = !hasAlternateSentinel();
-    toggleColorMode(toAlternate);
-    setStyleSentinel(toAlternate);
-    toggleGiscusIfUsed(toAlternate, darkModeDefault);
-  };
-  // Ensure there is a toggle, if there isn't float one in the top right
-  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
-    const a = window.document.createElement('a');
-    a.classList.add('top-right');
-    a.classList.add('quarto-color-scheme-toggle');
-    a.href = "";
-    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
-    const i = window.document.createElement("i");
-    i.classList.add('bi');
-    a.appendChild(i);
-    window.document.body.appendChild(a);
-  }
-  // Switch to dark mode if need be
-  if (hasAlternateSentinel()) {
-    toggleColorMode(true);
-  } else {
-    toggleColorMode(false);
-  }
   const icon = "";
   const anchorJS = new window.AnchorJS();
   anchorJS.options = {
@@ -1230,10 +1427,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./References.html" class="pagination-link" aria-label="References">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">References</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./Introduction.html" class="pagination-link" aria-label="Introduction and Overview">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction and Overview</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./Nomenclature.html" class="pagination-link" aria-label="Appendix B: Nomenclature">
+        <span class="nav-page-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Appendix B: Nomenclature</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -1245,7 +1445,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ncn-foreigners/nonprobsvy-book/edit/main/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ncn-foreigners/nonprobsvy-book/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ncn-foreigners/nonprobsvy-book/edit/main/Appendix.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ncn-foreigners/nonprobsvy-book/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p>This book was built with <a href="https://quarto.org/">Quarto</a>.</p>
 </div>

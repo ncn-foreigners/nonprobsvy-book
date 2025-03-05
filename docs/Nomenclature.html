@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Łukasz Chrostowski, Maciej Beręsewicz, Bartosz Bogulas, Cyprian Jurkowski">
 
-<title>Modern inference methods for non-probability samples with R</title>
+<title>Appendix B — Nomenclature – Modern inference methods for non-probability samples with R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -31,19 +30,17 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./Introduction.html" rel="next">
+<link href="./Appendix.html" rel="prev">
 <link href="./images/logo.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -469,6 +466,35 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 
 
@@ -481,7 +507,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Welcome!</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Appendix.html">Appendices</a></li><li class="breadcrumb-item"><a href="./Nomenclature.html"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Appendix B: Nomenclature</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -516,7 +542,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
           </li>
       </ul>
     </div>
-  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
 </div>
     </div>
       </div>
@@ -529,14 +559,14 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Welcome!</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Introduction.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction and Overview</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -598,7 +628,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Nomenclature.html" class="sidebar-item-text sidebar-link">
+  <a href="./Nomenclature.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Appendix B: Nomenclature</span></span></a>
   </div>
 </li>
@@ -609,33 +639,21 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
-   
-  <ul>
-  <li><a href="#welcome" id="toc-welcome" class="nav-link active" data-scroll-target="#welcome">Welcome!</a></li>
-  </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/ncn-foreigners/nonprobsvy-book/edit/main/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ncn-foreigners/nonprobsvy-book/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Appendix.html">Appendices</a></li><li class="breadcrumb-item"><a href="./Nomenclature.html"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Appendix B: Nomenclature</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Modern inference methods for non-probability samples with R</h1>
+<h1 class="title">Appendix B — Nomenclature</h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Łukasz Chrostowski, Maciej Beręsewicz, Bartosz Bogulas, Cyprian Jurkowski </p>
-          </div>
-  </div>
     
   
     
@@ -646,22 +664,154 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </header>
 
 
+<table class="caption-top table">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 69%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Symbol</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\mathbb{E}\)</span></td>
+<td>Expected value operator</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(N\)</span></td>
+<td>True population size</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\mathcal{U}\)</span></td>
+<td>Finite population with N units</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(y\)</span></td>
+<td>Response variable</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\bx\)</span></td>
+<td>Auxiliary variables</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(p\)</span></td>
+<td>Number of auxiliary variables</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(S_A\)</span></td>
+<td>Nonprobablity sample</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(S_B\)</span></td>
+<td>Probability sample</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\pi_i^B\)</span></td>
+<td>Probability of belonging to a probability sample for the given unit</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\pi_i^A\)</span></td>
+<td>Probability of belonging to a non-probability sample for the given unit</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\dot{\pi}_i^A(\cdot)\)</span></td>
+<td>Derivative of <span class="math inline">\(\pi_i^A\)</span> at point <span class="math inline">\(\cdot\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(d_i^B\)</span></td>
+<td>Design weight for the given unit in a probability sample</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(n_A\)</span></td>
+<td>Size of non-probability sample</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(n_B\)</span></td>
+<td>Size of probability sample</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\mu_{y}\)</span></td>
+<td>Mean of population for response variable</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(R_{i}^A\)</span></td>
+<td>An indicator function for nonprobability sample</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\omega_i\)</span></td>
+<td>Frequency weight</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\ell\)</span></td>
+<td>Log-likelihood function for the model</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\hat{N}\)</span></td>
+<td>Point estimate for true population size</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\text{var}\)</span></td>
+<td>Variance operator</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\text{var}_p\)</span></td>
+<td>Design-based variance operator under the probability sampling design for <span class="math inline">\(S_B\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(Diag(\cdot)\)</span></td>
+<td>A diagonal matrix constructed from vector <span class="math inline">\(\cdot\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\btheta\)</span></td>
+<td>Set of the parameters to estimate for selection model</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\bbeta\)</span></td>
+<td>Set of the parameters to estimate for outcome model</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\phi(\cdot)\)</span></td>
+<td>Probability density function of the normal distribution in point <span class="math inline">\(\cdot\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\Phi(\cdot)\)</span></td>
+<td>Cumulative distribution function of the normal distribution in point <span class="math inline">\(\cdot\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\hat{\mu}_{MI}\)</span></td>
+<td>Mass imputation estimator of population mean</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\hat{\mu}_{IPW}\)</span></td>
+<td>Inverse probability weighted estimator of population mean</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\hat{\mu}_{DR}\)</span></td>
+<td>Doubly robust estimator of population mean</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(q\)</span></td>
+<td>Model for selection mechanism for non-probability sample</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\times\)</span></td>
+<td>A element by element product of vectors</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\boldsymbol{\eta}\)</span></td>
+<td>A vector of linear predictors <span class="math inline">\((\eta_{i})\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\lambda\)</span></td>
+<td>Tuning parameter for penalization function</td>
+</tr>
+</tbody>
+</table>
 
-<section id="welcome" class="level1 unnumbered">
-<h1 class="unnumbered">Welcome!</h1><p><img src="images/logo.png" title="Modern inference methods for non-probability samples with R" class="quarto-cover-image img-fluid"></p>
-<p>Welcome to the book <strong>“Modern inference methods for non-probability samples in R”</strong>. In this comprehensive guide, we will delve into the details of statistical inference, focusing specifically on the unique challenges and techniques associated with non-probability samples.</p>
-<p>Throughout this course, you will embark on a journey that combines both theoretical considerations and practical, hands-on applications Whether you’re an aspiring statistician, a data scientist, or a researcher in any field, this material will equip you with the knowledge and tools needed to navigate the intricacies of non-probability samples and extract meaningful insights from your data.</p>
-<p>Here’s a glimpse of what you can expect:</p>
-<ul>
-<li><p><strong>Understanding Non-probability Samples</strong>: Gain a deep understanding of what non-probability samples are, their characteristics, and the contexts in which they are commonly used.</p></li>
-<li><p><strong>Challenges and Biases</strong>: Explore the inherent challenges and biases associated with non-probability samples, including selection bias, coverage bias, and non-response bias.</p></li>
-<li><p><strong>Statistical Inference Techniques</strong>: Discover specialized statistical methods designed to address the unique characteristics of non-probability samples, including propensity score weighting and imputation techniques.</p></li>
-<li><p><strong>Hands-on R Programming</strong>: An introduction to the R package <code>nonprobsvy</code> for inference with non-probability samples.</p></li>
-</ul>
-<p>Have a great read!</p>
 
-
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -684,150 +834,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
   toggleBodyColorPrimary();  
-  const disableStylesheet = (stylesheets) => {
-    for (let i=0; i < stylesheets.length; i++) {
-      const stylesheet = stylesheets[i];
-      stylesheet.rel = 'prefetch';
-    }
-  }
-  const enableStylesheet = (stylesheets) => {
-    for (let i=0; i < stylesheets.length; i++) {
-      const stylesheet = stylesheets[i];
-      stylesheet.rel = 'stylesheet';
-    }
-  }
-  const manageTransitions = (selector, allowTransitions) => {
-    const els = window.document.querySelectorAll(selector);
-    for (let i=0; i < els.length; i++) {
-      const el = els[i];
-      if (allowTransitions) {
-        el.classList.remove('notransition');
-      } else {
-        el.classList.add('notransition');
-      }
-    }
-  }
-  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
-    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
-    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
-    let newTheme = '';
-    if(darkModeDefault) {
-      newTheme = isAlternate ? baseTheme : alternateTheme;
-    } else {
-      newTheme = isAlternate ? alternateTheme : baseTheme;
-    }
-    const changeGiscusTheme = () => {
-      // From: https://github.com/giscus/giscus/issues/336
-      const sendMessage = (message) => {
-        const iframe = document.querySelector('iframe.giscus-frame');
-        if (!iframe) return;
-        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
-      }
-      sendMessage({
-        setConfig: {
-          theme: newTheme
-        }
-      });
-    }
-    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
-    if (isGiscussLoaded) {
-      changeGiscusTheme();
-    }
-  }
-  const toggleColorMode = (alternate) => {
-    // Switch the stylesheets
-    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
-    manageTransitions('#quarto-margin-sidebar .nav-link', false);
-    if (alternate) {
-      enableStylesheet(alternateStylesheets);
-      for (const sheetNode of alternateStylesheets) {
-        if (sheetNode.id === "quarto-bootstrap") {
-          toggleBodyColorMode(sheetNode);
-        }
-      }
-    } else {
-      disableStylesheet(alternateStylesheets);
-      toggleBodyColorPrimary();
-    }
-    manageTransitions('#quarto-margin-sidebar .nav-link', true);
-    // Switch the toggles
-    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
-    for (let i=0; i < toggles.length; i++) {
-      const toggle = toggles[i];
-      if (toggle) {
-        if (alternate) {
-          toggle.classList.add("alternate");     
-        } else {
-          toggle.classList.remove("alternate");
-        }
-      }
-    }
-    // Hack to workaround the fact that safari doesn't
-    // properly recolor the scrollbar when toggling (#1455)
-    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
-      manageTransitions("body", false);
-      window.scrollTo(0, 1);
-      setTimeout(() => {
-        window.scrollTo(0, 0);
-        manageTransitions("body", true);
-      }, 40);  
-    }
-  }
-  const isFileUrl = () => { 
-    return window.location.protocol === 'file:';
-  }
-  const hasAlternateSentinel = () => {  
-    let styleSentinel = getColorSchemeSentinel();
-    if (styleSentinel !== null) {
-      return styleSentinel === "alternate";
-    } else {
-      return false;
-    }
-  }
-  const setStyleSentinel = (alternate) => {
-    const value = alternate ? "alternate" : "default";
-    if (!isFileUrl()) {
-      window.localStorage.setItem("quarto-color-scheme", value);
-    } else {
-      localAlternateSentinel = value;
-    }
-  }
-  const getColorSchemeSentinel = () => {
-    if (!isFileUrl()) {
-      const storageValue = window.localStorage.getItem("quarto-color-scheme");
-      return storageValue != null ? storageValue : localAlternateSentinel;
-    } else {
-      return localAlternateSentinel;
-    }
-  }
-  const darkModeDefault = false;
-  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
-  // Dark / light mode switch
-  window.quartoToggleColorScheme = () => {
-    // Read the current dark / light value 
-    let toAlternate = !hasAlternateSentinel();
-    toggleColorMode(toAlternate);
-    setStyleSentinel(toAlternate);
-    toggleGiscusIfUsed(toAlternate, darkModeDefault);
-  };
-  // Ensure there is a toggle, if there isn't float one in the top right
-  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
-    const a = window.document.createElement('a');
-    a.classList.add('top-right');
-    a.classList.add('quarto-color-scheme-toggle');
-    a.href = "";
-    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
-    const i = window.document.createElement("i");
-    i.classList.add('bi');
-    a.appendChild(i);
-    window.document.body.appendChild(a);
-  }
-  // Switch to dark mode if need be
-  if (hasAlternateSentinel()) {
-    toggleColorMode(true);
-  } else {
-    toggleColorMode(false);
-  }
   const icon = "";
   const anchorJS = new window.AnchorJS();
   anchorJS.options = {
@@ -1230,11 +1236,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./Appendix.html" class="pagination-link" aria-label="Appendix A: Additional Material">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Appendix A: Additional Material</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./Introduction.html" class="pagination-link" aria-label="Introduction and Overview">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction and Overview</span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->
@@ -1245,7 +1251,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ncn-foreigners/nonprobsvy-book/edit/main/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ncn-foreigners/nonprobsvy-book/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="toc-actions"><ul><li><a href="https://github.com/ncn-foreigners/nonprobsvy-book/edit/main/Nomenclature.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ncn-foreigners/nonprobsvy-book/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p>This book was built with <a href="https://quarto.org/">Quarto</a>.</p>
 </div>

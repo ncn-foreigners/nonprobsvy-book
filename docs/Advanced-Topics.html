@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Łukasz Chrostowski, Maciej Beręsewicz, Bartosz Bogulas, Cyprian Jurkowski">
 
-<title>Modern inference methods for non-probability samples with R</title>
+<title>6&nbsp; Techniques of variables selection for high-dimensional data – Modern inference methods for non-probability samples with R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -31,19 +30,18 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./Introduction.html" rel="next">
+<link href="./Summary.html" rel="next">
+<link href="./Doubly-Robust-Estimation.html" rel="prev">
 <link href="./images/logo.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -469,6 +467,35 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 
 
@@ -481,7 +508,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Welcome!</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Advanced-Topics.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Techniques of variables selection for high-dimensional data</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -516,7 +543,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
           </li>
       </ul>
     </div>
-  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
 </div>
     </div>
       </div>
@@ -529,14 +560,14 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Welcome!</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Introduction.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction and Overview</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -565,7 +596,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Advanced-Topics.html" class="sidebar-item-text sidebar-link">
+  <a href="./Advanced-Topics.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Techniques of variables selection for high-dimensional data</span></span></a>
   </div>
 </li>
@@ -614,28 +645,29 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#welcome" id="toc-welcome" class="nav-link active" data-scroll-target="#welcome">Welcome!</a></li>
+  <li><a href="#motivation" id="toc-motivation" class="nav-link active" data-scroll-target="#motivation"><span class="header-section-number">6.1</span> Motivation</a></li>
+  <li><a href="#existed-techniques" id="toc-existed-techniques" class="nav-link" data-scroll-target="#existed-techniques"><span class="header-section-number">6.2</span> Existed techniques</a>
+  <ul class="collapse">
+  <li><a href="#lasso" id="toc-lasso" class="nav-link" data-scroll-target="#lasso"><span class="header-section-number">6.2.1</span> LASSO</a></li>
+  <li><a href="#scad" id="toc-scad" class="nav-link" data-scroll-target="#scad"><span class="header-section-number">6.2.2</span> SCAD</a></li>
+  <li><a href="#mcp" id="toc-mcp" class="nav-link" data-scroll-target="#mcp"><span class="header-section-number">6.2.3</span> MCP</a></li>
+  </ul></li>
+  <li><a href="#solution" id="toc-solution" class="nav-link" data-scroll-target="#solution"><span class="header-section-number">6.3</span> Solution</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/ncn-foreigners/nonprobsvy-book/edit/main/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ncn-foreigners/nonprobsvy-book/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/ncn-foreigners/nonprobsvy-book/edit/main/Advanced-Topics.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ncn-foreigners/nonprobsvy-book/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Modern inference methods for non-probability samples with R</h1>
+<h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Techniques of variables selection for high-dimensional data</span></h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Łukasz Chrostowski, Maciej Beręsewicz, Bartosz Bogulas, Cyprian Jurkowski </p>
-          </div>
-  </div>
     
   
     
@@ -646,19 +678,72 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </header>
 
 
-
-<section id="welcome" class="level1 unnumbered">
-<h1 class="unnumbered">Welcome!</h1><p><img src="images/logo.png" title="Modern inference methods for non-probability samples with R" class="quarto-cover-image img-fluid"></p>
-<p>Welcome to the book <strong>“Modern inference methods for non-probability samples in R”</strong>. In this comprehensive guide, we will delve into the details of statistical inference, focusing specifically on the unique challenges and techniques associated with non-probability samples.</p>
-<p>Throughout this course, you will embark on a journey that combines both theoretical considerations and practical, hands-on applications Whether you’re an aspiring statistician, a data scientist, or a researcher in any field, this material will equip you with the knowledge and tools needed to navigate the intricacies of non-probability samples and extract meaningful insights from your data.</p>
-<p>Here’s a glimpse of what you can expect:</p>
-<ul>
-<li><p><strong>Understanding Non-probability Samples</strong>: Gain a deep understanding of what non-probability samples are, their characteristics, and the contexts in which they are commonly used.</p></li>
-<li><p><strong>Challenges and Biases</strong>: Explore the inherent challenges and biases associated with non-probability samples, including selection bias, coverage bias, and non-response bias.</p></li>
-<li><p><strong>Statistical Inference Techniques</strong>: Discover specialized statistical methods designed to address the unique characteristics of non-probability samples, including propensity score weighting and imputation techniques.</p></li>
-<li><p><strong>Hands-on R Programming</strong>: An introduction to the R package <code>nonprobsvy</code> for inference with non-probability samples.</p></li>
-</ul>
-<p>Have a great read!</p>
+<section id="motivation" class="level2" data-number="6.1">
+<h2 data-number="6.1" data-anchor-id="motivation"><span class="header-section-number">6.1</span> Motivation</h2>
+<p>In the presence of high-dimensional data, variable selection is important, because it can reduce variablity in estimation resulting from using irrelevant variables for model building. There is a considerable body of literature on variable selection, but little about techniques for data integration that can successfully recognize the strengths and the limitations of each source of data. The selection of variables is the basis of a two-step approach to estimation, where in first one we select important variables and in the second one re-estimate model. For the first step it is proposed penalized logistic regression model for propensity score estimation (Yang et al, 2020), but we expand this approach on complementary log-log and probit models. For a mass imputation based on a parametric model it is considered penalized OLS (Ordinary least squared) method. It is worth mentioning that Yang, Kim and Rui (2020), in their article on this topic, used the SCAD (Smoothly Clipped Absolute Deviation) penalization, but one can uses LASSO (Least Absolute Shrinkage and Selection Operator) and MCP (Minimax Concave Penalty) techniques as well, what will be considered in the next subsection.</p>
+</section>
+<section id="existed-techniques" class="level2" data-number="6.2">
+<h2 data-number="6.2" data-anchor-id="existed-techniques"><span class="header-section-number">6.2</span> Existed techniques</h2>
+<p>Let <span class="math inline">\(\operatorname{U}\left(\btheta, \bbeta\right)\)</span> be the join estimating function for <span class="math inline">\(\left(\btheta, \bbeta\right)\)</span>. When p is large, we consider the penalized estimating functions for <span class="math inline">\(\left(\btheta, \bbeta\right)\)</span> as</p>
+<p><span class="math display">\[
+\operatorname{U}^p\left(\btheta, \bbeta\right) = \operatorname{U}\left(\btheta, \bbeta\right) -\left(\begin{array}{c}
+q_{\lambda_\theta}(|\btheta|) \operatorname{sgn}(\btheta) \\
+q_{\lambda_\beta}(|\bbeta|) \operatorname{sgn}(\bbeta)
+\end{array}\right),
+\]</span> where <span class="math inline">\(q_{\lambda_{\theta}}\)</span> and <span class="math inline">\(q_{\lambda_{\beta}}\)</span> are some smooth functions. We let <span class="math inline">\(q_{\lambda}\left(x\right) = \frac{\partial p_{\lambda}}{\partial x}\)</span>, where <span class="math inline">\(p_{\lambda}\)</span> is some penalization function.</p>
+<p>Before the full performance of the estimation model with variable selection it is recommended to explain penalization techniques. We focus on proposed function and its derivative, which are particularly crucial. After that we mark some important similarities and differences between these methods.</p>
+<section id="lasso" class="level3" data-number="6.2.1">
+<h3 data-number="6.2.1" data-anchor-id="lasso"><span class="header-section-number">6.2.1</span> LASSO</h3>
+<p>It is probably the most popular method for variable selection, which is also known as L1 regularization. <span class="math display">\[
+p_{\lambda}(x) = \lambda |x|
+\]</span> and its derivative</p>
+<p><span class="math display">\[
+q_{\lambda}(x)= \begin{cases} - \lambda &amp; \text { if }x &lt; 0, \\ \left[-\lambda, \lambda\right] &amp; \text { if } x = 0 \\ \lambda &amp; \text { if }x &gt; 0\end{cases}
+\]</span></p>
+</section>
+<section id="scad" class="level3" data-number="6.2.2">
+<h3 data-number="6.2.2" data-anchor-id="scad"><span class="header-section-number">6.2.2</span> SCAD</h3>
+<p><span class="math display">\[
+p_{\lambda}(x ; \gamma)= \begin{cases}\lambda|x| &amp; \text { if }|x| \leq \lambda, \\ \frac{2 \gamma \lambda|x|-x^2-\lambda^2}{2(\gamma-1)} &amp; \text { if } \lambda&lt;|x|&lt;\gamma \lambda \\ \frac{\lambda^2(\gamma+1)}{2} &amp; \text { if }|x| \geq \gamma \lambda\end{cases}
+\]</span> and derivative is <span class="math display">\[
+q_{\lambda}(x ;  \gamma)= \begin{cases}\lambda &amp; \text { if }|x| \leq \lambda \\ \frac{\gamma \lambda-|x|}{\gamma-1} &amp; \text { if } \lambda&lt;|x|&lt;\gamma \lambda \\ 0 &amp; \text { if }|x| \geq \gamma \lambda\end{cases}
+\]</span></p>
+</section>
+<section id="mcp" class="level3" data-number="6.2.3">
+<h3 data-number="6.2.3" data-anchor-id="mcp"><span class="header-section-number">6.2.3</span> MCP</h3>
+<p><span class="math display">\[
+p_{\lambda}(x ; \gamma)= \begin{cases}\lambda|x|-\frac{x^2}{2 \gamma}, &amp; \text { if }|x| \leq \gamma \lambda \\ \frac{1}{2} \gamma \lambda^2, &amp; \text { if }|x|&gt;\gamma \lambda\end{cases}
+\]</span> and derivative is <span class="math display">\[
+q_\lambda(x ; \gamma)= \begin{cases}\left(\lambda-\frac{|x|}{\gamma}\right) \operatorname{sign}(x), &amp; \text { if }|x| \leq \gamma \lambda, \\ 0, &amp; \text { if }|x|&gt;\gamma \lambda\end{cases}
+\]</span></p>
+</section>
+</section>
+<section id="solution" class="level2" data-number="6.3">
+<h2 data-number="6.3" data-anchor-id="solution"><span class="header-section-number">6.3</span> Solution</h2>
+<p>By minorization-maximization algorithm, the penalized estimator <span class="math inline">\(\left(\hat{\btheta}, \hat{\bbeta}\right)\)</span> satisfies</p>
+<p><span class="math display">\[
+\operatorname{U}^p\left(\hat{\btheta}, \hat{\bbeta}\right) = \operatorname{U}\left(\hat{\btheta}, \hat{\bbeta}\right) -\left(\begin{array}{c}
+q_{\lambda_\hat{\theta}}(|\hat{\btheta}|) \operatorname{sgn}(\hat{\btheta}) \frac{|\hat{\btheta}|}{\epsilon + |\hat{\btheta}|} \\
+q_{\lambda_\hat{\beta}}(|\hat{\bbeta}|) \operatorname{sgn}(\hat{\bbeta}) \frac{|\hat{\bbeta}|}{\epsilon + |\hat{\bbeta}|}
+\end{array}\right) = \bZero
+\]</span> Let <span class="math inline">\(\nabla\left(\btheta, \bbeta \right) = \frac{\partial \operatorname{U}\left(\btheta, \bbeta\right)}{\partial \left(\btheta^{T} \bbeta^{T}\right)^{T}} = Diag \left(\frac{\partial U_1 \left(\btheta \right)}{\partial \btheta^{T}}, \frac{\partial U_2 \left(\bbeta \right)}{\partial \bbeta^{T}} \right)\)</span>, where <span class="math inline">\(U_1\)</span> is objective function for selection model and <span class="math inline">\(U_2\)</span> for outcome model. Let <span class="math inline">\(\boldsymbol{\alpha} = \left(\btheta, \bbeta\right)\)</span> and</p>
+<p><span class="math display">\[
+\Lambda(\boldsymbol{\alpha})=\left(\begin{array}{ccc}
+q_{\lambda_1}\left(\left|\alpha_1\right|\right) &amp; \ldots &amp; 0 \\
+\vdots &amp; \ddots &amp; \vdots \\
+0 &amp; \ldots &amp; q_{\lambda_{2 p}}\left(\left|\alpha_{2 p}\right|\right)
+\end{array}\right)
+\]</span> Newton-Raphson procedure for j-variable and k-update</p>
+<p><span class="math display">\[
+\hat{\alpha}_j^{[k]}=\hat{\alpha}_j^{[k-1]}+\left\{\nabla_{j j}\left(\hat{\alpha}^{[k-1]}\right)+N \Lambda_{j j}\left(\hat{\alpha}^{[k-1]}\right)\right\}^{-1}\left\{U_j\left(\hat{\alpha}^{[k-1]}\right)-N \Lambda_{j j}\left(\hat{\alpha}^{[k-1]}\right) \hat{\alpha}_j^{[k-1]}\right\}
+\]</span></p>
+<p>It is recommended to use K-fold cross validation for selectiing tuning parameters <span class="math inline">\(\left(\lambda_{\theta}, \lambda_{\beta}\right)\)</span> which minimize following loss functions for set of parameters <span class="math inline">\(\balpha\)</span>.</p>
+<p><span class="math display">\[
+\operatorname{Loss}\left(\lambda_\theta\right)=\sum_{j=1}^p\left(\sum_{i=1}^N\left[\frac{R_i^A}{\pi_i^A\left\{\bx_i^{\mathrm{T}} \hat{\theta}\left(\lambda_\theta\right)\right\}}-\frac{I_{\mathrm{A}, i}}{\pi_{\mathrm{A}, i}}\right] \bx_{i, j}\right)^2,
+\]</span></p>
+<p><span class="math display">\[
+\operatorname{Loss}\left(\lambda_\beta\right)=\sum_{i=1}^N R_i^A\left[y_i-m\left\{\bx_i^{\mathrm{T}} \hat{\beta}\left(\lambda_\beta\right)\right\}\right]^2,
+\]</span> where <span class="math inline">\(\hat{\theta}\left(\lambda_\theta\right)\)</span> and <span class="math inline">\(\hat{\beta}\left(\lambda_\beta\right)\)</span> are penalized estimators with tuning parameters <span class="math inline">\(\lambda_\theta\)</span>, <span class="math inline">\(\lambda_\beta\)</span> for selection and outcome model respectively. For estimation we consider only the union of covariates <span class="math inline">\(\bX_C\)</span>, where <span class="math inline">\(C = \hat{M}_{\theta} + \hat{M}_{\beta}\)</span> and <span class="math inline">\(\hat{M}_{\theta} = \left\{j: \hat{\theta}_j \ne 0\right\}\)</span> and <span class="math inline">\(\hat{M}_{\beta} = \left\{j: \hat{\beta}_j \ne 0\right\}\)</span>. In short, we estimate only on truly important variables for selection and outcome models.</p>
 
 
 </section>
@@ -684,150 +769,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
   toggleBodyColorPrimary();  
-  const disableStylesheet = (stylesheets) => {
-    for (let i=0; i < stylesheets.length; i++) {
-      const stylesheet = stylesheets[i];
-      stylesheet.rel = 'prefetch';
-    }
-  }
-  const enableStylesheet = (stylesheets) => {
-    for (let i=0; i < stylesheets.length; i++) {
-      const stylesheet = stylesheets[i];
-      stylesheet.rel = 'stylesheet';
-    }
-  }
-  const manageTransitions = (selector, allowTransitions) => {
-    const els = window.document.querySelectorAll(selector);
-    for (let i=0; i < els.length; i++) {
-      const el = els[i];
-      if (allowTransitions) {
-        el.classList.remove('notransition');
-      } else {
-        el.classList.add('notransition');
-      }
-    }
-  }
-  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
-    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
-    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
-    let newTheme = '';
-    if(darkModeDefault) {
-      newTheme = isAlternate ? baseTheme : alternateTheme;
-    } else {
-      newTheme = isAlternate ? alternateTheme : baseTheme;
-    }
-    const changeGiscusTheme = () => {
-      // From: https://github.com/giscus/giscus/issues/336
-      const sendMessage = (message) => {
-        const iframe = document.querySelector('iframe.giscus-frame');
-        if (!iframe) return;
-        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
-      }
-      sendMessage({
-        setConfig: {
-          theme: newTheme
-        }
-      });
-    }
-    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
-    if (isGiscussLoaded) {
-      changeGiscusTheme();
-    }
-  }
-  const toggleColorMode = (alternate) => {
-    // Switch the stylesheets
-    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
-    manageTransitions('#quarto-margin-sidebar .nav-link', false);
-    if (alternate) {
-      enableStylesheet(alternateStylesheets);
-      for (const sheetNode of alternateStylesheets) {
-        if (sheetNode.id === "quarto-bootstrap") {
-          toggleBodyColorMode(sheetNode);
-        }
-      }
-    } else {
-      disableStylesheet(alternateStylesheets);
-      toggleBodyColorPrimary();
-    }
-    manageTransitions('#quarto-margin-sidebar .nav-link', true);
-    // Switch the toggles
-    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
-    for (let i=0; i < toggles.length; i++) {
-      const toggle = toggles[i];
-      if (toggle) {
-        if (alternate) {
-          toggle.classList.add("alternate");     
-        } else {
-          toggle.classList.remove("alternate");
-        }
-      }
-    }
-    // Hack to workaround the fact that safari doesn't
-    // properly recolor the scrollbar when toggling (#1455)
-    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
-      manageTransitions("body", false);
-      window.scrollTo(0, 1);
-      setTimeout(() => {
-        window.scrollTo(0, 0);
-        manageTransitions("body", true);
-      }, 40);  
-    }
-  }
-  const isFileUrl = () => { 
-    return window.location.protocol === 'file:';
-  }
-  const hasAlternateSentinel = () => {  
-    let styleSentinel = getColorSchemeSentinel();
-    if (styleSentinel !== null) {
-      return styleSentinel === "alternate";
-    } else {
-      return false;
-    }
-  }
-  const setStyleSentinel = (alternate) => {
-    const value = alternate ? "alternate" : "default";
-    if (!isFileUrl()) {
-      window.localStorage.setItem("quarto-color-scheme", value);
-    } else {
-      localAlternateSentinel = value;
-    }
-  }
-  const getColorSchemeSentinel = () => {
-    if (!isFileUrl()) {
-      const storageValue = window.localStorage.getItem("quarto-color-scheme");
-      return storageValue != null ? storageValue : localAlternateSentinel;
-    } else {
-      return localAlternateSentinel;
-    }
-  }
-  const darkModeDefault = false;
-  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
-  // Dark / light mode switch
-  window.quartoToggleColorScheme = () => {
-    // Read the current dark / light value 
-    let toAlternate = !hasAlternateSentinel();
-    toggleColorMode(toAlternate);
-    setStyleSentinel(toAlternate);
-    toggleGiscusIfUsed(toAlternate, darkModeDefault);
-  };
-  // Ensure there is a toggle, if there isn't float one in the top right
-  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
-    const a = window.document.createElement('a');
-    a.classList.add('top-right');
-    a.classList.add('quarto-color-scheme-toggle');
-    a.href = "";
-    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
-    const i = window.document.createElement("i");
-    i.classList.add('bi');
-    a.appendChild(i);
-    window.document.body.appendChild(a);
-  }
-  // Switch to dark mode if need be
-  if (hasAlternateSentinel()) {
-    toggleColorMode(true);
-  } else {
-    toggleColorMode(false);
-  }
   const icon = "";
   const anchorJS = new window.AnchorJS();
   anchorJS.options = {
@@ -1230,10 +1171,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./Doubly-Robust-Estimation.html" class="pagination-link" aria-label="Doubly robust methods">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Doubly robust methods</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./Introduction.html" class="pagination-link" aria-label="Introduction and Overview">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction and Overview</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./Summary.html" class="pagination-link" aria-label="Summary">
+        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Summary</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -1245,7 +1189,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ncn-foreigners/nonprobsvy-book/edit/main/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ncn-foreigners/nonprobsvy-book/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ncn-foreigners/nonprobsvy-book/edit/main/Advanced-Topics.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ncn-foreigners/nonprobsvy-book/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p>This book was built with <a href="https://quarto.org/">Quarto</a>.</p>
 </div>

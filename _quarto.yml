@@ -5,30 +5,72 @@ project:
 book:
   title: "Modern inference methods for non-probability samples with R"
   author: "Łukasz Chrostowski, Maciej Beręsewicz, Bartosz Bogulas, Cyprian Jurkowski"
+  
+  # do we want to have any color here ?? 
   sidebar:
     background: light
+    
+  page-footer:
+    left: |
+      Modern inference methods for non-probability samples with R
+    right: |
+      This book was built with <a href="https://quarto.org/">Quarto</a>.  
+  
+  # should we add reader mode ?? 
+  reader-mode: false
   page-navigation: true
+  search: true
+  cover-image: images/logo.png
+  favicon: images/logo.png
   repo-url: https://github.com/ncn-foreigners/nonprobsvy-book
   site-url: https://ncn-foreigners.github.io/nonprobsvy-book/
-  search: true
   downloads: [pdf, epub]
   repo-branch: main
-  repo-actions: [issue]
+  repo-actions: [edit, issue]
+  
   chapters:
     - index.qmd
-    - 01-Introduction.qmd
-    - 02-Case-Study.qmd
-    - 03-Inverse-Probability-Weighting.qmd
-    - 04-Mass-Imputation.qmd
-    - 05-Doubly-Robust-Estimation.qmd
-    - 06-Advanced-Topics.qmd
-    - 07-Summary.qmd
-    - 10-References.qmd
+    - Introduction.qmd
+    - Case-Study.qmd
+    
+    # later division into parts will be added
+    
+    # - part: nonprob_function.qmd
+    #chapters:
+  
+    - Inverse-Probability-Weighting.qmd
+    - Mass-Imputation.qmd
+    - Doubly-Robust-Estimation.qmd
+    
+    # - part: metohod_selection.qmd
+    #chapters:
+    # - logit.qmd
+    # - probit.qmd
+    # - cloglog.qmd
+    
+    # - part: metohod_outcome.qmd
+    #chapters:
+    
+    # - part: family_outcome.qmd
+    #chapters:
+    
+    # - part: data_analysis_examples.qmd
+    #chapters:
+    
+    # - part: inference_methods_and_variance_estimation.qmd
+    #chapters:
+    
+    - Advanced-Topics.qmd
+    
+  #chapters:  
+    - Summary.qmd
+    - References.qmd
+    
   appendices: 
     - text: "Appendix A: Additional Material"
-      file: 08-Appendix.qmd
+      file: Appendix.qmd
     - text: "Appendix B: Nomenclature"
-      file: 09-Nomenclature.qmd
+      file: Nomenclature.qmd
 
 bibliography: references.bib
 
@@ -36,9 +78,12 @@ format:
   html:
     include-in-header:
      - file: macros.html
-    theme: cosmo
+    theme: 
+      light: flatly
+      dark: darkly
     fontsize: 1em
     linestretch: 1.5
+    
   pdf:
     documentclass: scrreprt
     toc: true
